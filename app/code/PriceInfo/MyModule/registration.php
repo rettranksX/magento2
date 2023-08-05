@@ -4,4 +4,3 @@
 'PriceInfo_MyModule',
 __DIR__
 );
- echo 'test';
