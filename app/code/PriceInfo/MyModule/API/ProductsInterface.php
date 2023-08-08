@@ -7,5 +7,6 @@ interface ProductsInterface
     /**
      * @return array
      */
+    
     public function getProducts();
 }
