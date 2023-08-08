@@ -2,11 +2,13 @@
 
 namespace PriceInfo\MyModule\Api;
 
-interface ProductsInterface
+class Products implements ProductsInterface
 {
     /**
-     * @return array
+     * {@inheritdoc}
      */
-    
-    public function getProducts();
+    public function getProducts()
+    {
+        echo 'hi';
+    }
 }
