@@ -116,8 +116,8 @@ class ProductRepository implements ProductRepositoryInterface
         $responseItem->setId($product->getId())
             ->setSku($product->getSku())
             ->setName($product->getName())
-            ->setDescription($product->getDescription());
-        return $responseItem;
+            ->setDescription($product->getDescription() ?? '');
+            return $responseItem;
     }
     /**
      * Set the description for the product.
