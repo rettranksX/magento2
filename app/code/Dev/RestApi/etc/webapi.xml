@@ -13,4 +13,10 @@
             <resource ref="Dev_RestApi::products_set_description" />
         </resources>
     </route>
+    <route url="/V1/rest_dev/getProducts" method="POST">
+        <service class="Dev\RestApi\Api\ProductRepositoryInterface" method="getProducts" />
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
 </routes>

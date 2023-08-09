@@ -1,5 +1,6 @@
 <?php
 namespace Dev\RestApi\Model\Api;
+
 use Dev\RestApi\Api\ProductRepositoryInterface;
 use Dev\RestApi\Api\RequestItemInterfaceFactory;
 use Dev\RestApi\Api\ResponseItemInterfaceFactory;
@@ -8,6 +9,8 @@ use Magento\Catalog\Model\ResourceModel\Product\Action;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Store\Model\StoreManagerInterface;
+
+
 /**
  * Class ProductRepository
  */
@@ -60,7 +63,7 @@ class ProductRepository implements ProductRepositoryInterface
      * @return ResponseItemInterface
      * @throws NoSuchEntityException
      */
-    public function getItem(int $id) : mixed
+    public function getItem(int $id): mixed
     {
         $collection = $this->getProductCollection()
             ->addAttributeToFilter('entity_id', ['eq' => $id]);
@@ -77,7 +80,7 @@ class ProductRepository implements ProductRepositoryInterface
      * @param RequestItemInterface[] $products
      * @return void
      */
-    public function setDescription(array $products) : void
+    public function setDescription(array $products): void
     {
         foreach ($products as $product) {
             $this->setDescriptionForProduct(
@@ -89,7 +92,7 @@ class ProductRepository implements ProductRepositoryInterface
     /**
      * @return Collection
      */
-    private function getProductCollection() : mixed
+    private function getProductCollection(): mixed
     {
         /** @var Collection $collection */
         $collection = $this->productCollectionFactory->create();
@@ -109,7 +112,7 @@ class ProductRepository implements ProductRepositoryInterface
      * @param ProductInterface $product
      * @return ResponseItemInterface
      */
-    private function getResponseItemFromProduct(ProductInterface $product) : mixed
+    private function getResponseItemFromProduct(ProductInterface $product): mixed
     {
         /** @var ResponseItemInterface $responseItem */
         $responseItem = $this->responseItemFactory->create();
@@ -117,7 +120,7 @@ class ProductRepository implements ProductRepositoryInterface
             ->setSku($product->getSku())
             ->setName($product->getName())
             ->setDescription($product->getDescription() ?? '');
-            return $responseItem;
+        return $responseItem;
     }
     /**
      * Set the description for the product.
@@ -126,7 +129,7 @@ class ProductRepository implements ProductRepositoryInterface
      * @param string $description
      * @return void
      */
-    private function setDescriptionForProduct(int $id, string $description) : void
+    private function setDescriptionForProduct(int $id, string $description): void
     {
         $this->productAction->updateAttributes(
             [$id],
@@ -134,4 +137,58 @@ class ProductRepository implements ProductRepositoryInterface
             $this->storeManager->getStore()->getId()
         );
     }
+
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param int $details
+     * @param int $offset
+     * @param int $count
+     * @return array
+     */
+    public function getProducts(int $details, int $offset, int $count): array
+    {
+
+        /** @var \Magento\Catalog\Model\ResourceModel\Product\Collection $productCollection */
+        $productCollection = $this->productCollectionFactory->create();
+        $productCollection->addAttributeToSelect([
+            'sku',
+            'url_key',
+            'manufacturer',
+            'model',
+            'ean',
+            'price',
+            'is_salable',
+            'qty',
+            'updated_at',
+        ]);
+        $productCollection->setPageSize($count);
+        $productCollection->setCurPage($offset);
+
+        $productsData = [];
+
+        foreach ($productCollection as $product) {
+            $productData = [
+                'sku' => $product->getSku(),
+                'url' => $product->getUrlKey(),
+                'manufacturer' => $product->getManufacturer(),
+                'model' => $product->getModel(),
+                'ean' => $product->getEan(),
+                'price' => $product->getPrice(),
+                'availability' => $product->isSalable() ? 'InStock' : 'OutOfStock',
+                'itemsAvailable' => $product->getQty(),
+                'updated' => $product->getUpdatedAt(),
+            ];
+
+            $productsData[] = $productData;
+        }
+        $response = [
+            'prods' => $productData,
+            'lastId' => 1234 // Placeholder for the last product ID
+        ];
+
+        return $response;
+    }
+
 }

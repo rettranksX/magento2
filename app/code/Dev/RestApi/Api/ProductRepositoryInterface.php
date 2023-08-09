@@ -1,5 +1,6 @@
 <?php
 namespace Dev\RestApi\Api;
+
 interface ProductRepositoryInterface
 {
     /**
@@ -17,4 +18,16 @@ interface ProductRepositoryInterface
      * @return void
      */
     public function setDescription(array $products);
+
+
+    /**
+     * Get a list of products.
+     *
+     * @param int $details
+     * @param int $offset
+     * @param int $count
+     * @return array
+     */
+    public function getProducts(int $details, int $offset, int $count): array;
+
 }
