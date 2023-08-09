@@ -163,8 +163,9 @@ class ProductRepository implements ProductRepositoryInterface
             'qty',
             'updated_at',
         ]);
-        $productCollection->setPageSize($count);
-        $productCollection->setCurPage($offset);
+        // $productCollection->setPageSize($count);
+        // $productCollection->setCurPage($offset);
+        
 
         $productsData = [];
 
@@ -173,7 +174,7 @@ class ProductRepository implements ProductRepositoryInterface
                 'sku' => $product->getSku(),
                 'url' => $product->getUrlKey(),
                 'manufacturer' => $product->getManufacturer(),
-                'model' => $product->getName(),
+                'model' => $product->getModel(),
                 'ean' => $product->getEan(),
                 'price' => $product->getPrice(),
                 'availability' => $product->isSalable() ? 'InStock' : 'OutOfStock',
@@ -185,7 +186,7 @@ class ProductRepository implements ProductRepositoryInterface
         }
         $response = [
             'prods' => $productData,
-            'lastId' => 1234 // Placeholder for the last product ID
+            'lastId' => 1234
         ];
 
         return $response;
