@@ -173,7 +173,7 @@ class ProductRepository implements ProductRepositoryInterface
                 'sku' => $product->getSku(),
                 'url' => $product->getUrlKey(),
                 'manufacturer' => $product->getManufacturer(),
-                'model' => $product->getModel(),
+                'model' => $product->getName(),
                 'ean' => $product->getEan(),
                 'price' => $product->getPrice(),
                 'availability' => $product->isSalable() ? 'InStock' : 'OutOfStock',
