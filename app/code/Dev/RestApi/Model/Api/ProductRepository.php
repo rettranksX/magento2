@@ -163,9 +163,8 @@ class ProductRepository implements ProductRepositoryInterface
             'qty',
             'updated_at',
         ]);
-        // $productCollection->setPageSize($count);
-        // $productCollection->setCurPage($offset);
-
+        $productCollection->setPageSize($count);
+        $productCollection->setCurPage($offset);
 
         $productsData = [];
 
