@@ -165,7 +165,7 @@ class ProductRepository implements ProductRepositoryInterface
         ]);
         // $productCollection->setPageSize($count);
         // $productCollection->setCurPage($offset);
-        
+
 
         $productsData = [];
 
@@ -185,7 +185,7 @@ class ProductRepository implements ProductRepositoryInterface
             $productsData[] = $productData;
         }
         $response = [
-            'prods' => $productData,
+            'prods' => $productsData,
             'lastId' => 1234
         ];
 
