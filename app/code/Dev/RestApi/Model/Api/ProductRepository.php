@@ -149,8 +149,6 @@ class ProductRepository implements ProductRepositoryInterface
      */
     public function getProducts(int $details, int $offset, int $count): array
     {
-        var_dump($details);
-
         /** @var \Magento\Catalog\Model\ResourceModel\Product\Collection $productCollection */
         $productCollection = $this->productCollectionFactory->create();
         $productCollection->addAttributeToSelect([
@@ -190,6 +188,11 @@ class ProductRepository implements ProductRepositoryInterface
         ];
 
         return $response;
+    }
+
+    public function getProductsBySku(int $details, array $skus): array
+    {
+        
     }
 
 }
