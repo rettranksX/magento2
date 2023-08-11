@@ -182,7 +182,7 @@ class ProductRepository implements ProductRepositoryInterface
                 ];
             }
         }
-        if (details == 1) {
+        if ($details == 1) {
             echo 'HI!';
         }
 
