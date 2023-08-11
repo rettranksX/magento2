@@ -167,21 +167,27 @@ class ProductRepository implements ProductRepositoryInterface
 
         $productsData = [];
 
-        foreach ($productCollection as $product) {
-            $productData = [
-                'sku' => $product->getSku(),
-                'url' => $product->getUrlKey(),
-                'manufacturer' => $product->getCustomManufacturer(),
-                'model' => $product->getModel(),
-                'ean' => $product->getEan(),
-                'price' => $product->getPrice(),
-                'availability' => $product->isSalable() ? 'InStock' : 'OutOfStock',
-                'itemsAvailable' => $product->getQty(),
-                'updated' => $product->getUpdatedAt(),
-            ];
-
-            $productsData[] = $productData;
+        if ($details == 0) {
+            foreach ($productCollection as $product) {
+                $productData = [
+                    'sku' => $product->getSku(),
+                    'url' => $product->getUrlKey(),
+                    'manufacturer' => $product->getCustomManufacturer(),
+                    'model' => $product->getModel(),
+                    'ean' => $product->getEan(),
+                    'price' => $product->getPrice(),
+                    'availability' => $product->isSalable() ? 'InStock' : 'OutOfStock',
+                    'itemsAvailable' => $product->getQty(),
+                    'updated' => $product->getUpdatedAt(),
+                ];
+            }
         }
+        if (details == 1) {
+            echo 'HI!';
+        }
+
+        $productsData[] = $productData;
+
         $response = [
             'prods' => $productsData,
             'lastId' => 1234
@@ -192,7 +198,7 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function getProductsBySku(int $details, array $skus): array
     {
-        
+
     }
 
 }
