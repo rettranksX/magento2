@@ -30,6 +30,14 @@ interface ProductRepositoryInterface
      */
     public function getProducts(int $details, int $offset, int $count): array;
 
+
+    /**
+     * Get products by SKU.
+     *
+     * @param int $details
+     * @param array $sku
+     * @return array
+     */
     public function getProductsBySku(int $details, array $skus): array;
 
 }
