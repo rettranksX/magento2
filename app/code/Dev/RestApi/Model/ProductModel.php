@@ -11,4 +11,7 @@ class ProductModel
     public $availability;
     public $itemsAvailable;
     public $updated;
+	public $description;
+	public $name;
+	public $category;
 }

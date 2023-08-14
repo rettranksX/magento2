@@ -153,7 +153,7 @@ class ProductRepository implements ProductRepositoryInterface
         $productCollection = $this->productCollectionFactory->create();
         $productCollection->addAttributeToSelect([
             'sku',
-            'manufacturer',
+            'country_of_manufacture',
             'model',
             'ean',
             'price',
@@ -175,7 +175,7 @@ class ProductRepository implements ProductRepositoryInterface
                 $productData = [
                     'sku' => $product->getSku(),
                     'url' => $product->getUrlKey(),
-                    'manufacturer' => $product->getAttributeText('manufacturer'),
+                    'manufacturer' => $product->getAttributeText('country_of_manufacture'),
                     'model' => $product->getModel(),
                     'ean' => $product->getEan(),
                     'price' => $product->getPrice(),
