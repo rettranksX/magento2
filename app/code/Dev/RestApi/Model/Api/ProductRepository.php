@@ -153,17 +153,14 @@ class ProductRepository implements ProductRepositoryInterface
         $productCollection = $this->productCollectionFactory->create();
         $productCollection->addAttributeToSelect([
             'sku',
-            'country_of_manufacture',
+            'url_key',
+            'manufacturer',
             'model',
             'ean',
             'price',
             'is_salable',
             'qty',
-            'category_ids',
-            'name',
-            'description',
             'updated_at',
-            'url_key'
         ]);
         $productCollection->setPageSize($count);
         $productCollection->setCurPage($offset);
@@ -175,7 +172,7 @@ class ProductRepository implements ProductRepositoryInterface
                 $productData = [
                     'sku' => $product->getSku(),
                     'url' => $product->getUrlKey(),
-                    'manufacturer' => $product->getCountryOfManufacturer(),
+                    'manufacturer' => $product->getAttributeText('country_of_manufacture'),
                     'model' => $product->getModel(),
                     'ean' => $product->getEan(),
                     'price' => $product->getPrice(),
@@ -192,7 +189,7 @@ class ProductRepository implements ProductRepositoryInterface
                 $productData = [
                     "sku" => $product->getSku(),
                     "url" => $product->getUrlKey(),
-                    'manufacturer' => $product->getCountryOfManufacturer(),
+                    'manufacturer' => $product->getAttributeText('country_of_manufacture'),
                     "model" => $product->getModel(),
                     "ean" => $product->getEan(),
                     "price" => $product->getPrice(),
