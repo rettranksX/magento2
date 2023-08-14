@@ -191,13 +191,15 @@ class ProductRepository implements ProductRepositoryInterface
             foreach ($productCollection as $product) {
                 $deliveryOptions = [];
 
+                $productData = [];
+        
                 $productImages = $product->getMediaGalleryImages();
                 $images = [];
-
+        
                 foreach ($productImages as $image) {
                     $images[] = $image->getUrl();
                 }
-
+        
                 $productData['images'] = $images;
 
                 $productData = [
@@ -210,7 +212,7 @@ class ProductRepository implements ProductRepositoryInterface
                     'availability' => $product->isSalable() ? 'InStock' : 'OutOfStock',
                     'itemsAvailable' => $product->getQty(),
                     "itemCondition" => "NewCondition",
-                    "category" => $product->getCategory(),
+                    "category" => $product->getCategoryIds(),
                     "name" => $product->getName(),
                     "description" => $product->getDescription(),
                     'updated' => $product->getUpdatedAt(),
