@@ -152,18 +152,19 @@ class ProductRepository implements ProductRepositoryInterface
         /** @var \Magento\Catalog\Model\ResourceModel\Product\Collection $productCollection */
         $productCollection = $this->productCollectionFactory->create();
         $productCollection->addAttributeToSelect([
-            'sku',
-            'manufacturer',
-            'model',
-            'ean',
-            'price',
-            'is_salable',
-            'qty',
-            'category_ids',
-            'name',
-            'description',
-            'updated_at',
-            'url_key'
+            array('*')
+            // 'sku',
+            // 'manufacturer',
+            // 'model',
+            // 'ean',
+            // 'price',
+            // 'is_salable',
+            // 'qty',
+            // 'category_ids',
+            // 'name',
+            // 'description',
+            // 'updated_at',
+            // 'url_key'
         ]);
         $productCollection->setPageSize($count);
         $productCollection->setCurPage($offset);
