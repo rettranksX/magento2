@@ -183,6 +183,8 @@ class ProductRepository implements ProductRepositoryInterface
                     'itemsAvailable' => $product->getQty(),
                     'updated' => $product->getUpdatedAt(),
                 ];
+
+                $productsData[] = $productData;
             }
         }
         if ($details == 1) {
@@ -202,10 +204,10 @@ class ProductRepository implements ProductRepositoryInterface
                     "description" => $product->getDescription(),
                     'updated' => $product->getUpdatedAt(),
                 ];
+
+                $productsData[] = $productData;
             }
         }
-
-        $productsData[] = $productData;
 
         $response = [
             'prods' => $productsData,
