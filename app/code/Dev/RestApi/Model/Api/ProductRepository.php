@@ -188,7 +188,18 @@ class ProductRepository implements ProductRepositoryInterface
             }
         }
         if ($details == 1) {
-            foreach($productCollection as $product) {
+            foreach ($productCollection as $product) {
+                $deliveryOptions = [];
+
+                $productImages = $product->getMediaGalleryImages();
+                $images = [];
+
+                foreach ($productImages as $image) {
+                    $images[] = $image->getUrl();
+                }
+
+                $productData['images'] = $images;
+
                 $productData = [
                     "sku" => $product->getSku(),
                     "url" => $product->getUrlKey(),
@@ -203,15 +214,19 @@ class ProductRepository implements ProductRepositoryInterface
                     "name" => $product->getName(),
                     "description" => $product->getDescription(),
                     'updated' => $product->getUpdatedAt(),
+                    'delivery' => $deliveryOptions,
+                    'images' => $productData['images']
                 ];
 
                 $productsData[] = $productData;
             }
         }
 
+        $lastProductId = $productCollection->getLastItem()->getId();
+
         $response = [
             'prods' => $productsData,
-            'lastId' => 1234
+            'lastId' => $lastProductId,
         ];
 
         return $response;
