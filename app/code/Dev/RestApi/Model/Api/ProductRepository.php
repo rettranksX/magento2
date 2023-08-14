@@ -153,14 +153,17 @@ class ProductRepository implements ProductRepositoryInterface
         $productCollection = $this->productCollectionFactory->create();
         $productCollection->addAttributeToSelect([
             'sku',
-            'url_key',
             'manufacturer',
             'model',
             'ean',
             'price',
             'is_salable',
             'qty',
+            'category_ids',
+            'name',
+            'description',
             'updated_at',
+            'url_key'
         ]);
         $productCollection->setPageSize($count);
         $productCollection->setCurPage($offset);
@@ -183,7 +186,23 @@ class ProductRepository implements ProductRepositoryInterface
             }
         }
         if ($details == 1) {
-            echo 'HI!';
+            foreach($productCollection as $product) {
+                $productData = [
+                    "sku" => $product->getSku(),
+                    "url" => $product->getUrlKey(),
+                    "manufacturer" => $product->getCustomManufacturer(),
+                    "model" => $product->getModel(),
+                    "ean" => $product->getEan(),
+                    "price" => $product->getPrice(),
+                    'availability' => $product->isSalable() ? 'InStock' : 'OutOfStock',
+                    'itemsAvailable' => $product->getQty(),
+                    "itemCondition" => "NewCondition",
+                    "category" => $product->getCategory(),
+                    "name" => $product->getName(),
+                    "description" => $product->getDescription(),
+                    'updated' => $product->getUpdatedAt(),
+                ];
+            }
         }
 
         $productsData[] = $productData;
