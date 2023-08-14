@@ -19,10 +19,10 @@
             <resource ref="anonymous" />
         </resources>
     </route>
-    <route url="/V1/rest_dev/getProductsBySku" method="POST">
+    <!-- <route url="/V1/rest_dev/getProductsBySku" method="POST">
         <service class="Dev\RestApi\Api\ProductRepositoryInterface" method="getProductsBySku" />
         <resources>
             <resource ref="anonymous" />
         </resources>
-    </route>
+    </route> -->
 </routes>
