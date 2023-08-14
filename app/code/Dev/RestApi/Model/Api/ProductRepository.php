@@ -153,14 +153,17 @@ class ProductRepository implements ProductRepositoryInterface
         $productCollection = $this->productCollectionFactory->create();
         $productCollection->addAttributeToSelect([
             'sku',
-            'url_key',
             'manufacturer',
             'model',
             'ean',
             'price',
             'is_salable',
             'qty',
+            'category_ids',
+            'name',
+            'description',
             'updated_at',
+            'url_key'
         ]);
         $productCollection->setPageSize($count);
         $productCollection->setCurPage($offset);
