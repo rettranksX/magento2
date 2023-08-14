@@ -175,7 +175,7 @@ class ProductRepository implements ProductRepositoryInterface
                 $productData = [
                     'sku' => $product->getSku(),
                     'url' => $product->getUrlKey(),
-                    'manufacturer' => $product->getCustomManufacturer(),
+                    'manufacturer' => $product->getAttributeText('manufacturer'),
                     'model' => $product->getModel(),
                     'ean' => $product->getEan(),
                     'price' => $product->getPrice(),
@@ -192,7 +192,7 @@ class ProductRepository implements ProductRepositoryInterface
                 $productData = [
                     "sku" => $product->getSku(),
                     "url" => $product->getUrlKey(),
-                    "manufacturer" => $product->getCustomManufacturer(),
+                    'manufacturer' => $product->getAttributeText('manufacturer'),
                     "model" => $product->getModel(),
                     "ean" => $product->getEan(),
                     "price" => $product->getPrice(),
