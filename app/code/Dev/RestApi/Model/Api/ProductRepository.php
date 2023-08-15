@@ -201,7 +201,7 @@ class ProductRepository implements ProductRepositoryInterface
                 $images = [];
         
                 foreach ($productImages as $image) {
-                    $images[] = $image->getUrl();
+                    $images[] = $image->getBase();
                 }
                 var_dump($images);
 
