@@ -9,6 +9,8 @@ use Magento\Catalog\Model\ResourceModel\Product\Action;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Store\Model\StoreManagerInterface;
+use Magento\Catalog\Api\CategoryRepositoryInterface;
+
 
 
 /**
@@ -48,13 +50,15 @@ class ProductRepository implements ProductRepositoryInterface
         CollectionFactory $productCollectionFactory,
         RequestItemInterfaceFactory $requestItemFactory,
         ResponseItemInterfaceFactory $responseItemFactory,
-        StoreManagerInterface $storeManager
+        StoreManagerInterface $storeManager,
+        CategoryRepositoryInterface $categoryRepository
     ) {
         $this->productAction = $productAction;
         $this->productCollectionFactory = $productCollectionFactory;
         $this->requestItemFactory = $requestItemFactory;
         $this->responseItemFactory = $responseItemFactory;
         $this->storeManager = $storeManager;
+        $this->categoryRepository = $categoryRepository;
     }
     /**
      * {@inheritDoc}
@@ -200,8 +204,19 @@ class ProductRepository implements ProductRepositoryInterface
                 foreach ($productImages as $image) {
                     $images[] = $image->getUrl();
                 }
+
+                
+                $categoryNames = [];
+                $categoryIds = $product->getCategoryIds();
+                
+                foreach ($categoryIds as $categoryId) {
+                    $category = $this->categoryRepository->get($categoryId);
+                    $categoryNames[] = $category->getName();
+                }
+
         
                 $productData['images'] = $images;
+                $productData['category'] = $categoryNames;
 
                 $productData = [
                     "sku" => $product->getSku(),
@@ -213,7 +228,7 @@ class ProductRepository implements ProductRepositoryInterface
                     'availability' => $product->isSalable() ? 'InStock' : 'OutOfStock',
                     'itemsAvailable' => $product->getQty(),
                     "itemCondition" => "NewCondition",
-                    "category" => $product->getCategoryIds(),
+                    "category" => $product->$productData['category'],
                     "name" => $product->getName(),
                     "description" => $product->getDescription(),
                     'updated' => $product->getUpdatedAt(),
