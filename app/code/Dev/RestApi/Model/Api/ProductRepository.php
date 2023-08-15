@@ -216,7 +216,7 @@ class ProductRepository implements ProductRepositoryInterface
                 }
 
         
-                $productData['images'] = $images;
+                // $productData['images'] = $images;
                 $productData['category'] = $categoryNames;
 
                 $productData = [
@@ -234,7 +234,7 @@ class ProductRepository implements ProductRepositoryInterface
                     "description" => $product->getDescription(),
                     'updated' => $product->getUpdatedAt(),
                     'delivery' => $deliveryOptions,
-                    'images' => $productData['images']
+                    'images' => $images
                 ];
 
                 $productsData[] = $productData;
