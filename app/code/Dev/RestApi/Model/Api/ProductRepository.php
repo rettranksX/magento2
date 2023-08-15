@@ -38,6 +38,7 @@ class ProductRepository implements ProductRepositoryInterface
      * @var StoreManagerInterface
      */
     private $storeManager;
+    private $categoryRepository;
     /**
      * @param Action $productAction
      * @param CollectionFactory $productCollectionFactory
