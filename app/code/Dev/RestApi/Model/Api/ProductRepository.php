@@ -196,8 +196,6 @@ class ProductRepository implements ProductRepositoryInterface
         if ($details == 1) {
             foreach ($productCollection as $product) {
                 $deliveryOptions = [];
-
-                $productData = [];
         
                 $productImages = $product->getMediaGalleryImages();
                 $images = [];
