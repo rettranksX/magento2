@@ -229,7 +229,7 @@ class ProductRepository implements ProductRepositoryInterface
                     'availability' => $product->isSalable() ? 'InStock' : 'OutOfStock',
                     'itemsAvailable' => $product->getQty(),
                     "itemCondition" => "NewCondition",
-                    "category" => $product->$productData['category'],
+                    "category" => $productData['category'],
                     "name" => $product->getName(),
                     "description" => $product->getDescription(),
                     'updated' => $product->getUpdatedAt(),
