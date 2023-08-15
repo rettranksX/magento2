@@ -10,10 +10,6 @@ use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Catalog\Api\CategoryRepositoryInterface;
-use Magento\Framework\App\Bootstrap;
-
-
-
 
 /**
  * Class ProductRepository
@@ -199,24 +195,6 @@ class ProductRepository implements ProductRepositoryInterface
         if ($details == 1) {
             foreach ($productCollection as $product) {
                 $deliveryOptions = [];
-
-                require 'app/bootstrap.php';
-
-                $bootstrap = Bootstrap::create(BP, $_SERVER);
-
-                $objectManager = $bootstrap->getObjectManager();
-                $eavConfig = $objectManager->get(\Magento\Eav\Model\Config::class);
-
-                $entityType = 'catalog_product';
-
-                $entityAttributes = $eavConfig->getEntityAttributes($entityType);
-
-                $attributeCodes = [];
-                foreach ($entityAttributes as $attribute) {
-                    $attributeCodes[] = $attribute->getAttributeCode();
-                }
-
-                print_r($attributeCodes);
 
                 $productImages = $product->getMediaGalleryImages();
                 $images = [];
