@@ -232,29 +232,30 @@ class ProductRepository implements ProductRepositoryInterface
                 $countryName = $product->getAttributeText('country_of_manufacture');
 
                 $countryModel = $this->countryFactory->create();
-                $countryId = $countryModel->loadByCode($countryName)->getCountryId();
-                $isoCountryCode = $countryModel->load($countryId)->getIso2Code();
+                $loadedCountry = $countryModel->loadByCode($countryName);
+                if ($loadedCountry->getId()) {
+                    $isoCountryCode = $loadedCountry->getIso2Code();
+
+                    $availableMethods = [];
+                    $carriers = $this->shippingConfig->getActiveCarriers();
+
+                    foreach ($carriers as $carrierCode => $carrierModel) {
+                        $pathPrice = "carriers/{$carrierCode}/price";
+                        $pathEstimateTime = "carriers/{$carrierCode}/estimated_delivery_time";
+                        $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
+                        $availableMethods[] = [
+                            'name' => $carrierCode,
+                            'shippingRate' => $this->scopeConfig->getValue($pathPrice, $storeScope),
+                            'deliveryDays' => $this->scopeConfig->getValue($pathEstimateTime, $storeScope),
+                        ];
+                    }
 
 
-                $availableMethods = [];
-                $carriers = $this->shippingConfig->getActiveCarriers();
-
-                foreach ($carriers as $carrierCode => $carrierModel) {
-                    $pathPrice = "carriers/{$carrierCode}/price";
-                    $pathEstimateTime = "carriers/{$carrierCode}/estimated_delivery_time";
-                    $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
-                    $availableMethods[] = [
-                        'name' => $carrierCode,
-                        'shippingRate' => $this->scopeConfig->getValue($pathPrice, $storeScope),
-                        'deliveryDays' => $this->scopeConfig->getValue($pathEstimateTime, $storeScope),
+                    $deliveryOptions[] = [
+                        "country" => $isoCountryCode,
+                        "carriers" => $availableMethods,
                     ];
                 }
-
-
-                $deliveryOptions[] = [
-                    "country" => $isoCountryCode,
-                    "carriers" => $availableMethods,
-                ];
 
                 $categoryNames = [];
                 $categoryIds = $product->getCategoryIds();
