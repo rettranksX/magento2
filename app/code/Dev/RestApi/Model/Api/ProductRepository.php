@@ -1,5 +1,7 @@
 <?php
 namespace Dev\RestApi\Model\Api;
+namespace Rbj\Shipping\Block;
+
 
 use Dev\RestApi\Api\ProductRepositoryInterface;
 use Dev\RestApi\Api\RequestItemInterfaceFactory;
@@ -51,7 +53,10 @@ class ProductRepository implements ProductRepositoryInterface
         RequestItemInterfaceFactory $requestItemFactory,
         ResponseItemInterfaceFactory $responseItemFactory,
         StoreManagerInterface $storeManager,
-        CategoryRepositoryInterface $categoryRepository
+        CategoryRepositoryInterface $categoryRepository,
+        \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\Shipping\Model\Config\Source\Allmethods $shippingAllmethods,
+        array $data = []
     ) {
         $this->productAction = $productAction;
         $this->productCollectionFactory = $productCollectionFactory;
@@ -59,6 +64,8 @@ class ProductRepository implements ProductRepositoryInterface
         $this->responseItemFactory = $responseItemFactory;
         $this->storeManager = $storeManager;
         $this->categoryRepository = $categoryRepository;
+        $this->shippingAllmethods = $shippingAllmethods;
+        __construct($context, $data);
     }
     /**
      * {@inheritDoc}
@@ -196,6 +203,11 @@ class ProductRepository implements ProductRepositoryInterface
             foreach ($productCollection as $product) {
                 $deliveryOptions = [];
         
+
+                var_dump($this->shippingAllmethods->toOptionArray());
+
+
+
                 $productImages = $product->getMediaGalleryImages();
                 $images = [];
         
