@@ -227,7 +227,8 @@ class ProductRepository implements ProductRepositoryInterface
                 $carriers = $this->shippingConfig->getActiveCarriers();
 
                 $pathEstimateTimex = "carriers/%/estimated_delivery_time";
-                var_dump($pathEstimateTimex);
+                $storeScopex = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
+                var_dump($this->scopeConfig->getValue($pathEstimateTimex, $storeScopex));
 
 
                 foreach ($carriers as $carrierCode => $carrierModel) {
