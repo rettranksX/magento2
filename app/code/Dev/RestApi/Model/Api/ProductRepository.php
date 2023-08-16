@@ -223,22 +223,17 @@ class ProductRepository implements ProductRepositoryInterface
 
                 $countryCode = $product->getAttributeText('country_of_manufacture');
 
+                var_dump($this->getIsoCountryCode($countryCode));
+
                 $availableMethods = [];
                 $carriers = $this->shippingConfig->getActiveCarriers();
-
-                $pathEstimateTimex = "carriers/%/estimated_delivery_time";
-                $storeScopex = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
-                var_dump($this->scopeConfig->getValue($pathEstimateTimex, $storeScopex));
-
 
                 foreach ($carriers as $carrierCode => $carrierModel) {
                     $pathPrice = "carriers/{$carrierCode}/price";
                     $pathEstimateTime = "carriers/{$carrierCode}/estimated_delivery_time";
                     $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
-                    // $methodOptions = $carrierModel->getAllowedMethods();
                     $availableMethods[] = [
                         'name' => $carrierCode,
-                        // 'method_options' => $methodOptions,
                         'shippingRate' => $this->scopeConfig->getValue($pathPrice, $storeScope),
                         'deliveryDays' => $this->scopeConfig->getValue($pathEstimateTime, $storeScope),
                     ];
