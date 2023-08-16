@@ -226,6 +226,7 @@ class ProductRepository implements ProductRepositoryInterface
                     $availableMethods[] = [
                         'name' => $carrierCode,
                         'method_options' => $methodOptions,
+                        'cost' => $carrierCode->getPrice(),
                     ];
                 }
         
