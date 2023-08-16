@@ -12,6 +12,8 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Catalog\Api\CategoryRepositoryInterface;
 use Magento\Shipping\Model\Config as ShippingConfig;
+use Magento\Framework\App\Config\ScopeConfigInterface;
+
 
 /**
  * Class ProductRepository
