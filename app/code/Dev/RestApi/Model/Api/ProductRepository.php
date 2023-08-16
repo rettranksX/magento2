@@ -203,9 +203,9 @@ class ProductRepository implements ProductRepositoryInterface
         $productsData = [];
 
         if($method == 'getProducts'){
-            if ($offset == null || $count == null) {
-                return ['error' => 'Offset and count are required for method getProducts'];
-            }
+            // if ($offset == null || $count == null) {
+            //     return ['error' => 'Offset and count are required for method getProducts'];
+            // }
 
             $productCollection->setPageSize($count);
             $productCollection->setCurPage($offset);
