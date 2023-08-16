@@ -61,6 +61,8 @@ class ProductRepository implements ProductRepositoryInterface
     private $scopeConfig;
     protected $countryFactory;
     protected $_country;
+    protected $_productRepositoryFactory;
+
 
     public function __construct(
         Action $productAction,
@@ -72,8 +74,8 @@ class ProductRepository implements ProductRepositoryInterface
         CategoryRepositoryInterface $categoryRepository,
         ScopeConfigInterface $scopeConfig,
         \Magento\Directory\Model\CountryFactory $countryFactory,
-        \Magento\Directory\Model\Country $country
-
+        \Magento\Directory\Model\Country $country,
+        \Magento\Catalog\Api\ProductRepositoryInterfaceFactory $productRepositoryFactory
     ) {
         $this->productAction = $productAction;
         $this->productCollectionFactory = $productCollectionFactory;
@@ -85,6 +87,7 @@ class ProductRepository implements ProductRepositoryInterface
         $this->scopeConfig = $scopeConfig;
         $this->countryFactory = $countryFactory;
         $this->_country = $country;
+        $this->_productRepositoryFactory = $productRepositoryFactory;
     }
     /**
      * {@inheritDoc}
@@ -221,55 +224,52 @@ class ProductRepository implements ProductRepositoryInterface
         if ($details == 1) {
             foreach ($productCollection as $product) {
                 $deliveryOptions = [];
-
-                $productImages = $product->getMediaGalleryImages();
-                $images = [];
-
-                foreach ($productImages as $image) {
-                    $images[] = $image->getUrl();
-                }
-
+        
+                $productImage = $this->_productRepositoryFactory->create()->getById($product->getId());
+                $image = $productImage->getData('image');
+                $thumbnail = $productImage->getData('thumbnail');
+                $smallImage = $productImage->getData('small_image');
+                $images = [$image, $thumbnail, $smallImage];
+        
                 $countryName = $product->getAttributeText('country_of_manufacture');
-                // $countryName = 'AD';
-
+        
                 $countryModel = $this->countryFactory->create();
                 $countryCollection = $countryModel->getCollection();
                 $country = $countryCollection->addFieldToFilter('iso2_code', $countryName)->getFirstItem();
-                
+        
                 if ($country->getId()) {
                     $isoCountryCode = $country->getIso2Code();
                 } else {
                     $isoCountryCode = $countryName;
                 }
-                    $availableMethods = [];
-                    $carriers = $this->shippingConfig->getActiveCarriers();
-
-                    foreach ($carriers as $carrierCode => $carrierModel) {
-                        $pathPrice = "carriers/{$carrierCode}/price";
-                        $pathEstimateTime = "carriers/{$carrierCode}/estimated_delivery_time";
-                        $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
-                        $availableMethods[] = [
-                            'name' => $carrierCode,
-                            'shippingRate' => $this->scopeConfig->getValue($pathPrice, $storeScope),
-                            'deliveryDays' => $this->scopeConfig->getValue($pathEstimateTime, $storeScope),
-                        ];
-                    }
-
-
-                    $deliveryOptions[] = [
-                        "country" => $isoCountryCode,
-                        "carriers" => $availableMethods,
+        
+                $availableMethods = [];
+                $carriers = $this->shippingConfig->getActiveCarriers();
+        
+                foreach ($carriers as $carrierCode => $carrierModel) {
+                    $pathPrice = "carriers/{$carrierCode}/price";
+                    $pathEstimateTime = "carriers/{$carrierCode}/estimated_delivery_time";
+                    $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
+                    $availableMethods[] = [
+                        'name' => $carrierCode,
+                        'shippingRate' => $this->scopeConfig->getValue($pathPrice, $storeScope),
+                        'deliveryDays' => $this->scopeConfig->getValue($pathEstimateTime, $storeScope),
                     ];
-
-
+                }
+        
+                $deliveryOptions[] = [
+                    "country" => $isoCountryCode,
+                    "carriers" => $availableMethods,
+                ];
+        
                 $categoryNames = [];
                 $categoryIds = $product->getCategoryIds();
-
+        
                 foreach ($categoryIds as $categoryId) {
                     $category = $this->categoryRepository->get($categoryId);
                     $categoryNames[] = $category->getName();
                 }
-
+        
                 $productData = [
                     "sku" => $product->getSku(),
                     "url" => $product->getUrlKey(),
@@ -287,21 +287,20 @@ class ProductRepository implements ProductRepositoryInterface
                     'delivery' => $deliveryOptions,
                     'images' => $images
                 ];
-
+        
                 $productsData[] = $productData;
             }
         }
-
-
-
+        
         $lastProductId = $productCollection->getLastItem()->getId();
-
+        
         $response = [
             'prods' => $productsData,
             'lastId' => $lastProductId,
         ];
-
+        
         return $response;
+        
     }
 
     // public function getProductsBySku(int $details, array $skus): array
