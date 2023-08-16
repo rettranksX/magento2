@@ -195,28 +195,60 @@ class ProductRepository implements ProductRepositoryInterface
         if ($details == 1) {
             foreach ($productCollection as $product) {
                 $deliveryOptions = [];
-
+        
                 $productImages = $product->getMediaGalleryImages();
                 $images = [];
-
+        
                 foreach ($productImages as $image) {
-                    $images[] = $image->get();
+                    $images[] = $image->getUrl();
                 }
-                var_dump($images);
-
-
+                
+                $countryCodes = ['BE', 'DE', 'PL'];
+        
+                foreach ($countryCodes as $countryCode) {
+                    $carriers = [
+                        [
+                            "name" => "UPS",
+                            "shippingRate" => 9.99,
+                            "deliveryDays" => 3,
+                        ],
+                        [
+                            "name" => "PickupInStore",
+                            "shippingRate" => 0,
+                            "deliveryDays" => 0,
+                            "inStore" => 1,
+                        ],
+                    ];
+        
+                    if ($countryCode === 'PL') {
+                        $carriers = [
+                            [
+                                "name" => "UPS",
+                                "shippingRate" => 5,
+                                "deliveryDays" => 3,
+                            ],
+                            [
+                                "name" => "UPS",
+                                "shippingRate" => 9.99,
+                                "deliveryDays" => 2,
+                            ],
+                        ];
+                    }
+        
+                    $deliveryOptions[] = [
+                        "country" => $countryCode,
+                        "carriers" => $carriers,
+                    ];
+                }
+        
                 $categoryNames = [];
                 $categoryIds = $product->getCategoryIds();
-
+        
                 foreach ($categoryIds as $categoryId) {
                     $category = $this->categoryRepository->get($categoryId);
                     $categoryNames[] = $category->getName();
                 }
-
-
-                // $productData['images'] = $images;
-                $productData['category'] = $categoryNames;
-
+        
                 $productData = [
                     "sku" => $product->getSku(),
                     "url" => $product->getUrlKey(),
@@ -227,17 +259,18 @@ class ProductRepository implements ProductRepositoryInterface
                     'availability' => $product->isSalable() ? 'InStock' : 'OutOfStock',
                     'itemsAvailable' => $product->getQty(),
                     "itemCondition" => "NewCondition",
-                    "category" => $productData['category'],
+                    "category" => $categoryNames,
                     "name" => $product->getName(),
                     "description" => $product->getDescription(),
                     'updated' => $product->getUpdatedAt(),
                     'delivery' => $deliveryOptions,
                     'images' => $images
                 ];
-
+        
                 $productsData[] = $productData;
             }
         }
+        
 
         $lastProductId = $productCollection->getLastItem()->getId();
 
