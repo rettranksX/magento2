@@ -56,6 +56,7 @@ class ProductRepository implements ProductRepositoryInterface
     /**
      * @param ShippingConfig $shippingConfig
      */
+    private $scopeConfig;
     public function __construct(
         Action $productAction,
         ShippingConfig $shippingConfig,
@@ -64,6 +65,7 @@ class ProductRepository implements ProductRepositoryInterface
         ResponseItemInterfaceFactory $responseItemFactory,
         StoreManagerInterface $storeManager,
         CategoryRepositoryInterface $categoryRepository,
+        ScopeConfigInterface $scopeConfig
     ) {
         $this->productAction = $productAction;
         $this->productCollectionFactory = $productCollectionFactory;
@@ -72,6 +74,7 @@ class ProductRepository implements ProductRepositoryInterface
         $this->storeManager = $storeManager;
         $this->categoryRepository = $categoryRepository;
         $this->shippingConfig = $shippingConfig;
+        $this->scopeConfig = $scopeConfig;
     }
     /**
      * {@inheritDoc}
@@ -221,12 +224,17 @@ class ProductRepository implements ProductRepositoryInterface
                 $availableMethods = [];
                 $carriers = $this->shippingConfig->getActiveCarriers();
 
+
+
+
                 foreach ($carriers as $carrierCode => $carrierModel) {
+                    $path = "carriers/{$carrierCode}/price";
+                    $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
                     $methodOptions = $carrierModel->getAllowedMethods();
                     $availableMethods[] = [
                         'name' => $carrierCode,
                         'method_options' => $methodOptions,
-                        'cost' => '',
+                        'cost' => $this->scopeConfig->getValue($path, $storeScope),
                     ];
                 }
 
