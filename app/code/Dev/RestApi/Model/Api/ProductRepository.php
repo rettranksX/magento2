@@ -207,6 +207,7 @@ class ProductRepository implements ProductRepositoryInterface
                 $countryAttribute = $product->getResource()->getAttribute('country_of_manufacture');
                 $countryCodes = explode(',', $countryAttribute->getFrontend()->getValue($product));        
                 
+                var_dump($countryCodes);
 
                 foreach ($countryCodes as $countryCode) {
                     $carriers = [
