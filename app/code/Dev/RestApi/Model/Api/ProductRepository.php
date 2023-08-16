@@ -37,7 +37,6 @@ class ProductRepository implements ProductRepositoryInterface
      * @var StoreManagerInterface
      */
     private $storeManager;
-    private $carrierFactory;
     private $categoryRepository;
     /**
      * @param Action $productAction
@@ -52,9 +51,7 @@ class ProductRepository implements ProductRepositoryInterface
         RequestItemInterfaceFactory $requestItemFactory,
         ResponseItemInterfaceFactory $responseItemFactory,
         StoreManagerInterface $storeManager,
-        CategoryRepositoryInterface $categoryRepository,
-        CarrierFactory $carrierFactory
-
+        CategoryRepositoryInterface $categoryRepository
     ) {
         $this->productAction = $productAction;
         $this->productCollectionFactory = $productCollectionFactory;
@@ -62,7 +59,6 @@ class ProductRepository implements ProductRepositoryInterface
         $this->responseItemFactory = $responseItemFactory;
         $this->storeManager = $storeManager;
         $this->categoryRepository = $categoryRepository;
-        $this->carrierFactory = $carrierFactory;
     }
     /**
      * {@inheritDoc}
@@ -209,31 +205,23 @@ class ProductRepository implements ProductRepositoryInterface
         
                 $countryCode = $product->getAttributeText('country_of_manufacture');
         
-                $carrierFactory = $this->carrierFactory->create();
-                $carriers = $carrierFactory->getActiveCarriers();
-        
-                $availableMethods = [];
-        
-                foreach ($carriers as $carrierCode => $carrierModel) {
-                    $methodOptions = $carrierModel->getAllowedMethods();
-        
-                    $methods = [];
-                    foreach ($methodOptions as $methodCode => $methodTitle) {
-                        $methods[] = [
-                            'name' => $methodTitle,
-                            'code' => $methodCode,
-                        ];
-                    }
-        
-                    $availableMethods[] = [
-                        'carrier_code' => $carrierCode,
-                        'methods' => $methods,
-                    ];
-                }
+                $carriers = [
+                    [
+                        "name" => "UPS",
+                        "shippingRate" => 9.99,
+                        "deliveryDays" => 3,
+                    ],
+                    [
+                        "name" => "PickupInStore",
+                        "shippingRate" => 0,
+                        "deliveryDays" => 0,
+                        "inStore" => 1,
+                    ],
+                ];
         
                 $deliveryOptions[] = [
                     "country" => $countryCode,
-                    "carriers" => $availableMethods,
+                    "carriers" => $carriers,
                 ];
         
                 $categoryNames = [];
@@ -265,7 +253,7 @@ class ProductRepository implements ProductRepositoryInterface
                 $productsData[] = $productData;
             }
         }
-                
+        
         
 
         $lastProductId = $productCollection->getLastItem()->getId();
