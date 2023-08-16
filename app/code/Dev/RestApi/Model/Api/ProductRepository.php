@@ -60,6 +60,8 @@ class ProductRepository implements ProductRepositoryInterface
      */
     private $scopeConfig;
     protected $countryFactory;
+    protected $_country;
+
     public function __construct(
         Action $productAction,
         ShippingConfig $shippingConfig,
@@ -69,7 +71,9 @@ class ProductRepository implements ProductRepositoryInterface
         StoreManagerInterface $storeManager,
         CategoryRepositoryInterface $categoryRepository,
         ScopeConfigInterface $scopeConfig,
-        \Magento\Directory\Model\CountryFactory $countryFactory
+        \Magento\Directory\Model\CountryFactory $countryFactory,
+        \Magento\Directory\Model\Country $country
+
     ) {
         $this->productAction = $productAction;
         $this->productCollectionFactory = $productCollectionFactory;
@@ -80,6 +84,7 @@ class ProductRepository implements ProductRepositoryInterface
         $this->shippingConfig = $shippingConfig;
         $this->scopeConfig = $scopeConfig;
         $this->countryFactory = $countryFactory;
+        $this->_country = $country;
     }
     /**
      * {@inheritDoc}
@@ -224,7 +229,12 @@ class ProductRepository implements ProductRepositoryInterface
                     $images[] = $image->getUrl();
                 }
 
-                $countryCode = $product->getAttributeText('country_of_manufacture');
+                $countryName = $product->getAttributeText('country_of_manufacture');
+
+                $countryModel = $this->_countryFactory->create();
+                $countryId = $countryModel->loadByCode($countryName)->getCountryId();
+                $isoCountryCode = $countryModel->load($countryId)->getIso2Code();
+
 
                 $availableMethods = [];
                 $carriers = $this->shippingConfig->getActiveCarriers();
@@ -242,7 +252,7 @@ class ProductRepository implements ProductRepositoryInterface
 
 
                 $deliveryOptions[] = [
-                    "country" => $countryCode,
+                    "country" => $isoCountryCode,
                     "carriers" => $availableMethods,
                 ];
 
