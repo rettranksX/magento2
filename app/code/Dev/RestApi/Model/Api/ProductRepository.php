@@ -291,6 +291,13 @@ class ProductRepository implements ProductRepositoryInterface
                 }
             }
         }
+        elseif($method == 'getProductsBySku'){
+            $sku = isset($requestData['sku']) ? $requestData['sku'] : null;
+
+        } 
+        else {
+            return 'Incorrect Method!';
+        }
         
         $lastProductId = $productCollection->getLastItem()->getId();
         
