@@ -197,12 +197,14 @@ class ProductRepository implements ProductRepositoryInterface
                 $deliveryOptions = [];
 
                 $productImages = $product->getMediaGalleryImages();
+
+                var_dump($productImages);
                 $images = [];
 
-                foreach ($productImages as $image) {
-                    $images[] = $image->getBase();
-                }
-                var_dump($images);
+                // foreach ($productImages as $image) {
+                //     $images[] = $image->get();
+                // }
+                // var_dump($images);
 
 
                 $categoryNames = [];
