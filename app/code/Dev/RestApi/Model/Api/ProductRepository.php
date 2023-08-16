@@ -1,6 +1,5 @@
 <?php
 namespace Dev\RestApi\Model\Api;
-namespace Rbj\Shipping\Block;
 
 
 use Dev\RestApi\Api\ProductRepositoryInterface;
