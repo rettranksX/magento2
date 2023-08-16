@@ -231,7 +231,7 @@ class ProductRepository implements ProductRepositoryInterface
 
                 $countryName = $product->getAttributeText('country_of_manufacture');
 
-                $countryModel = $this->_countryFactory->create();
+                $countryModel = $this->countryFactory->create();
                 $countryId = $countryModel->loadByCode($countryName)->getCountryId();
                 $isoCountryCode = $countryModel->load($countryId)->getIso2Code();
 
