@@ -232,12 +232,14 @@ class ProductRepository implements ProductRepositoryInterface
                 $countryName = $product->getAttributeText('country_of_manufacture');
 
                 $countryModel = $this->countryFactory->create();
-                $locale = 'en_US';
-                $loadedCountry = $countryModel->loadByFullNameLocale($countryName, $locale);
+                $countryCollection = $countryModel->getCollection();
+                $country = $countryCollection->addFieldToFilter('name', $countryName)->getFirstItem();
                 
-                if ($loadedCountry->getId()) {
-                    $isoCountryCode = $loadedCountry->getIso2Code();
-
+                if ($country->getId()) {
+                    $isoCountryCode = $country->getIso2Code();
+                } else {
+                    $isoCountryCode = $countryName;
+                }
                     $availableMethods = [];
                     $carriers = $this->shippingConfig->getActiveCarriers();
 
@@ -257,7 +259,7 @@ class ProductRepository implements ProductRepositoryInterface
                         "country" => $isoCountryCode,
                         "carriers" => $availableMethods,
                     ];
-                }
+
 
                 $categoryNames = [];
                 $categoryIds = $product->getCategoryIds();
