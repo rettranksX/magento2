@@ -174,30 +174,21 @@ class ProductRepository implements ProductRepositoryInterface
 
     /**
      * {@inheritDoc}
-     *
+     * @param string $method
      * @param int $details
      * @param int $offset
      * @param int $count
      * @return array
      */
-    public function getProducts(int $details, int $offset, int $count): array
+    public function getProducts(string $method, int $details, int $offset, int $count): array
     {
+
+        var_dump($method);
+
         /** @var \Magento\Catalog\Model\ResourceModel\Product\Collection $productCollection */
         $productCollection = $this->productCollectionFactory->create();
         $productCollection->addAttributeToSelect([
             array('*')
-            // 'sku',
-            // 'manufacturer',
-            // 'model',
-            // 'ean',
-            // 'price',
-            // 'is_salable',
-            // 'qty',
-            // 'category_ids',
-            // 'name',
-            // 'description',
-            // 'updated_at',
-            // 'url_key'
         ]);
         $productCollection->setPageSize($count);
         $productCollection->setCurPage($offset);
