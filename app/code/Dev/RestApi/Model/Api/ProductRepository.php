@@ -13,7 +13,7 @@ use Magento\Store\Model\StoreManagerInterface;
 use Magento\Catalog\Api\CategoryRepositoryInterface;
 use Magento\Shipping\Model\Config as ShippingConfig;
 use Magento\Framework\App\Config\ScopeConfigInterface;
-
+use Magento\Directory\Model\Country;
 
 /**
  * Class ProductRepository
@@ -226,7 +226,8 @@ class ProductRepository implements ProductRepositoryInterface
 
                 $countryCode = $product->getAttributeText('country_of_manufacture');
 
-                $isoCountryCode = $this->getIsoCountryCode($countryCode);
+                $countryModel = $this->_objectManager->get(Country::class);
+                $isoCountryCode = $countryModel->loadByCode($countryCode)->getIso2Code();                
 
                 $availableMethods = [];
                 $carriers = $this->shippingConfig->getActiveCarriers();
@@ -242,11 +243,12 @@ class ProductRepository implements ProductRepositoryInterface
                     ];
                 }
 
-
                 $deliveryOptions[] = [
                     "country" => $isoCountryCode,
                     "carriers" => $availableMethods,
                 ];
+
+                
 
                 $categoryNames = [];
                 $categoryIds = $product->getCategoryIds();
