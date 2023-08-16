@@ -13,7 +13,8 @@ use Magento\Store\Model\StoreManagerInterface;
 use Magento\Catalog\Api\CategoryRepositoryInterface;
 use Magento\Shipping\Model\Config as ShippingConfig;
 use Magento\Framework\App\Config\ScopeConfigInterface;
-use Magento\Directory\Model\Country;
+use Magento\Framework\App\RequestInterface;
+
 
 /**
  * Class ProductRepository
@@ -62,6 +63,8 @@ class ProductRepository implements ProductRepositoryInterface
     protected $countryFactory;
     protected $_country;
     protected $_productRepositoryFactory;
+    protected $request;
+
 
 
     public function __construct(
@@ -75,7 +78,9 @@ class ProductRepository implements ProductRepositoryInterface
         ScopeConfigInterface $scopeConfig,
         \Magento\Directory\Model\CountryFactory $countryFactory,
         \Magento\Directory\Model\Country $country,
-        \Magento\Catalog\Api\ProductRepositoryInterfaceFactory $productRepositoryFactory
+        \Magento\Catalog\Api\ProductRepositoryInterfaceFactory $productRepositoryFactory,
+        RequestInterface $request
+
     ) {
         $this->productAction = $productAction;
         $this->productCollectionFactory = $productCollectionFactory;
@@ -88,6 +93,7 @@ class ProductRepository implements ProductRepositoryInterface
         $this->countryFactory = $countryFactory;
         $this->_country = $country;
         $this->_productRepositoryFactory = $productRepositoryFactory;
+        $this->request = $request;
     }
     /**
      * {@inheritDoc}
@@ -174,15 +180,14 @@ class ProductRepository implements ProductRepositoryInterface
 
     /**
      * {@inheritDoc}
-     * @param string $method
      * @param int $details
      * @param int $offset
      * @param int $count
      * @return array
      */
-    public function getProducts(string $method, int $details, int $offset, int $count): array
+    public function getProducts(int $details, int $offset, int $count): array
     {
-
+        $method = $this->request->getParam('method');
         var_dump($method);
 
         /** @var \Magento\Catalog\Model\ResourceModel\Product\Collection $productCollection */
