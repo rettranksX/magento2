@@ -205,19 +205,16 @@ class ProductRepository implements ProductRepositoryInterface
         
                 $countryCode = $product->getAttributeText('country_of_manufacture');
         
-                $carriers = [
-                    [
-                        "name" => "UPS",
-                        "shippingRate" => 9.99,
-                        "deliveryDays" => 3,
-                    ],
-                    [
-                        "name" => "PickupInStore",
-                        "shippingRate" => 0,
-                        "deliveryDays" => 0,
-                        "inStore" => 1,
-                    ],
-                ];
+                $availableMethods = $this->getAvailableShippingMethods();
+
+                $carriers = [];
+                foreach ($availableMethods as $method) {
+                    $carriers[] = [
+                        "name" => $method['title'],
+                        "shippingRate" => $this->getShippingRateForProduct($product, $method['code']),
+                        "deliveryDays" => $this->getDeliveryDaysForProduct($product, $method['code']),
+                    ];
+                }
         
                 $deliveryOptions[] = [
                     "country" => $countryCode,
