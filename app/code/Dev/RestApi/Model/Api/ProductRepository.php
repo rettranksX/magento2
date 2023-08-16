@@ -11,6 +11,7 @@ use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Catalog\Api\CategoryRepositoryInterface;
+use Magento\Shipping\Model\Config as ShippingConfig;
 
 /**
  * Class ProductRepository
@@ -46,16 +47,23 @@ class ProductRepository implements ProductRepositoryInterface
      * @param ResponseItemInterfaceFactory $responseItemFactory
      * @param StoreManagerInterface $storeManager
      */
+
+     /**
+     * @var ShippingConfig
+     */
+    private $shippingConfig;
+
+    /**
+     * @param ShippingConfig $shippingConfig
+     */
     public function __construct(
         Action $productAction,
+        ShippingConfig $shippingConfig,
         CollectionFactory $productCollectionFactory,
         RequestItemInterfaceFactory $requestItemFactory,
         ResponseItemInterfaceFactory $responseItemFactory,
         StoreManagerInterface $storeManager,
         CategoryRepositoryInterface $categoryRepository,
-        \Magento\Framework\View\Element\Template\Context $context,
-        \Magento\Shipping\Model\Config\Source\Allmethods $shippingAllmethods,
-        array $data = []
     ) {
         $this->productAction = $productAction;
         $this->productCollectionFactory = $productCollectionFactory;
@@ -63,7 +71,7 @@ class ProductRepository implements ProductRepositoryInterface
         $this->responseItemFactory = $responseItemFactory;
         $this->storeManager = $storeManager;
         $this->categoryRepository = $categoryRepository;
-        $this->shippingAllmethods = $shippingAllmethods;
+        $this->shippingConfig = $shippingConfig;
     }
     /**
      * {@inheritDoc}
@@ -200,12 +208,7 @@ class ProductRepository implements ProductRepositoryInterface
         if ($details == 1) {
             foreach ($productCollection as $product) {
                 $deliveryOptions = [];
-        
-
-                var_dump($this->shippingAllmethods->toOptionArray());
-
-
-
+    
                 $productImages = $product->getMediaGalleryImages();
                 $images = [];
         
@@ -215,23 +218,19 @@ class ProductRepository implements ProductRepositoryInterface
         
                 $countryCode = $product->getAttributeText('country_of_manufacture');
         
-                $carriers = [
-                    [
-                        "name" => "UPS",
-                        "shippingRate" => 9.99,
-                        "deliveryDays" => 3,
-                    ],
-                    [
-                        "name" => "PickupInStore",
-                        "shippingRate" => 0,
-                        "deliveryDays" => 0,
-                        "inStore" => 1,
-                    ],
-                ];
+                $availableMethods = [];
+                $carriers = $this->shippingConfig->getActiveCarriers();
+                foreach ($carriers as $carrierCode => $carrierModel) {
+                    $methodOptions = $carrierModel->getAllowedMethods();
+                    $availableMethods[] = [
+                        'carrier_code' => $carrierCode,
+                        'method_options' => $methodOptions,
+                    ];
+                }
         
                 $deliveryOptions[] = [
                     "country" => $countryCode,
-                    "carriers" => $carriers,
+                    "carriers" => $availableMethods,
                 ];
         
                 $categoryNames = [];
