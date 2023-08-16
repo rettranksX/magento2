@@ -64,7 +64,6 @@ class ProductRepository implements ProductRepositoryInterface
         $this->storeManager = $storeManager;
         $this->categoryRepository = $categoryRepository;
         $this->shippingAllmethods = $shippingAllmethods;
-        __construct($context, $data);
     }
     /**
      * {@inheritDoc}
