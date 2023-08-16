@@ -220,7 +220,7 @@ class ProductRepository implements ProductRepositoryInterface
         
                 $availableMethods = [];
                 $carriers = $this->shippingConfig->getActiveCarriers();
-                var_dump($carriers);
+                // var_dump($carriers);
                 foreach ($carriers as $carrierCode => $carrierModel) {
                     $methodOptions = $carrierModel->getAllowedMethods();
                     $availableMethods[] = [
