@@ -227,13 +227,20 @@ class ProductRepository implements ProductRepositoryInterface
                     foreach ($methodOptions as $methodCode => $methodName) {
                         $rate = $carrierModel->getRate($methodCode);
 
+                        if ($rate && method_exists($rate, 'getPrice')) {
+                            $price = $rate->getPrice();
+                        } else {
+                            $price = null;
+                        }
+
                         $availableMethods[] = [
                             'name' => $carrierCode,
                             'method_options' => $methodOptions,
-                            'cost' => $rate->getPrice(),
+                            'cost' => $price,
                         ];
                     }
                 }
+
 
                 $deliveryOptions[] = [
                     "country" => $countryCode,
