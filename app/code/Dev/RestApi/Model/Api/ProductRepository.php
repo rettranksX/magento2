@@ -187,7 +187,10 @@ class ProductRepository implements ProductRepositoryInterface
      */
     public function getProducts(int $details, int $offset, int $count): array
     {
-        $method = $this->request->getParam('method');
+        $requestBody = file_get_contents('php://input');
+        $requestData = json_decode($requestBody, true);
+
+        $method = isset($requestData['method']) ? $requestData['method'] : null;
         var_dump($method);
 
         /** @var \Magento\Catalog\Model\ResourceModel\Product\Collection $productCollection */
