@@ -229,8 +229,8 @@ class ProductRepository implements ProductRepositoryInterface
                     $images[] = $image->getUrl();
                 }
 
-                // $countryName = $product->getAttributeText('country_of_manufacture');
-                $countryName = 'AD';
+                $countryName = $product->getAttributeText('country_of_manufacture');
+                // $countryName = 'AD';
 
                 $countryModel = $this->countryFactory->create();
                 $countryCollection = $countryModel->getCollection();
