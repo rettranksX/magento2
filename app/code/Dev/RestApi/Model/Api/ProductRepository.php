@@ -226,8 +226,6 @@ class ProductRepository implements ProductRepositoryInterface
 
                 $countryCode = $product->getAttributeText('country_of_manufacture');
 
-                $isoCountryCode = $this->getIsoCountryCode($countryCode);
-
                 $availableMethods = [];
                 $carriers = $this->shippingConfig->getActiveCarriers();
 
@@ -244,7 +242,7 @@ class ProductRepository implements ProductRepositoryInterface
 
 
                 $deliveryOptions[] = [
-                    "country" => $isoCountryCode,
+                    "country" => $countryCode,
                     "carriers" => $availableMethods,
                 ];
 
