@@ -296,7 +296,7 @@ class ProductRepository implements ProductRepositoryInterface
 
         } 
         else {
-            return 'Incorrect Method!';
+            return ['error' => 'Incorrect Method!'];
         }
         
         $lastProductId = $productCollection->getLastItem()->getId();
