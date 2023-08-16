@@ -204,8 +204,7 @@ class ProductRepository implements ProductRepositoryInterface
                 }
                 
                 // $countryCodes = ['BE', 'DE', 'PL'];
-                $countryAttribute = $product->getResource()->getAttribute('country_of_manufacture');
-                $countryCodes = explode(',', $countryAttribute->getFrontend()->getValue($product));        
+                $countryCodes = $product->getAttributeText('country_of_manufacture');
                 
                 var_dump($countryCodes);
 
