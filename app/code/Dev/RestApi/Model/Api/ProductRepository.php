@@ -59,6 +59,7 @@ class ProductRepository implements ProductRepositoryInterface
      * @param ShippingConfig $shippingConfig
      */
     private $scopeConfig;
+    protected $countryFactory;
     public function __construct(
         Action $productAction,
         ShippingConfig $shippingConfig,
@@ -67,7 +68,8 @@ class ProductRepository implements ProductRepositoryInterface
         ResponseItemInterfaceFactory $responseItemFactory,
         StoreManagerInterface $storeManager,
         CategoryRepositoryInterface $categoryRepository,
-        ScopeConfigInterface $scopeConfig
+        ScopeConfigInterface $scopeConfig,
+        \Magento\Directory\Model\CountryFactory $countryFactory
     ) {
         $this->productAction = $productAction;
         $this->productCollectionFactory = $productCollectionFactory;
@@ -77,6 +79,7 @@ class ProductRepository implements ProductRepositoryInterface
         $this->categoryRepository = $categoryRepository;
         $this->shippingConfig = $shippingConfig;
         $this->scopeConfig = $scopeConfig;
+        $this->countryFactory = $countryFactory;
     }
     /**
      * {@inheritDoc}
@@ -223,7 +226,7 @@ class ProductRepository implements ProductRepositoryInterface
 
                 $countryCode = $product->getAttributeText('country_of_manufacture');
 
-                var_dump($this->getIsoCountryCode($countryCode));
+                $isoCountryCode = $this->getIsoCountryCode($countryCode);
 
                 $availableMethods = [];
                 $carriers = $this->shippingConfig->getActiveCarriers();
@@ -241,7 +244,7 @@ class ProductRepository implements ProductRepositoryInterface
 
 
                 $deliveryOptions[] = [
-                    "country" => $countryCode,
+                    "country" => $isoCountryCode,
                     "carriers" => $availableMethods,
                 ];
 
