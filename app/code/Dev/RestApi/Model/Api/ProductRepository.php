@@ -226,12 +226,13 @@ class ProductRepository implements ProductRepositoryInterface
                 $availableMethods = [];
                 $carriers = $this->shippingConfig->getActiveCarriers();
 
-
+                $pathEstimateTimex = "carriers/%/estimated_delivery_time";
+                var_dump($pathEstimateTimex);
 
 
                 foreach ($carriers as $carrierCode => $carrierModel) {
                     $pathPrice = "carriers/{$carrierCode}/price";
-                    $pathEstimateTime = "carriers/{$carrierCode}/estimated_delivery_time"; // путь к настройке оценочного времени доставки
+                    $pathEstimateTime = "carriers/{$carrierCode}/estimated_delivery_time";
                     $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
                     // $methodOptions = $carrierModel->getAllowedMethods();
                     $availableMethods[] = [
