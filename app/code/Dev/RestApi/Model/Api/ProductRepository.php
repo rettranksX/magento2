@@ -203,8 +203,11 @@ class ProductRepository implements ProductRepositoryInterface
                     $images[] = $image->getUrl();
                 }
                 
-                $countryCodes = ['BE', 'DE', 'PL'];
-        
+                // $countryCodes = ['BE', 'DE', 'PL'];
+                $countryAttribute = $product->getResource()->getAttribute('country_of_manufacture');
+                $countryCodes = explode(',', $countryAttribute->getFrontend()->getValue($product));        
+                
+
                 foreach ($countryCodes as $countryCode) {
                     $carriers = [
                         [
