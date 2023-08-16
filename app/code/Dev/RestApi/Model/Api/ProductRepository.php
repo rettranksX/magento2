@@ -232,7 +232,9 @@ class ProductRepository implements ProductRepositoryInterface
                 $countryName = $product->getAttributeText('country_of_manufacture');
 
                 $countryModel = $this->countryFactory->create();
-                $loadedCountry = $countryModel->loadByFullName($countryName);
+                $locale = 'en_US';
+                $loadedCountry = $countryModel->loadByFullNameLocale($countryName, $locale);
+                
                 if ($loadedCountry->getId()) {
                     $isoCountryCode = $loadedCountry->getIso2Code();
 
