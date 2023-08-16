@@ -48,7 +48,7 @@ class ProductRepository implements ProductRepositoryInterface
      * @param StoreManagerInterface $storeManager
      */
 
-     /**
+    /**
      * @var ShippingConfig
      */
     private $shippingConfig;
@@ -208,41 +208,46 @@ class ProductRepository implements ProductRepositoryInterface
         if ($details == 1) {
             foreach ($productCollection as $product) {
                 $deliveryOptions = [];
-    
+
                 $productImages = $product->getMediaGalleryImages();
                 $images = [];
-        
+
                 foreach ($productImages as $image) {
                     $images[] = $image->getUrl();
                 }
-        
+
                 $countryCode = $product->getAttributeText('country_of_manufacture');
-        
+
                 $availableMethods = [];
                 $carriers = $this->shippingConfig->getActiveCarriers();
-                // print_r($carriers);
+
                 foreach ($carriers as $carrierCode => $carrierModel) {
                     $methodOptions = $carrierModel->getAllowedMethods();
-                    $availableMethods[] = [
-                        'name' => $carrierCode,
-                        'method_options' => $methodOptions,
-                        'cost' => $carrierCode->getPrice(),
-                    ];
+
+                    foreach ($methodOptions as $methodCode => $methodName) {
+                        $rate = $carrierModel->getRate($methodCode);
+
+                        $availableMethods[] = [
+                            'name' => $carrierCode,
+                            'method_options' => $methodOptions,
+                            'cost' => $rate->getPrice(),
+                        ];
+                    }
                 }
-        
+
                 $deliveryOptions[] = [
                     "country" => $countryCode,
                     "carriers" => $availableMethods,
                 ];
-        
+
                 $categoryNames = [];
                 $categoryIds = $product->getCategoryIds();
-        
+
                 foreach ($categoryIds as $categoryId) {
                     $category = $this->categoryRepository->get($categoryId);
                     $categoryNames[] = $category->getName();
                 }
-        
+
                 $productData = [
                     "sku" => $product->getSku(),
                     "url" => $product->getUrlKey(),
@@ -260,12 +265,12 @@ class ProductRepository implements ProductRepositoryInterface
                     'delivery' => $deliveryOptions,
                     'images' => $images
                 ];
-        
+
                 $productsData[] = $productData;
             }
         }
-        
-        
+
+
 
         $lastProductId = $productCollection->getLastItem()->getId();
 
