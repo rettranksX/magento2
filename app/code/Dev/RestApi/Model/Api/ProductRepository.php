@@ -219,23 +219,15 @@ class ProductRepository implements ProductRepositoryInterface
                 $countryCode = $product->getAttributeText('country_of_manufacture');
 
                 $availableMethods = [];
-                $carriers = $this->shippingConfig->getAllCarriers();
-                
+                $carriers = $this->shippingConfig->getActiveCarriers();
+
                 foreach ($carriers as $carrierCode => $carrierModel) {
-                    $carrierTitle = $this->shippingConfig->getCarrierTitle($carrierCode);
                     $methodOptions = $carrierModel->getAllowedMethods();
-                    
-                    foreach ($methodOptions as $methodCode => $methodTitle) {
-                        $methodPrice = $this->shippingConfig->getPrice($carrierCode . '/' . $methodCode);
-                        
-                        $availableMethods[] = [
-                            'carrier_code' => $carrierCode,
-                            'carrier_title' => $carrierTitle,
-                            'method_code' => $methodCode,
-                            'method_title' => $methodTitle,
-                            'method_price' => $methodPrice,
-                        ];
-                    }
+                    $availableMethods[] = [
+                        'name' => $carrierCode,
+                        'method_options' => $methodOptions,
+                        'cost' => '',
+                    ];
                 }
 
 
