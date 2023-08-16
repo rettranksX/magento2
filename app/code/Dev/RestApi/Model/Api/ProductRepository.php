@@ -197,12 +197,19 @@ class ProductRepository implements ProductRepositoryInterface
         $productCollection->addAttributeToSelect([
             array('*')
         ]);
-        $productCollection->setPageSize($count);
-        $productCollection->setCurPage($offset);
+        // $productCollection->setPageSize($count);
+        // $productCollection->setCurPage($offset);
 
         $productsData = [];
 
         if($method == 'getProducts'){
+            if ($offset == null || $count == null) {
+                return ['error' => 'Offset and count are required for method getProducts'];
+            }
+
+            $productCollection->setPageSize($count);
+            $productCollection->setCurPage($offset);
+            
             if ($details == 0) {
                 foreach ($productCollection as $product) {
                     $productData = [
