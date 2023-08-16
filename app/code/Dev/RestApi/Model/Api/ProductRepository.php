@@ -202,47 +202,27 @@ class ProductRepository implements ProductRepositoryInterface
                 foreach ($productImages as $image) {
                     $images[] = $image->getUrl();
                 }
-                
-                // $countryCodes = ['BE', 'DE', 'PL'];
-                $countryCodes = $product->getAttributeText('country_of_manufacture');
-                
-                var_dump($countryCodes);
-
-                foreach ($countryCodes as $countryCode) {
-                    $carriers = [
-                        [
-                            "name" => "UPS",
-                            "shippingRate" => 9.99,
-                            "deliveryDays" => 3,
-                        ],
-                        [
-                            "name" => "PickupInStore",
-                            "shippingRate" => 0,
-                            "deliveryDays" => 0,
-                            "inStore" => 1,
-                        ],
-                    ];
         
-                    if ($countryCode === 'PL') {
-                        $carriers = [
-                            [
-                                "name" => "UPS",
-                                "shippingRate" => 5,
-                                "deliveryDays" => 3,
-                            ],
-                            [
-                                "name" => "UPS",
-                                "shippingRate" => 9.99,
-                                "deliveryDays" => 2,
-                            ],
-                        ];
-                    }
+                $countryCode = $product->getAttributeText('country_of_manufacture');
         
-                    $deliveryOptions[] = [
-                        "country" => $countryCode,
-                        "carriers" => $carriers,
-                    ];
-                }
+                $carriers = [
+                    [
+                        "name" => "UPS",
+                        "shippingRate" => 9.99,
+                        "deliveryDays" => 3,
+                    ],
+                    [
+                        "name" => "PickupInStore",
+                        "shippingRate" => 0,
+                        "deliveryDays" => 0,
+                        "inStore" => 1,
+                    ],
+                ];
+        
+                $deliveryOptions[] = [
+                    "country" => $countryCode,
+                    "carriers" => $carriers,
+                ];
         
                 $categoryNames = [];
                 $categoryIds = $product->getCategoryIds();
@@ -273,6 +253,7 @@ class ProductRepository implements ProductRepositoryInterface
                 $productsData[] = $productData;
             }
         }
+        
         
 
         $lastProductId = $productCollection->getLastItem()->getId();
