@@ -233,7 +233,7 @@ class ProductRepository implements ProductRepositoryInterface
 
                 $countryModel = $this->countryFactory->create();
                 $countryCollection = $countryModel->getCollection();
-                $country = $countryCollection->addFieldToFilter('full_name_locale', $countryName)->getFirstItem();
+                $country = $countryCollection->addFieldToFilter('iso2_code', $countryName)->getFirstItem();
                 
                 if ($country->getId()) {
                     $isoCountryCode = $country->getIso2Code();
