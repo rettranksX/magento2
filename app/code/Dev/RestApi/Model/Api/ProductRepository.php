@@ -226,7 +226,7 @@ class ProductRepository implements ProductRepositoryInterface
 
                     foreach ($methodOptions as $methodCode => $methodName) {
                         $rate = $carrierModel->getRate($methodCode);
-
+                        var_dump($rate);
                         if ($rate && method_exists($rate, 'getPrice')) {
                             $price = $rate->getPrice();
                         } else {
