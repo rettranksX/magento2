@@ -301,6 +301,10 @@ class ProductRepository implements ProductRepositoryInterface
         elseif ($method == 'getProductsBySku') {
             $skuArray = isset($requestData['sku']) && is_array($requestData['sku']) ? $requestData['sku'] : [];
             
+
+            $offset = isset($requestData['offset']) ? $requestData['offset'] : 0;
+            $count = isset($requestData['count']) ? $requestData['count'] : 10;
+             
             if ($details == 0) {
                 foreach ($productCollection as $product) {
                     if (in_array($product->getSku(), $skuArray)) {
