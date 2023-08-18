@@ -302,9 +302,9 @@ class ProductRepository implements ProductRepositoryInterface
             $skuArray = isset($requestData['sku']) && is_array($requestData['sku']) ? $requestData['sku'] : [];
             
 
-            $offset = isset($requestData['offset']) ? $requestData['offset'] : 0;
-            $count = isset($requestData['count']) ? $requestData['count'] : 10;
-             
+            $offset = array_key_exists('offset', $requestData) ? $requestData['offset'] : 0;
+            $count = array_key_exists('count', $requestData) ? $requestData['count'] : 10;
+                   
             if ($details == 0) {
                 foreach ($productCollection as $product) {
                     if (in_array($product->getSku(), $skuArray)) {
