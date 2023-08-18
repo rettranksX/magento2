@@ -298,10 +298,32 @@ class ProductRepository implements ProductRepositoryInterface
                 }
             }
         }
-        elseif($method == 'getProductsBySku'){
-            $sku = isset($requestData['sku']) ? $requestData['sku'] : null;
-
-        } 
+        elseif ($method == 'getProductsBySku') {
+            $skuArray = isset($requestData['sku']) && is_array($requestData['sku']) ? $requestData['sku'] : [];
+            
+            if ($details == 0) {
+                foreach ($productCollection as $product) {
+                    if (in_array($product->getSku(), $skuArray)) {
+                        $productData = [
+                            'sku' => $product->getSku(),
+                            'url' => $product->getUrlKey(),
+                            'manufacturer' => $product->getAttributeText('country_of_manufacture'),
+                            'model' => $product->getModel(),
+                            'ean' => $product->getEan(),
+                            'price' => $product->getPrice(),
+                            'availability' => $product->isSalable() ? 'InStock' : 'OutOfStock',
+                            'itemsAvailable' => $product->getQty(),
+                            'updated' => $product->getUpdatedAt(),
+                        ];
+        
+                        $productsData[] = $productData;
+                    }
+                }
+            }
+        
+            // Далее обработка $productsData в зависимости от $details и т.д.
+        }
+        
         else {
             return ['error' => 'Incorrect Method!'];
         }
