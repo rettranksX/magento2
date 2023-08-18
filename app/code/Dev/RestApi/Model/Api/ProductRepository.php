@@ -181,8 +181,9 @@ class ProductRepository implements ProductRepositoryInterface
     /**
      * {@inheritDoc}
      * @param int $details
-     * @param int $offset
-     * @param int $count
+     * @param int|null $offset
+     * @param int|null $count
+     * @param array|null $sku
      * @return array
      */
     public function getProducts(int $details, int $offset, int $count): array
