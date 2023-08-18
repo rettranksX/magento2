@@ -203,14 +203,14 @@ class ProductRepository implements ProductRepositoryInterface
 
         $productsData = [];
 
-        if($method == 'getProducts'){
+        if ($method == 'getProducts') {
             // if ($offset == null || $count == null) {
             //     return ['error' => 'Offset and count are required for method getProducts'];
             // }
 
             $productCollection->setPageSize($count);
             $productCollection->setCurPage($offset);
-            
+
             if ($details == 0) {
                 foreach ($productCollection as $product) {
                     $productData = [
@@ -231,28 +231,28 @@ class ProductRepository implements ProductRepositoryInterface
             if ($details == 1) {
                 foreach ($productCollection as $product) {
                     $deliveryOptions = [];
-            
+
                     $productImage = $this->_productRepositoryFactory->create()->getById($product->getId());
                     $image = $productImage->getData('image');
                     $thumbnail = $productImage->getData('thumbnail');
                     $smallImage = $productImage->getData('small_image');
                     $images = [$image, $thumbnail, $smallImage];
-            
+
                     $countryName = $product->getAttributeText('country_of_manufacture');
-            
+
                     $countryModel = $this->countryFactory->create();
                     $countryCollection = $countryModel->getCollection();
                     $country = $countryCollection->addFieldToFilter('iso2_code', $countryName)->getFirstItem();
-            
+
                     if ($country->getId()) {
                         $isoCountryCode = $country->getIso2Code();
                     } else {
                         $isoCountryCode = $countryName;
                     }
-            
+
                     $availableMethods = [];
                     $carriers = $this->shippingConfig->getActiveCarriers();
-            
+
                     foreach ($carriers as $carrierCode => $carrierModel) {
                         $pathPrice = "carriers/{$carrierCode}/price";
                         $pathEstimateTime = "carriers/{$carrierCode}/estimated_delivery_time";
@@ -263,20 +263,20 @@ class ProductRepository implements ProductRepositoryInterface
                             'deliveryDays' => $this->scopeConfig->getValue($pathEstimateTime, $storeScope),
                         ];
                     }
-            
+
                     $deliveryOptions[] = [
                         "country" => $isoCountryCode,
                         "carriers" => $availableMethods,
                     ];
-            
+
                     $categoryNames = [];
                     $categoryIds = $product->getCategoryIds();
-            
+
                     foreach ($categoryIds as $categoryId) {
                         $category = $this->categoryRepository->get($categoryId);
                         $categoryNames[] = $category->getName();
                     }
-            
+
                     $productData = [
                         "sku" => $product->getSku(),
                         "url" => $product->getUrlKey(),
@@ -294,18 +294,16 @@ class ProductRepository implements ProductRepositoryInterface
                         'delivery' => $deliveryOptions,
                         'images' => $images
                     ];
-            
+
                     $productsData[] = $productData;
                 }
             }
-        }
-        elseif ($method == 'getProductsBySku') {
-            $skuArray = isset($requestData['sku']) && is_array($requestData['sku']) ? $requestData['sku'] : [];
-            
+        } elseif ($method == 'getProductsBySku') {
+            $skuArray = $requestData['sku'] ?? [];
 
-            $offset = array_key_exists('offset', $requestData) ? $requestData['offset'] : 0;
-            $count = array_key_exists('count', $requestData) ? $requestData['count'] : 10;
-                   
+            $offset = $requestData['offset'] ?? 0;
+            $count = $requestData['count'] ?? 10;
+
             if ($details == 0) {
                 foreach ($productCollection as $product) {
                     if (in_array($product->getSku(), $skuArray)) {
@@ -320,28 +318,26 @@ class ProductRepository implements ProductRepositoryInterface
                             'itemsAvailable' => $product->getQty(),
                             'updated' => $product->getUpdatedAt(),
                         ];
-        
+
                         $productsData[] = $productData;
                     }
                 }
             }
-        
+
             // Далее обработка $productsData в зависимости от $details и т.д.
-        }
-        
-        else {
+        } else {
             return ['error' => 'Incorrect Method!'];
         }
-        
+
         $lastProductId = $productCollection->getLastItem()->getId();
-        
+
         $response = [
             'prods' => $productsData,
             'lastId' => $lastProductId,
         ];
-        
+
         return $response;
-        
+
     }
 
     // public function getProductsBySku(int $details, array $skus): array
