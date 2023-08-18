@@ -186,7 +186,7 @@ class ProductRepository implements ProductRepositoryInterface
      * @param array|null $sku
      * @return array
      */
-    public function getProducts(int $details, int $offset, int $count): array
+    public function getProducts(int $details, ?int $offset, ?int $count): array
     {
         $requestBody = file_get_contents('php://input');
         $requestData = json_decode($requestBody, true);
@@ -324,7 +324,6 @@ class ProductRepository implements ProductRepositoryInterface
                 }
             }
 
-            // Далее обработка $productsData в зависимости от $details и т.д.
         } else {
             return ['error' => 'Incorrect Method!'];
         }
