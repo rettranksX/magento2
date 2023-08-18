@@ -186,7 +186,7 @@ class ProductRepository implements ProductRepositoryInterface
      * @param array|null $sku
      * @return array
      */
-    public function getProducts(int $details, ?int $offset, ?int $count): array
+    public function getProducts(int $details, ?int $offset = null, ?int $count = null, ?array $sku = null): array
     {
         $requestBody = file_get_contents('php://input');
         $requestData = json_decode($requestBody, true);
