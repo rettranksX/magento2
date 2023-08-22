@@ -24,10 +24,9 @@ interface ProductRepositoryInterface
      * Get a list of products.
      *
      * @param int $details
-     * @param array $requestData
      * @return array
      */
-    public function getProducts(int $details, array $requestData): array;
+    public function getProducts(int $details): array;
 
 
     // /**
