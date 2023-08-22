@@ -234,7 +234,10 @@ class ProductRepository implements ProductRepositoryInterface
                     $country = $countryCollection->getFirstItem();
                     $isoCountryCode = $country->getIso2Code();
 
-
+                    foreach ($countryCollection as $country) {
+                        echo "Country Name: " . $country->getCountryName() . ", ISO2 Code: " . $country->getIso2Code();
+                    }
+                    
 
                     $productData = [
                         'sku' => $product->getSku(),
