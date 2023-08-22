@@ -226,9 +226,11 @@ class ProductRepository implements ProductRepositoryInterface
                 foreach ($productCollection as $product) {
 
                     $fullCountryName = $product->getAttributeText('country_of_manufacture');
-
+                    echo "Full Country Name: $fullCountryName";
                     $countryCollection = $this->countryCollectionFactory->create();
                     $countryCollection->addFieldToFilter('country_name', $fullCountryName);
+                    echo "Number of Records Found: " . $countryCollection->getSize();
+                    
                     $country = $countryCollection->getFirstItem();
                     $isoCountryCode = $country->getIso2Code();
 
