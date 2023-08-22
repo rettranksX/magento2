@@ -14,7 +14,8 @@ use Magento\Catalog\Api\CategoryRepositoryInterface;
 use Magento\Shipping\Model\Config as ShippingConfig;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\RequestInterface;
-
+use Magento\Directory\Model\Country;
+use Magento\Directory\Model\CountryFactory;
 
 /**
  * Class ProductRepository
@@ -59,12 +60,18 @@ class ProductRepository implements ProductRepositoryInterface
     /**
      * @param ShippingConfig $shippingConfig
      */
-    private $scopeConfig;
-    protected $countryFactory;
     protected $_country;
     protected $_productRepositoryFactory;
     protected $request;
+    /**
+     * @var CountryFactory
+     */
+    private $countryFactory;
 
+        /**
+     * @var ScopeConfigInterface
+     */
+    private $scopeConfig;
 
 
     public function __construct(
@@ -210,10 +217,15 @@ class ProductRepository implements ProductRepositoryInterface
 
             if ($details == 0) {
                 foreach ($productCollection as $product) {
+
+                    $countryModel = $this->countryFactory->create();
+                    $countryCollection = $countryModel->getCollection();
+                    $country = $countryCollection->addFieldToFilter('name', $product->getAttributeText('country_of_manufacture'))->getFirstItem();
+            
                     $productData = [
                         'sku' => $product->getSku(),
                         'url' => $product->getUrlKey(),
-                        'manufacturer' => $product->getAttributeText('country_of_manufacture'),
+                        'manufacturer' => $country,
                         'model' => $product->getModel(),
                         'ean' => $product->getEan(),
                         'price' => $product->getPrice(),
