@@ -399,9 +399,13 @@ class ProductRepository implements ProductRepositoryInterface
 
         $lastProductId = $productCollection->getLastItem()->getId();
 
+        // $response = [
+        //     'prods' => $productsData,
+        //     'lastId' => $lastProductId,
+        // ];
+
         $response = [
-            'prods' => $productsData,
-            'lastId' => $lastProductId,
+            'prods' => $productsData,$lastProductId,
         ];
 
         return $response;
