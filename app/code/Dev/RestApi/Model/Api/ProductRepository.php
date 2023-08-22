@@ -230,14 +230,14 @@ class ProductRepository implements ProductRepositoryInterface
                     $countryCollection = $this->countryCollectionFactory->create();
                     $countryName = $product->getAttributeText('country_of_manufacture');
                     echo "Country Name from Product: $countryName";
-                    $countryCollection->addFieldToFilter('default_name', $countryName);
+                    $countryCollection->addFieldToFilter('country_name', $countryName);
                     $country = $countryCollection->getFirstItem();
                     $isoCountryCode = $country->getIso2Code();
                     echo "ISO2 Code for $countryName: $isoCountryCode";
                     $countryCollection = $this->countryCollectionFactory->create();
                     $countryName = $product->getAttributeText('country_of_manufacture');
                     echo "Country Name from Product: $countryName";
-                    $countryCollection->addFieldToFilter('default_name', $countryName);
+                    $countryCollection->addFieldToFilter('country_name', $countryName);
                     $country = $countryCollection->getFirstItem();
                     $isoCountryCode = $country->getIso2Code();
                     echo "ISO2 Code for $countryName: $isoCountryCode";
