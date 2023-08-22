@@ -225,28 +225,17 @@ class ProductRepository implements ProductRepositoryInterface
             if ($details == 0) {
                 foreach ($productCollection as $product) {
 
-                    $fullCountryName = $product->getAttributeText('country_of_manufacture');
-                    echo "Full Country Name: $fullCountryName";
-                    $countryCollection = $this->countryCollectionFactory->create();
-                    $countryName = $product->getAttributeText('country_of_manufacture');
-                    echo "Country Name from Product: $countryName";
-                    $countryCollection->addFieldToFilter('country_name', $countryName);
-                    $country = $countryCollection->getFirstItem();
-                    $isoCountryCode = $country->getIso2Code();
-                    echo "ISO2 Code for $countryName: $isoCountryCode";
-                    $countryCollection = $this->countryCollectionFactory->create();
-                    $countryName = $product->getAttributeText('country_of_manufacture');
-                    echo "Country Name from Product: $countryName";
-                    $countryCollection->addFieldToFilter('country_name', $countryName);
-                    $country = $countryCollection->getFirstItem();
-                    $isoCountryCode = $country->getIso2Code();
-                    echo "ISO2 Code for $countryName: $isoCountryCode";
-                                        
+                    // $countryCollection = $this->countryCollectionFactory->create();
+                    // $countryCollection->addFieldToFilter('default_name', $product->getAttributeText('country_of_manufacture'));
+                    // $country = $countryCollection->getFirstItem();
+                    // $isoCountryCode = $country->getIso2Code();
+
+
 
                     $productData = [
                         'sku' => $product->getSku(),
                         'url' => $product->getUrlKey(),
-                        'manufacturer' => $isoCountryCode,
+                        'manufacturer' => $product->getAttributeText('country_of_manufacture'),
                         'model' => $product->getModel(),
                         'ean' => $product->getEan(),
                         'price' => $product->getPrice(),
