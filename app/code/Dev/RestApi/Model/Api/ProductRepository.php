@@ -181,12 +181,11 @@ class ProductRepository implements ProductRepositoryInterface
     /**
      * {@inheritDoc}
      * @param int $details
-     * @param int|null $offset
-     * @param int|null $count
-     * @param array|null $sku
+     * @param int $offset
+     * @param int $count
      * @return array
      */
-    public function getProducts(int $details, ?int $offset = null, ?int $count = null, ?array $sku = null): array
+    public function getProducts(int $details, int $offset, ?int $count): array
     {
         $requestBody = file_get_contents('php://input');
         $requestData = json_decode($requestBody, true);
@@ -339,9 +338,61 @@ class ProductRepository implements ProductRepositoryInterface
 
     }
 
-    // public function getProductsBySku(int $details, array $skus): array
-    // {
+    /**
+     * {@inheritDoc}
+     * @param int $details
+     * @return array
+     */
+    public function getProductsBySku(int $details): array
+    {
+        $requestBody = file_get_contents('php://input');
+        $requestData = json_decode($requestBody, true);
 
-    // }
+        $method = isset($requestData['method']) ? $requestData['method'] : null;
+
+        /** @var \Magento\Catalog\Model\ResourceModel\Product\Collection $productCollection */
+        $productCollection = $this->productCollectionFactory->create();
+        $productCollection->addAttributeToSelect([
+            array('*')
+        ]);
+        $productsData = [];
+
+        if ($method == 'getProductsBySku') {
+            $skuArray = $requestData['sku'] ?? [];
+            // $offset = $requestData['offset'] ?? 0;
+            // $count = $requestData['count'] ?? 10;
+            if ($details == 0) {
+                foreach ($productCollection as $product) {
+                    if (in_array($product->getSku(), $skuArray)) {
+                        $productData = [
+                            'sku' => $product->getSku(),
+                            'url' => $product->getUrlKey(),
+                            'manufacturer' => $product->getAttributeText('country_of_manufacture'),
+                            'model' => $product->getModel(),
+                            'ean' => $product->getEan(),
+                            'price' => $product->getPrice(),
+                            'availability' => $product->isSalable() ? 'InStock' : 'OutOfStock',
+                            'itemsAvailable' => $product->getQty(),
+                            'updated' => $product->getUpdatedAt(),
+                        ];
+
+                        $productsData[] = $productData;
+                    }
+                }
+            }
+
+        } else {
+            return ['error' => 'Incorrect Method!'];
+        }
+
+        $lastProductId = $productCollection->getLastItem()->getId();
+
+        $response = [
+            'prods' => $productsData,
+            'lastId' => $lastProductId,
+        ];
+
+        return $response;
+    }
 
 }
