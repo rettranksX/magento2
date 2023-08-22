@@ -16,6 +16,8 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Directory\Model\Country;
 use Magento\Directory\Model\CountryFactory;
+use Magento\Directory\Model\ResourceModel\Country\CollectionFactory as CountryCollectionFactory;
+
 
 /**
  * Class ProductRepository
@@ -218,14 +220,17 @@ class ProductRepository implements ProductRepositoryInterface
             if ($details == 0) {
                 foreach ($productCollection as $product) {
 
-                    $countryModel = $this->countryFactory->create();
-                    $countryCollection = $countryModel->getCollection();
-                    $country = $countryCollection->addFieldToFilter('name', $product->getAttributeText('country_of_manufacture'))->getFirstItem();
-            
+                    $countryCollection = $this->countryCollectionFactory->create();
+                    $countryCollection->addFieldToFilter('default_name', $product->getAttributeText('country_of_manufacture'));
+                    $country = $countryCollection->getFirstItem();
+                    $isoCountryCode = $country->getIso2Code();
+
+
+
                     $productData = [
                         'sku' => $product->getSku(),
                         'url' => $product->getUrlKey(),
-                        'manufacturer' => $country,
+                        'manufacturer' => $isoCountryCode,
                         'model' => $product->getModel(),
                         'ean' => $product->getEan(),
                         'price' => $product->getPrice(),
