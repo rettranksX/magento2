@@ -91,7 +91,7 @@ class ProductRepository implements ProductRepositoryInterface
         \Magento\Directory\Model\Country $country,
         \Magento\Catalog\Api\ProductRepositoryInterfaceFactory $productRepositoryFactory,
         RequestInterface $request,
-        Magento\Directory\Model\ResourceModel\Country\CountryCollectionFactory $countryCollectionFactory
+        CountryCollectionFactory $countryCollectionFactory
 
 
     ) {
