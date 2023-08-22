@@ -24,19 +24,18 @@ interface ProductRepositoryInterface
      * Get a list of products.
      *
      * @param int $details
-     * @param int $offset
-     * @param int $count
+     * @param array $requestData
      * @return array
      */
-    public function getProducts(int $details, int $offset, int $count): array;
+    public function getProducts(int $details, array $requestData): array;
 
 
-    /**
-     * Get products by SKU.
-     *
-     * @param int $details
-     * @return array
-     */
-    public function getProductsBySku(int $details): array;
+    // /**
+    //  * Get products by SKU.
+    //  *
+    //  * @param int $details
+    //  * @return array
+    //  */
+    // public function getProductsBySku(int $details): array;
 
 }
