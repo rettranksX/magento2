@@ -195,7 +195,7 @@ class ProductRepository implements ProductRepositoryInterface
     public function getProducts(int $details): string
     {
 
-        $actualToken = 'evtch0nzcqshled4zg1lg99tiln59crk';
+        $actualToken = '8db80264ec5dec920a66562d774b509c';
 
         $authorizationHeader = $_SERVER['HTTP_AUTHORIZATION'];
 
