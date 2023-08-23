@@ -241,6 +241,8 @@ class ProductRepository implements ProductRepositoryInterface
                     // $country = $countryCollection->getFirstItem();
                     // $isoCountryCode = $country->getIso2Code();
 
+                    // echo $isoCountryCode;
+
 
 
                     $productData = [
