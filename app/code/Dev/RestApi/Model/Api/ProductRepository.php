@@ -15,6 +15,7 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Directory\Model\CountryFactory;
 use Magento\Framework\App\Config\Storage\WriterInterface;
+use Magento\Framework\ObjectManagerInterface;
 
 /**
  * Class ProductRepository
@@ -74,7 +75,7 @@ class ProductRepository implements ProductRepositoryInterface
 
     protected $configWriter;
     private $countryCollectionFactory;
-
+    private $objectManager;
 
     public function __construct(
         Action $productAction,
@@ -90,7 +91,8 @@ class ProductRepository implements ProductRepositoryInterface
         \Magento\Catalog\Api\ProductRepositoryInterfaceFactory $productRepositoryFactory,
         RequestInterface $request,
         WriterInterface $configWriter,
-        CollectionFactory $countryCollectionFactory
+        CollectionFactory $countryCollectionFactory,
+        ObjectManagerInterface $objectManager
 
 
     ) {
@@ -108,7 +110,7 @@ class ProductRepository implements ProductRepositoryInterface
         $this->request = $request;
         $this->configWriter = $configWriter;
         $this->countryCollectionFactory = $countryCollectionFactory;
-
+        $this->objectManager = $objectManager;
     }
 
     /**
