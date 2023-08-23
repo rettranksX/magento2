@@ -200,6 +200,8 @@ class ProductRepository implements ProductRepositoryInterface
     public function getProducts(int $details): string
     {
 
+        $actualToken = 'evtch0nzcqshled4zg1lg99tiln59crk';
+
         $authorizationHeader = $_SERVER['HTTP_AUTHORIZATION'];
 
         if (preg_match('/Bearer\s+(.*)/', $authorizationHeader, $matches)) {
@@ -226,7 +228,7 @@ class ProductRepository implements ProductRepositoryInterface
 
         $productsData = [];
 
-        if ($method == 'getProducts') {
+        if ($method == 'getProducts' && $actualToken == $token) {
 
             $productCollection->setPageSize($count);
             $productCollection->setCurPage($offset);
@@ -326,7 +328,7 @@ class ProductRepository implements ProductRepositoryInterface
                     $productsData[] = $productData;
                 }
             }
-        } elseif ($method == 'getProductsBySku') {
+        } elseif ($method == 'getProductsBySku' && $actualToken == $token) {
             $skuArray = $requestData['sku'] ?? [];
 
             $offset = $requestData['offset'] ?? 0;
