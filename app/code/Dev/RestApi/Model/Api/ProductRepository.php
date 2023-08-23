@@ -71,8 +71,6 @@ class ProductRepository implements ProductRepositoryInterface
      */
     private $scopeConfig;
 
-    private $countryCollectionFactory;
-
     protected $configWriter;
 
     public function __construct(
@@ -88,8 +86,7 @@ class ProductRepository implements ProductRepositoryInterface
         \Magento\Directory\Model\Country $country,
         \Magento\Catalog\Api\ProductRepositoryInterfaceFactory $productRepositoryFactory,
         RequestInterface $request,
-        CountryCollectionFactory $countryCollectionFactory,
-        WriterInterface $configWriter,
+        WriterInterface $configWriter
 
     ) {
         $this->productAction = $productAction;
@@ -104,7 +101,6 @@ class ProductRepository implements ProductRepositoryInterface
         $this->_country = $country;
         $this->_productRepositoryFactory = $productRepositoryFactory;
         $this->request = $request;
-        $this->countryCollectionFactory = $countryCollectionFactory;
         $this->configWriter = $configWriter;
     }
 
