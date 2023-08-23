@@ -200,20 +200,13 @@ class ProductRepository implements ProductRepositoryInterface
     public function getProducts(int $details): string
     {
 
-        $token = "token";
+        $authorizationHeader = $_SERVER['HTTP_AUTHORIZATION'];
 
-        $savedToken = $this->scopeConfig->getValue('token/token_group/token');
-
-        echo $savedToken;
-
-        $requestToken = $this->request->getParam('token');
-
-        if ($savedToken === $requestToken) {
-            $tokenStatus = 'Token is correct.';
-        } else {
-            $tokenStatus = "Token isn't correct.";
+        if (preg_match('/Bearer\s+(.*)/', $authorizationHeader, $matches)) {
+            $token = $matches[1];
         }
-        echo $tokenStatus;
+
+        echo $token;
 
         $requestBody = file_get_contents('php://input');
         $requestData = json_decode($requestBody, true);
