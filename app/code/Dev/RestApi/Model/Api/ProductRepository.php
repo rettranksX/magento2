@@ -206,9 +206,12 @@ class ProductRepository implements ProductRepositoryInterface
      */
     public function getProducts(int $details): string
     {
-        // $countryOptions = $this->getCountryOptions();
-        $countryCollection = $this->countryCollectionFactory->create();
+        $countryCollectionFactory = $this->_objectManager->get(\Magento\Directory\Model\ResourceModel\Country\CollectionFactory::class);
 
+        $countryCollection = $countryCollectionFactory->create();
+        
+        var_dump($countryCollection);
+        
         foreach ($countryCollection as $country) {
             $value = $country->getValue();
             $label = $country->getLabel();
@@ -219,6 +222,7 @@ class ProductRepository implements ProductRepositoryInterface
         
             echo "Value: $value, Label: $label<br>";
         }
+        
         
         
 
