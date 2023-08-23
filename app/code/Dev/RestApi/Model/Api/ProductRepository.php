@@ -194,13 +194,6 @@ class ProductRepository implements ProductRepositoryInterface
             $this->storeManager->getStore()->getId()
         );
     }
-    public function getCountryOptions()
-    {
-        $countryCollection = $this->countryCollectionFactory->create();
-        $countryOptions = $countryCollection->toOptionArray();
-
-        return $countryOptions;
-    }
     /**
      * {@inheritDoc}
      * @param int $details
@@ -208,25 +201,6 @@ class ProductRepository implements ProductRepositoryInterface
      */
     public function getProducts(int $details): string
     {
-        $countryCollectionFactory = $this->_objectManager->get(\Magento\Directory\Model\ResourceModel\Country\CollectionFactory::class);
-
-        $countryCollection = $countryCollectionFactory->create();
-        
-        var_dump($countryCollection);
-        
-        foreach ($countryCollection as $country) {
-            $value = $country->getValue();
-            $label = $country->getLabel();
-        
-            if ($label !== null) {
-                $label = strip_tags($label);
-            }
-        
-            echo "Value: $value, Label: $label<br>";
-        }
-        
-        
-        
 
         $actualToken = '8db80264ec5dec920a66562d774b509c';
 
