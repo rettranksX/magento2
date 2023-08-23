@@ -211,9 +211,15 @@ class ProductRepository implements ProductRepositoryInterface
 
         foreach ($countryCollection as $country) {
             $value = $country->getValue();
-            $label = strip_tags($country->getLabel());
+            $label = $country->getLabel();
+        
+            if ($label !== null) {
+                $label = strip_tags($label);
+            }
+        
             echo "Value: $value, Label: $label<br>";
         }
+        
         
 
         $actualToken = '8db80264ec5dec920a66562d774b509c';
