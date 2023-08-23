@@ -440,9 +440,9 @@ class ProductRepository implements ProductRepositoryInterface
             "lastId" => $lastProductId,
         ];
         
-        return $response;
+        $json_data = json_encode($response, JSON_PRETTY_PRINT);
+        return $json_data;
         
-
     }
 
 }
