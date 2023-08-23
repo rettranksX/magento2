@@ -250,8 +250,7 @@ class ProductRepository implements ProductRepositoryInterface
 
                     $productsData[] = $productData;
                 }
-            }
-            if ($details == 1) {
+            } elseif ($details == 1) {
                 foreach ($productCollection as $product) {
                     $deliveryOptions = [];
 
@@ -320,6 +319,8 @@ class ProductRepository implements ProductRepositoryInterface
 
                     $productsData[] = $productData;
                 }
+            } else {
+                echo 'Incorrect "details" value!';
             }
             $lastProductId = $productCollection->getLastItem()->getId();
             $response = [
@@ -353,8 +354,7 @@ class ProductRepository implements ProductRepositoryInterface
                         $productsData[] = $productData;
                     }
                 }
-            }
-            if ($details == 1) {
+            } elseif ($details == 1) {
                 foreach ($productCollection as $product) {
                     if (in_array($product->getSku(), $skuArray)) {
                         $deliveryOptions = [];
@@ -425,6 +425,8 @@ class ProductRepository implements ProductRepositoryInterface
                         $productsData[] = $productData;
                     }
                 }
+            } else {
+                echo 'Incorrect "details" value!';
             }
 
             $lastProductId = $productCollection->getLastItem()->getId();
