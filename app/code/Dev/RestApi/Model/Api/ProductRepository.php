@@ -455,6 +455,7 @@ class ProductRepository implements ProductRepositoryInterface
             ];
             $json_data = json_encode($response);
             echo $json_data;
+            return '';
 
         } else {
             return 'Incorrect Method or Token';
