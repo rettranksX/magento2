@@ -259,13 +259,13 @@ class ProductRepository implements ProductRepositoryInterface
 
                     $countryName = $product->getAttributeText('country_of_manufacture');
 
-                    echo $countryName;
+                    var_dump($countryName);
 
                     $countryModel = $this->countryFactory->create();
                     $countryCollection = $countryModel->getCollection();
                     $country = $countryCollection->addFieldToFilter('iso2_code', $countryName)->getFirstItem();
 
-                    echo $country;
+                    var_dump($country);
 
                     if ($country->getId()) {
                         $isoCountryCode = $country->getIso2Code();
