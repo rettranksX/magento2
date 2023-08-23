@@ -195,9 +195,9 @@ class ProductRepository implements ProductRepositoryInterface
     /**
      * {@inheritDoc}
      * @param int $details
-     * @return array
+     * @return string
      */
-    public function getProducts(int $details): array
+    public function getProducts(int $details): string
     {
         $requestBody = file_get_contents('php://input');
         $requestData = json_decode($requestBody, true);
