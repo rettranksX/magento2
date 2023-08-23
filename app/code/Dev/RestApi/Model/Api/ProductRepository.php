@@ -443,8 +443,11 @@ class ProductRepository implements ProductRepositoryInterface
                 "prods" => $productsData,
                 "lastId" => $lastProductId,
             ];
-            $json_data = json_encode($response, JSON_PRETTY_PRINT);
-            return $json_data;
+
+            $data = json_decode($response, true);
+
+            $prettyJson = json_encode($data, JSON_PRETTY_PRINT);            
+            return $prettyJson;
 
         } else {
             return 'Incorrect Method or Token';
