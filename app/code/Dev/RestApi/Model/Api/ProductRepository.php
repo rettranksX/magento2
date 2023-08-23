@@ -1,7 +1,6 @@
 <?php
 namespace Dev\RestApi\Model\Api;
 
-
 use Dev\RestApi\Api\ProductRepositoryInterface;
 use Dev\RestApi\Api\RequestItemInterfaceFactory;
 use Dev\RestApi\Api\ResponseItemInterfaceFactory;
@@ -14,12 +13,8 @@ use Magento\Catalog\Api\CategoryRepositoryInterface;
 use Magento\Shipping\Model\Config as ShippingConfig;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\RequestInterface;
-use Magento\Directory\Model\Country;
 use Magento\Directory\Model\CountryFactory;
-use Magento\Directory\Model\ResourceModel\Country\CollectionFactory as CountryCollectionFactory;
 use Magento\Framework\App\Config\Storage\WriterInterface;
-use Magento\Framework\App\Action\Action as ActionNew;
-use Magento\Framework\App\Action\Context;
 /**
  * Class ProductRepository
  */
@@ -209,15 +204,18 @@ class ProductRepository implements ProductRepositoryInterface
     public function getProducts(int $details): string
     {
 
+        $token = "token";
+
         $savedToken = $this->scopeConfig->getValue('token/token_group/token');
 
-        $requestToken = $this->getRequest()->getParam('token');
-    
+        $requestToken = $this->request->getParam('token');
+
         if ($savedToken === $requestToken) {
-            echo 'token is correct.';
+            $tokenStatus = 'Token is correct.';
         } else {
-            echo "token isn't correct.";
+            $tokenStatus = "Token isn't correct.";
         }
+        echo $tokenStatus;
 
         $requestBody = file_get_contents('php://input');
         $requestData = json_decode($requestBody, true);
