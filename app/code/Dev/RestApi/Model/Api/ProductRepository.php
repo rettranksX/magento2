@@ -204,6 +204,8 @@ class ProductRepository implements ProductRepositoryInterface
 
         $savedToken = $this->scopeConfig->getValue('token/token_group/token');
 
+        echo $savedToken;
+
         $requestToken = $this->request->getParam('token');
 
         if ($savedToken === $requestToken) {
