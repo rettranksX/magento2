@@ -76,7 +76,10 @@ class ProductRepository implements ProductRepositoryInterface
     protected $configWriter;
     private $countryCollectionFactory;
     private $objectManager;
-
+     /**
+     * @var \Magento\Framework\Controller\Result\JsonFactory
+     */
+    private $jsonResultFactory;
     public function __construct(
         Action $productAction,
         ShippingConfig $shippingConfig,
@@ -92,7 +95,9 @@ class ProductRepository implements ProductRepositoryInterface
         RequestInterface $request,
         WriterInterface $configWriter,
         CollectionFactory $countryCollectionFactory,
-        ObjectManagerInterface $objectManager
+        ObjectManagerInterface $objectManager,
+        \Magento\Framework\Controller\Result\JsonFactory $jsonResultFactory
+
 
 
     ) {
@@ -111,6 +116,7 @@ class ProductRepository implements ProductRepositoryInterface
         $this->configWriter = $configWriter;
         $this->countryCollectionFactory = $countryCollectionFactory;
         $this->objectManager = $objectManager;
+        $this->jsonResultFactory = $jsonResultFactory;
     }
 
     /**
@@ -331,13 +337,17 @@ class ProductRepository implements ProductRepositoryInterface
             } else {
                 echo 'Incorrect "details" value!';
             }
+
+
+            $result = $this->jsonResultFactory->create();
             $lastProductId = $productCollection->getLastItem()->getId();
             $response = [
                 "prods" => $productsData,
                 "lastId" => $lastProductId,
             ];
+            $result->setData($response);
             // $json_data = json_encode($response, JSON_PRETTY_PRINT);
-            return $response;
+            return $result;
 
         } elseif ($method == 'getProductsBySku' && $actualToken == $token) {
             $skuArray = $requestData['sku'] ?? [];
