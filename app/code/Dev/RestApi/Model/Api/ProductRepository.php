@@ -186,7 +186,6 @@ class ProductRepository implements ProductRepositoryInterface
         );
     }
 
-
     /**
      * {@inheritDoc}
      * @param int $details
@@ -195,6 +194,21 @@ class ProductRepository implements ProductRepositoryInterface
     public function getProducts(int $details): string
     {
 
+
+
+
+        /** @var \Magento\Directory\Model\ResourceModel\Country\CollectionFactory $countryCollectionFactory */
+        $countryCollectionFactory = $this->_objectManager->get(\Magento\Directory\Model\ResourceModel\Country\CollectionFactory::class);
+
+        /** @var \Magento\Directory\Model\ResourceModel\Country\Collection $countryCollection */
+        $countryCollection = $countryCollectionFactory->create();
+
+        $countryCollection = $countryCollection->toOptionArray();
+
+        echo array_column($countryCollection, 'label', 'value');
+
+
+        
         $actualToken = '8db80264ec5dec920a66562d774b509c';
 
         $authorizationHeader = $_SERVER['HTTP_AUTHORIZATION'];
