@@ -326,14 +326,14 @@ class ProductRepository implements ProductRepositoryInterface
                         'images' => $images
                     ];
 
-                    $productsData[] = $productData;
+                    // $productsData[] = $productData;
                 }
             } else {
                 echo 'Incorrect "details" value!';
             }
             $lastProductId = $productCollection->getLastItem()->getId();
             $response = [
-                "prods" => $productsData,
+                "prods" => $productData,
                 "lastId" => $lastProductId,
             ];
             // $json_data = json_encode($response, JSON_PRETTY_PRINT);
