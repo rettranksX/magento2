@@ -17,8 +17,9 @@ use Magento\Framework\App\RequestInterface;
 use Magento\Directory\Model\Country;
 use Magento\Directory\Model\CountryFactory;
 use Magento\Directory\Model\ResourceModel\Country\CollectionFactory as CountryCollectionFactory;
-
-
+use Magento\Framework\App\Config\Storage\WriterInterface;
+use Magento\Framework\App\Action\Action as ActionNew;
+use Magento\Framework\App\Action\Context;
 /**
  * Class ProductRepository
  */
@@ -77,6 +78,7 @@ class ProductRepository implements ProductRepositoryInterface
 
     private $countryCollectionFactory;
 
+    protected $configWriter;
 
     public function __construct(
         Action $productAction,
@@ -91,8 +93,8 @@ class ProductRepository implements ProductRepositoryInterface
         \Magento\Directory\Model\Country $country,
         \Magento\Catalog\Api\ProductRepositoryInterfaceFactory $productRepositoryFactory,
         RequestInterface $request,
-        CountryCollectionFactory $countryCollectionFactory
-
+        CountryCollectionFactory $countryCollectionFactory,
+        WriterInterface $configWriter,
 
     ) {
         $this->productAction = $productAction;
@@ -108,6 +110,13 @@ class ProductRepository implements ProductRepositoryInterface
         $this->_productRepositoryFactory = $productRepositoryFactory;
         $this->request = $request;
         $this->countryCollectionFactory = $countryCollectionFactory;
+        $this->configWriter = $configWriter;
+    }
+
+
+    public function saveToken($token) {
+        $path = 'token/token_group/token';
+        $this->configWriter->save($path, $token);
     }
     /**
      * {@inheritDoc}
@@ -199,6 +208,17 @@ class ProductRepository implements ProductRepositoryInterface
      */
     public function getProducts(int $details): string
     {
+
+        $savedToken = $this->scopeConfig->getValue('token/token_group/token');
+
+        $requestToken = $this->getRequest()->getParam('token');
+    
+        if ($savedToken === $requestToken) {
+            echo 'token is correct.';
+        } else {
+            echo "token isn't correct.";
+        }
+
         $requestBody = file_get_contents('php://input');
         $requestData = json_decode($requestBody, true);
 
@@ -258,19 +278,10 @@ class ProductRepository implements ProductRepositoryInterface
                     $images = [$image, $thumbnail, $smallImage];
 
                     $countryName = $product->getAttributeText('country_of_manufacture');
-                    if ($countryName !== null) {
-                        echo "Country of Manufacture: " . $countryName;
-                    } else {
-                        echo "Country of Manufacture is not set for this product.";
-                    }
 
                     $countryModel = $this->countryFactory->create();
                     $countryCollection = $countryModel->getCollection();
                     $country = $countryCollection->addFieldToFilter('iso2_code', $countryName)->getFirstItem();
-
-                    echo "Country ID: " . $country->getId() . "<br>";
-                    echo "Country Name: " . $country->getName() . "<br>";
-                    echo "Country ISO2 Code: " . $country->getIso2Code() . "<br>";
 
                     if ($country->getId()) {
                         $isoCountryCode = $country->getIso2Code();
