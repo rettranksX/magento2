@@ -339,15 +339,15 @@ class ProductRepository implements ProductRepositoryInterface
             }
 
 
-            $result = $this->jsonResultFactory->create();
+            // $result = $this->jsonResultFactory->create();
             $lastProductId = $productCollection->getLastItem()->getId();
             $response = [
                 "prods" => $productsData,
                 "lastId" => $lastProductId,
             ];
             
-            // $json_data = json_encode($response, JSON_PRETTY_PRINT);
-            return $result->setData($response);
+            $json_data = json_encode($response, JSON_PRETTY_PRINT);
+            return $response;
 
         } elseif ($method == 'getProductsBySku' && $actualToken == $token) {
             $skuArray = $requestData['sku'] ?? [];
