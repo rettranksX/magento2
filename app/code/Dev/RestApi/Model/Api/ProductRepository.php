@@ -197,9 +197,9 @@ class ProductRepository implements ProductRepositoryInterface
     /**
      * {@inheritDoc}
      * @param int $details
-     * @return array
+     * @return string
      */
-    public function getProducts(int $details): array
+    public function getProducts(int $details): string
     {
 
         $actualToken = '8db80264ec5dec920a66562d774b509c';
@@ -336,8 +336,8 @@ class ProductRepository implements ProductRepositoryInterface
                 "prods" => $productsData,
                 "lastId" => $lastProductId,
             ];
-            // $json_data = json_encode($response);
-            return $response;
+            $json_data = json_encode($response, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+            return $json_data;
 
         } elseif ($method == 'getProductsBySku' && $actualToken == $token) {
             $skuArray = $requestData['sku'] ?? [];
