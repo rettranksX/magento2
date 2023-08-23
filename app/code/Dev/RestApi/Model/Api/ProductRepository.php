@@ -197,7 +197,7 @@ class ProductRepository implements ProductRepositoryInterface
     /**
      * {@inheritDoc}
      * @param int $details
-    //  * @return string
+     * @return string
      */
     public function getProducts(int $details)
     {
