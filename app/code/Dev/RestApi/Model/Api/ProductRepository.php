@@ -15,6 +15,7 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Directory\Model\CountryFactory;
 use Magento\Framework\App\Config\Storage\WriterInterface;
+
 /**
  * Class ProductRepository
  */
@@ -72,6 +73,8 @@ class ProductRepository implements ProductRepositoryInterface
     private $scopeConfig;
 
     protected $configWriter;
+    private $countryCollectionFactory;
+
 
     public function __construct(
         Action $productAction,
@@ -86,7 +89,9 @@ class ProductRepository implements ProductRepositoryInterface
         \Magento\Directory\Model\Country $country,
         \Magento\Catalog\Api\ProductRepositoryInterfaceFactory $productRepositoryFactory,
         RequestInterface $request,
-        WriterInterface $configWriter
+        WriterInterface $configWriter,
+        CollectionFactory $countryCollectionFactory
+
 
     ) {
         $this->productAction = $productAction;
@@ -102,6 +107,8 @@ class ProductRepository implements ProductRepositoryInterface
         $this->_productRepositoryFactory = $productRepositoryFactory;
         $this->request = $request;
         $this->configWriter = $configWriter;
+        $this->countryCollectionFactory = $countryCollectionFactory;
+
     }
 
     /**
@@ -185,7 +192,13 @@ class ProductRepository implements ProductRepositoryInterface
             $this->storeManager->getStore()->getId()
         );
     }
+    public function getCountryOptions()
+    {
+        $countryCollection = $this->countryCollectionFactory->create();
+        $countryOptions = $countryCollection->toOptionArray();
 
+        return $countryOptions;
+    }
     /**
      * {@inheritDoc}
      * @param int $details
@@ -193,22 +206,12 @@ class ProductRepository implements ProductRepositoryInterface
      */
     public function getProducts(int $details): string
     {
+        $countryOptions = $this->getCountryOptions();
 
+        foreach ($countryOptions as $countryOption) {
+            echo "Value: " . $countryOption['value'] . ", Label: " . $countryOption['label'] . "<br>";
+        }
 
-
-
-        /** @var \Magento\Directory\Model\ResourceModel\Country\CollectionFactory $countryCollectionFactory */
-        $countryCollectionFactory = $this->_objectManager->get(\Magento\Directory\Model\ResourceModel\Country\CollectionFactory::class);
-
-        /** @var \Magento\Directory\Model\ResourceModel\Country\Collection $countryCollection */
-        $countryCollection = $countryCollectionFactory->create();
-
-        $countryCollection = $countryCollection->toOptionArray();
-
-        echo array_column($countryCollection, 'label', 'value');
-
-
-        
         $actualToken = '8db80264ec5dec920a66562d774b509c';
 
         $authorizationHeader = $_SERVER['HTTP_AUTHORIZATION'];
