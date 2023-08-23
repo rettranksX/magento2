@@ -436,8 +436,8 @@ class ProductRepository implements ProductRepositoryInterface
         // ];
 
         $response = [
-            'prods' => $productsData,
-            'lastId' => $lastProductId,
+            "prods" => $productsData,
+            "lastId" => $lastProductId,
         ];
         
         return $response;
