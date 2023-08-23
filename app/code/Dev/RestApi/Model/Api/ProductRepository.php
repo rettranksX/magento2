@@ -336,7 +336,7 @@ class ProductRepository implements ProductRepositoryInterface
                 "prods" => $productsData,
                 "lastId" => $lastProductId,
             ];
-            $json_data = json_encode($response, JSON_PRETTY_PRINT);
+            $json_data = json_encode($response);
             return $json_data;
 
         } elseif ($method == 'getProductsBySku' && $actualToken == $token) {
@@ -443,8 +443,8 @@ class ProductRepository implements ProductRepositoryInterface
                 "prods" => $productsData,
                 "lastId" => $lastProductId,
             ];
-            // $json_data = json_encode($response);
-            return $response;
+            $json_data = json_encode($response);
+            return $json_data;
 
         } else {
             return 'Incorrect Method or Token';
