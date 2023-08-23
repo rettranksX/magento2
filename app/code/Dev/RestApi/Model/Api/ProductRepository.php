@@ -206,11 +206,15 @@ class ProductRepository implements ProductRepositoryInterface
      */
     public function getProducts(int $details): string
     {
-        $countryOptions = $this->getCountryOptions();
+        // $countryOptions = $this->getCountryOptions();
+        $countryCollection = $this->countryCollectionFactory->create();
 
-        foreach ($countryOptions as $countryOption) {
-            echo "Value: " . $countryOption['value'] . ", Label: " . $countryOption['label'] . "<br>";
+        foreach ($countryCollection as $country) {
+            $value = $country->getValue();
+            $label = strip_tags($country->getLabel());
+            echo "Value: $value, Label: $label<br>";
         }
+        
 
         $actualToken = '8db80264ec5dec920a66562d774b509c';
 
