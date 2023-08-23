@@ -104,11 +104,6 @@ class ProductRepository implements ProductRepositoryInterface
         $this->configWriter = $configWriter;
     }
 
-
-    public function saveToken($token) {
-        $path = 'token/token_group/token';
-        $this->configWriter->save($path, $token);
-    }
     /**
      * {@inheritDoc}
      *
@@ -207,8 +202,6 @@ class ProductRepository implements ProductRepositoryInterface
         if (preg_match('/Bearer\s+(.*)/', $authorizationHeader, $matches)) {
             $token = $matches[1];
         }
-
-        echo $token;
 
         $requestBody = file_get_contents('php://input');
         $requestData = json_decode($requestBody, true);
@@ -443,7 +436,7 @@ class ProductRepository implements ProductRepositoryInterface
             return $json_data;
 
         } else {
-            return 'Incorrect Method!';
+            return 'Incorrect Method or Token';
         }
         
     }
