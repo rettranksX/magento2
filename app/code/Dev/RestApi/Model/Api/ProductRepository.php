@@ -454,9 +454,7 @@ class ProductRepository implements ProductRepositoryInterface
                 "lastId" => $lastProductId,
             ];
             $json_data = json_encode($response);
-            echo $json_data;
-            return '';
-
+            return json_data;
         } else {
             return 'Incorrect Method or Token';
         }
