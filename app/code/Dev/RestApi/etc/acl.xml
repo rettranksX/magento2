@@ -6,10 +6,10 @@
             <resource id="Magento_Backend::admin">
                 <resource id="Dev_RestApi::products" title="Dev API - Products"
                           translate="title" sortOrder="110">
-                    <resource id="Dev_RestApi::products_get" title="Get product"
+                    <!-- <resource id="Dev_RestApi::products_get" title="Get product"
                               translate="title" sortOrder="10" />
                     <resource id="Dev_RestApi::products_set_description" title="Set description"
-                              translate="title" sortOrder="20" />
+                              translate="title" sortOrder="20" /> -->
                     <resource id="Dev_RestApi::products_get_products" title="Get Products Data"
                               translate="title" sortOrder="20" />
                 </resource>

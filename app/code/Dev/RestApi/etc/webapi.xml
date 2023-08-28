@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
-    <route url="/V1/rest_dev/getProduct/:id" method="GET">
+    <!-- <route url="/V1/rest_dev/getProduct/:id" method="GET">
         <service class="Dev\RestApi\Api\ProductRepositoryInterface" method="getItem" />
         <resources>
             <resource ref="Dev_RestApi::products_get" />
@@ -12,7 +12,7 @@
         <resources>
             <resource ref="Dev_RestApi::products_set_description" />
         </resources>
-    </route>
+    </route> -->
     <route url="/V1/rest_dev/getProducts" method="POST">
         <service class="Dev\RestApi\Api\ProductRepositoryInterface" method="getProducts" />
         <resources>
