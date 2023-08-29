@@ -2,8 +2,6 @@
 namespace Dev\RestApi\Model\Api;
 
 use Dev\RestApi\Api\ProductRepositoryInterface;
-// use Dev\RestApi\Api\RequestItemInterfaceFactory;
-// use Dev\RestApi\Api\ResponseItemInterfaceFactory;
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Model\ResourceModel\Product\Action;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
@@ -31,14 +29,6 @@ class ProductRepository implements ProductRepositoryInterface
      * @var CollectionFactory
      */
     private $productCollectionFactory;
-    // /**
-    //  * @var RequestItemInterfaceFactory
-    //  */
-    // private $requestItemFactory;
-    // /**
-    //  * @var ResponseItemInterfaceFactory
-    //  */
-    // private $responseItemFactory;
     /**
      * @var StoreManagerInterface
      */
@@ -47,8 +37,6 @@ class ProductRepository implements ProductRepositoryInterface
     /**
      * @param Action $productAction
      * @param CollectionFactory $productCollectionFactory
-    //  * @param RequestItemInterfaceFactory $requestItemFactory
-    //  * @param ResponseItemInterfaceFactory $responseItemFactory
      * @param StoreManagerInterface $storeManager
      */
 
@@ -84,8 +72,6 @@ class ProductRepository implements ProductRepositoryInterface
         Action $productAction,
         ShippingConfig $shippingConfig,
         CollectionFactory $productCollectionFactory,
-        // RequestItemInterfaceFactory $requestItemFactory,
-        // ResponseItemInterfaceFactory $responseItemFactory,
         StoreManagerInterface $storeManager,
         CategoryRepositoryInterface $categoryRepository,
         ScopeConfigInterface $scopeConfig,
@@ -103,8 +89,6 @@ class ProductRepository implements ProductRepositoryInterface
     ) {
         $this->productAction = $productAction;
         $this->productCollectionFactory = $productCollectionFactory;
-        // $this->requestItemFactory = $requestItemFactory;
-        // $this->responseItemFactory = $responseItemFactory;
         $this->storeManager = $storeManager;
         $this->categoryRepository = $categoryRepository;
         $this->shippingConfig = $shippingConfig;
@@ -118,88 +102,6 @@ class ProductRepository implements ProductRepositoryInterface
         $this->objectManager = $objectManager;
         $this->jsonResultFactory = $jsonResultFactory;
     }
-
-    // /**
-    //  * {@inheritDoc}
-    //  *
-    //  * @param int $id
-    //  * @return ResponseItemInterface
-    //  * @throws NoSuchEntityException
-    //  */
-    // public function getItem(int $id): mixed
-    // {
-    //     $collection = $this->getProductCollection()
-    //         ->addAttributeToFilter('entity_id', ['eq' => $id]);
-    //     /** @var ProductInterface $product */
-    //     $product = $collection->getFirstItem();
-    //     if (!$product->getId()) {
-    //         throw new NoSuchEntityException(__('Product not found'));
-    //     }
-    //     return $this->getResponseItemFromProduct($product);
-    // }
-    // /**
-    //  * {@inheritDoc}
-    //  *
-    //  * @param RequestItemInterface[] $products
-    //  * @return void
-    //  */
-    // public function setDescription(array $products): void
-    // {
-    //     foreach ($products as $product) {
-    //         $this->setDescriptionForProduct(
-    //             $product->getId(),
-    //             $product->getDescription()
-    //         );
-    //     }
-    // }
-    /**
-     * @return Collection
-     */
-    // private function getProductCollection(): mixed
-    // {
-    //     /** @var Collection $collection */
-    //     $collection = $this->productCollectionFactory->create();
-    //     $collection
-    //         ->addAttributeToSelect(
-    //             [
-    //                 'entity_id',
-    //                 ProductInterface::SKU,
-    //                 ProductInterface::NAME,
-    //                 'description'
-    //             ],
-    //             'left'
-    //         );
-    //     return $collection;
-    // }
-    /**
-    //  * @param ProductInterface $product
-    //  * @return ResponseItemInterface
-    //  */
-    // private function getResponseItemFromProduct(ProductInterface $product): mixed
-    // {
-    //     /** @var ResponseItemInterface $responseItem */
-    //     $responseItem = $this->responseItemFactory->create();
-    //     $responseItem->setId($product->getId())
-    //         ->setSku($product->getSku())
-    //         ->setName($product->getName())
-    //         ->setDescription($product->getDescription() ?? '');
-    //     return $responseItem;
-    // }
-    // /**
-    //  * Set the description for the product.
-    //  *
-    //  * @param int $id
-    //  * @param string $description
-    //  * @return void
-    //  */
-    // private function setDescriptionForProduct(int $id, string $description): void
-    // {
-    //     $this->productAction->updateAttributes(
-    //         [$id],
-    //         ['description' => $description],
-    //         $this->storeManager->getStore()->getId()
-    //     );
-    // }
     /**
      * {@inheritDoc}
      * @param int $details
@@ -229,8 +131,6 @@ class ProductRepository implements ProductRepositoryInterface
         $productCollection->addAttributeToSelect([
             array('*')
         ]);
-        // $productCollection->setPageSize($count);
-        // $productCollection->setCurPage($offset);
 
         $productsData = [];
 
@@ -248,8 +148,6 @@ class ProductRepository implements ProductRepositoryInterface
                     // $isoCountryCode = $country->getIso2Code();
 
                     // echo $isoCountryCode;
-
-
 
                     $productData = [
                         'sku' => $product->getSku(),
@@ -338,8 +236,6 @@ class ProductRepository implements ProductRepositoryInterface
                 echo 'Incorrect "details" value!';
             }
 
-
-            // $result = $this->jsonResultFactory->create();
             $lastProductId = $productCollection->getLastItem()->getId();
             $response = [
                 "prods" => $productsData,
