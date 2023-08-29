@@ -253,7 +253,7 @@ class ProductRepository implements ProductRepositoryInterface
 
             // return json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
-            return $response;
+            return json_encode($response);
 
             // $jsonResult = $this->jsonResultFactory->create();
             // $jsonResult->setData($response);
