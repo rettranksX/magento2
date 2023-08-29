@@ -7,8 +7,8 @@ interface ProductRepositoryInterface
      * Get a list of products.
      *
      * @param int $details
-     * @return string(json)
+     * @return object
      */
-    public function getProducts(int $details);
+    public function getProducts(int $details): object;
 
 }
