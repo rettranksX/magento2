@@ -180,11 +180,11 @@ class ProductRepository implements ProductRepositoryInterface
                     $country = $countryCollection->addFieldToFilter('iso2_code', $countryName)->getFirstItem();
 
                     if ($country->getId()) {
-                        $isoCountryCode = $country->getData('iso2_code');
+                        $isoCountryCode = $countryName;
                     } 
-                    // else {
-                    //     $isoCountryCode = $countryName;
-                    // }
+                    else {
+                        $isoCountryCode = $country->getData('iso2_code');
+                    }
 
                     $availableMethods = [];
                     $carriers = $this->shippingConfig->getActiveCarriers();
