@@ -252,8 +252,7 @@ class ProductRepository implements ProductRepositoryInterface
         
             $jsonResult = $this->jsonResultFactory->create();
             $jsonResult->setData($response);
-            echo $jsonResult;
-            return '';
+            return $jsonResult;
 
         } elseif ($method == 'getProductsBySku' && $actualToken == $token) {
             $skuArray = $requestData['sku'] ?? [];
