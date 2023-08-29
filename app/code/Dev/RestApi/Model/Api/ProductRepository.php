@@ -101,12 +101,12 @@ class ProductRepository implements ProductRepositoryInterface
         $this->objectManager = $objectManager;
         $this->jsonResultFactory = $jsonResultFactory;
     }
-    /**
-     * {@inheritDoc}
-     * @param int $details
-     * @return string
-     */
-    public function getProducts(int $details): string
+    // /**
+    //  * {@inheritDoc}
+    //  * @param int $details
+    //  * @return string
+    //  */
+    public function getProducts(int $details)
     {
 
         $actualToken = '8db80264ec5dec920a66562d774b509c';
