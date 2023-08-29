@@ -104,9 +104,9 @@ class ProductRepository implements ProductRepositoryInterface
     /**
      * {@inheritDoc}
      * @param int $details
-     * @return object
+     * @return \Vendor\Module\Api\Data\ResponseDataInterface
      */
-    public function getProducts(int $details): object
+    public function getProducts(int $details)
     {
 
         $actualToken = '8db80264ec5dec920a66562d774b509c';
