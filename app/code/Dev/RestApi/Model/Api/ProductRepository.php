@@ -2,8 +2,8 @@
 namespace Dev\RestApi\Model\Api;
 
 use Dev\RestApi\Api\ProductRepositoryInterface;
-use Dev\RestApi\Api\RequestItemInterfaceFactory;
-use Dev\RestApi\Api\ResponseItemInterfaceFactory;
+// use Dev\RestApi\Api\RequestItemInterfaceFactory;
+// use Dev\RestApi\Api\ResponseItemInterfaceFactory;
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Model\ResourceModel\Product\Action;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
@@ -31,14 +31,14 @@ class ProductRepository implements ProductRepositoryInterface
      * @var CollectionFactory
      */
     private $productCollectionFactory;
-    /**
-     * @var RequestItemInterfaceFactory
-     */
-    private $requestItemFactory;
-    /**
-     * @var ResponseItemInterfaceFactory
-     */
-    private $responseItemFactory;
+    // /**
+    //  * @var RequestItemInterfaceFactory
+    //  */
+    // private $requestItemFactory;
+    // /**
+    //  * @var ResponseItemInterfaceFactory
+    //  */
+    // private $responseItemFactory;
     /**
      * @var StoreManagerInterface
      */
@@ -47,8 +47,8 @@ class ProductRepository implements ProductRepositoryInterface
     /**
      * @param Action $productAction
      * @param CollectionFactory $productCollectionFactory
-     * @param RequestItemInterfaceFactory $requestItemFactory
-     * @param ResponseItemInterfaceFactory $responseItemFactory
+    //  * @param RequestItemInterfaceFactory $requestItemFactory
+    //  * @param ResponseItemInterfaceFactory $responseItemFactory
      * @param StoreManagerInterface $storeManager
      */
 
@@ -84,8 +84,8 @@ class ProductRepository implements ProductRepositoryInterface
         Action $productAction,
         ShippingConfig $shippingConfig,
         CollectionFactory $productCollectionFactory,
-        RequestItemInterfaceFactory $requestItemFactory,
-        ResponseItemInterfaceFactory $responseItemFactory,
+        // RequestItemInterfaceFactory $requestItemFactory,
+        // ResponseItemInterfaceFactory $responseItemFactory,
         StoreManagerInterface $storeManager,
         CategoryRepositoryInterface $categoryRepository,
         ScopeConfigInterface $scopeConfig,
@@ -103,8 +103,8 @@ class ProductRepository implements ProductRepositoryInterface
     ) {
         $this->productAction = $productAction;
         $this->productCollectionFactory = $productCollectionFactory;
-        $this->requestItemFactory = $requestItemFactory;
-        $this->responseItemFactory = $responseItemFactory;
+        // $this->requestItemFactory = $requestItemFactory;
+        // $this->responseItemFactory = $responseItemFactory;
         $this->storeManager = $storeManager;
         $this->categoryRepository = $categoryRepository;
         $this->shippingConfig = $shippingConfig;
