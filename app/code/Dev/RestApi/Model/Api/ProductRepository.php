@@ -147,6 +147,8 @@ class ProductRepository implements ProductRepositoryInterface
 
                     // echo $isoCountryCode;
 
+
+
                     $productData = [
                         'sku' => $product->getSku(),
                         'url' => $product->getUrlKey(),
@@ -178,7 +180,7 @@ class ProductRepository implements ProductRepositoryInterface
                     $country = $countryCollection->addFieldToFilter('iso2_code', $countryName)->getFirstItem();
 
                     if ($country->getId()) {
-                        $isoCountryCode = $country->getIso2Code();
+                        $isoCountryCode = $country->getData('iso3_code');
                     } else {
                         $isoCountryCode = $countryName;
                     }
@@ -362,7 +364,5 @@ class ProductRepository implements ProductRepositoryInterface
         } else {
             return 'Incorrect Method or Token';
         }
-        
     }
-
 }
