@@ -179,9 +179,14 @@ class ProductRepository implements ProductRepositoryInterface
                     $countryCollection = $countryModel->getCollection();
                     $country = $countryCollection->addFieldToFilter('iso2_code', $countryName)->getFirstItem();
                     
-                    $isoCountryCode = $country->getData('iso3_code');
+                    if ($country->getId()) {
+                        $isoCountryCode = $country->getData('iso3_code');
+                    } else {
+                        $isoCountryCode = $countryName;
+                    }
                     
-                    
+                    echo "Country Name: $countryName\n";
+                    echo "ISO3 Country Code: $isoCountryCode\n";                    
 
                     $availableMethods = [];
                     $carriers = $this->shippingConfig->getActiveCarriers();
