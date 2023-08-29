@@ -227,7 +227,7 @@ class ProductRepository implements ProductRepositoryInterface
                         "description" => $product->getDescription(),
                         'updated' => $product->getUpdatedAt(),
                         'delivery' => $deliveryOptions,
-                        'images' => $images
+                        'images' => $image
                     ];
 
                     $productsData[] = $productData;
