@@ -9,6 +9,6 @@ interface ProductRepositoryInterface
      * @param int $details
      * @return string
      */
-    public function getProducts(int $details): string;
+    public function getProducts(int $details);
 
 }
