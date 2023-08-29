@@ -131,7 +131,7 @@ class ProductRepository implements ProductRepositoryInterface
             array('*')
         ]);
 
-        $productsData = [];
+        // $productsData = [];
 
         if ($method == 'getProducts' && $actualToken == $token) {
 
