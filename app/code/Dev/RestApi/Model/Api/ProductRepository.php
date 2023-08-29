@@ -131,7 +131,7 @@ class ProductRepository implements ProductRepositoryInterface
             array('*')
         ]);
 
-        // $productsData = [];
+        $productsData = [];
 
         if ($method == 'getProducts' && $actualToken == $token) {
 
@@ -246,7 +246,7 @@ class ProductRepository implements ProductRepositoryInterface
 
             $lastProductId = $productCollection->getLastItem()->getId();
             $response = [
-                "prods" => $productData,
+                "prods" => $productsData,
                 "lastId" => $lastProductId,
             ];
             
