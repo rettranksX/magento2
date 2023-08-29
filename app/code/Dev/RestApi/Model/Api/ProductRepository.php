@@ -126,7 +126,7 @@ class ProductRepository implements ProductRepositoryInterface
 
         $storeManager = \Magento\Framework\App\ObjectManager::getInstance()->get(\Magento\Store\Model\StoreManagerInterface::class);
         $siteUrl = $storeManager->getStore()->getBaseUrl();
-        
+        $siteUrl = str_replace("\\", "/", $siteUrl);
 
         /** @var \Magento\Catalog\Model\ResourceModel\Product\Collection $productCollection */
         $productCollection = $this->productCollectionFactory->create();
