@@ -131,10 +131,9 @@ class ProductRepository implements ProductRepositoryInterface
             array('*')
         ]);
 
-        // $productsData = [];
+        $productsData = [];
 
         if ($method == 'getProducts' && $actualToken == $token) {
-            $productsData = [];
             $productCollection->setPageSize($count);
             $productCollection->setCurPage($offset);
 
@@ -252,15 +251,6 @@ class ProductRepository implements ProductRepositoryInterface
             
             $jsonResponse = json_encode($response, JSON_PRETTY_PRINT);
             print($jsonResponse);
-        
-            // print(json_encode($response));
-            // print(json_encode($response, JSON_PRETTY_PRINT) . "\n");
-
-            // return json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-
-            // $jsonResult = $this->jsonResultFactory->create();
-            // $jsonResult->setData($response);
-            // return $jsonResult;
 
         } elseif ($method == 'getProductsBySku' && $actualToken == $token) {
             $skuArray = $requestData['sku'] ?? [];
@@ -366,8 +356,9 @@ class ProductRepository implements ProductRepositoryInterface
                 "prods" => $productsData,
                 "lastId" => $lastProductId,
             ];
-            $json_data = json_encode($response);
-            return $json_data;
+            
+            $jsonResponse = json_encode($response, JSON_PRETTY_PRINT);
+            print($jsonResponse);
         } else {
             return 'Incorrect Method or Token';
         }
