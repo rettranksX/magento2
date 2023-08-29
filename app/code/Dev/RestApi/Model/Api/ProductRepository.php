@@ -230,7 +230,7 @@ class ProductRepository implements ProductRepositoryInterface
                         "description" => $product->getDescription(),
                         'updated' => $product->getUpdatedAt(),
                         'delivery' => $deliveryOptions,
-                        'images' => $siteUrl . ltrim($image, '/');
+                        'images' => $siteUrl . ltrim($image, '/')
                     ];
 
                     $productsData[] = $productData;
