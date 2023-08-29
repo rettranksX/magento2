@@ -124,6 +124,9 @@ class ProductRepository implements ProductRepositoryInterface
         $offset = isset($requestData['offset']) ? $requestData['offset'] : null;
         $count = isset($requestData['count']) ? $requestData['count'] : null;
 
+        $site1 = HTTPS_SERVER;
+        $site = str_replace("\\", "/", $site1);
+        $site_prefix = $site;
 
         /** @var \Magento\Catalog\Model\ResourceModel\Product\Collection $productCollection */
         $productCollection = $this->productCollectionFactory->create();
@@ -227,7 +230,7 @@ class ProductRepository implements ProductRepositoryInterface
                         "description" => $product->getDescription(),
                         'updated' => $product->getUpdatedAt(),
                         'delivery' => $deliveryOptions,
-                        'images' => $image
+                        'images' => $site_prefix + $image
                     ];
 
                     $productsData[] = $productData;
