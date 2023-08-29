@@ -359,7 +359,7 @@ class ProductRepository implements ProductRepositoryInterface
                 "lastId" => $lastProductId,
             ];
             $json_data = json_encode($response);
-            return json_data;
+            return $json_data;
         } else {
             return 'Incorrect Method or Token';
         }
