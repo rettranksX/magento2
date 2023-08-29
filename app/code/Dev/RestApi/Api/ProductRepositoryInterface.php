@@ -7,7 +7,6 @@ interface ProductRepositoryInterface
      * Get a list of products.
      *
      * @param int $details
-     * @return \Vendor\Module\Api\Data\ResponseDataInterface
      */
     public function getProducts(int $details);
 

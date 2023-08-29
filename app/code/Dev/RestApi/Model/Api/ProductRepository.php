@@ -104,7 +104,6 @@ class ProductRepository implements ProductRepositoryInterface
     /**
      * {@inheritDoc}
      * @param int $details
-     * @return \Vendor\Module\Api\Data\ResponseDataInterface
      */
     public function getProducts(int $details)
     {
