@@ -235,24 +235,24 @@ class ProductRepository implements ProductRepositoryInterface
                 echo 'Incorrect "details" value!';
             }
 
-            $lastProductId = $productCollection->getLastItem()->getId();
-            $response = [
-                "prods" => $productsData,
-                "lastId" => $lastProductId,
-            ];
-            
-            $json_data = json_encode($response, JSON_PRETTY_PRINT);
-            return $json_data;
-
             // $lastProductId = $productCollection->getLastItem()->getId();
             // $response = [
             //     "prods" => $productsData,
             //     "lastId" => $lastProductId,
             // ];
+            
+            // $json_data = json_encode($response, JSON_PRETTY_PRINT);
+            // return $json_data;
+
+            $lastProductId = $productCollection->getLastItem()->getId();
+            $response = [
+                "prods" => $productsData,
+                "lastId" => $lastProductId,
+            ];
         
-            // $jsonResult = $this->jsonResultFactory->create();
-            // $jsonResult->setData($response);
-            // return $jsonResult;
+            $jsonResult = $this->jsonResultFactory->create();
+            $jsonResult->setData($response);
+            return $jsonResult;
 
         } elseif ($method == 'getProductsBySku' && $actualToken == $token) {
             $skuArray = $requestData['sku'] ?? [];
