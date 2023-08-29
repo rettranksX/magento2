@@ -215,7 +215,7 @@ class ProductRepository implements ProductRepositoryInterface
                     $productData = [
                         "sku" => $product->getSku(),
                         "url" => $product->getUrlKey(),
-                        'manufacturer' => $product->getAttributeText('country_of_manufacture'),
+                        'manufacturer' => $isoCountryCode,
                         "model" => $product->getModel(),
                         "ean" => $product->getEan(),
                         "price" => $product->getPrice(),
