@@ -14,6 +14,8 @@ use Magento\Framework\App\RequestInterface;
 use Magento\Directory\Model\CountryFactory;
 use Magento\Framework\App\Config\Storage\WriterInterface;
 use Magento\Framework\ObjectManagerInterface;
+use Magento\Framework\Controller\Result\JsonFactory;
+
 
 /**
  * Class ProductRepository
@@ -82,10 +84,7 @@ class ProductRepository implements ProductRepositoryInterface
         WriterInterface $configWriter,
         CollectionFactory $countryCollectionFactory,
         ObjectManagerInterface $objectManager,
-        \Magento\Framework\Controller\Result\JsonFactory $jsonResultFactory
-
-
-
+        JsonFactory $jsonResultFactory
     ) {
         $this->productAction = $productAction;
         $this->productCollectionFactory = $productCollectionFactory;
@@ -236,14 +235,24 @@ class ProductRepository implements ProductRepositoryInterface
                 echo 'Incorrect "details" value!';
             }
 
+            // $lastProductId = $productCollection->getLastItem()->getId();
+            // $response = [
+            //     "prods" => $productsData,
+            //     "lastId" => $lastProductId,
+            // ];
+            
+            // $json_data = json_encode($response, JSON_PRETTY_PRINT);
+            // return $json_data;
+
             $lastProductId = $productCollection->getLastItem()->getId();
             $response = [
                 "prods" => $productsData,
                 "lastId" => $lastProductId,
             ];
-            
-            $json_data = json_encode($response, JSON_PRETTY_PRINT);
-            return $json_data;
+        
+            $jsonResult = $this->jsonResultFactory->create();
+            $jsonResult->setData($response);
+            return $jsonResult;
 
         } elseif ($method == 'getProductsBySku' && $actualToken == $token) {
             $skuArray = $requestData['sku'] ?? [];
