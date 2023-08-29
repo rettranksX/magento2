@@ -181,9 +181,10 @@ class ProductRepository implements ProductRepositoryInterface
 
                     if ($country->getId()) {
                         $isoCountryCode = $country->getData('iso3_code');
-                    } else {
-                        $isoCountryCode = $countryName;
-                    }
+                    } 
+                    // else {
+                    //     $isoCountryCode = $countryName;
+                    // }
 
                     $availableMethods = [];
                     $carriers = $this->shippingConfig->getActiveCarriers();
