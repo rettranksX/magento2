@@ -172,22 +172,20 @@ class ProductRepository implements ProductRepositoryInterface
                     $thumbnail = $productImage->getData('thumbnail');
                     $smallImage = $productImage->getData('small_image');
                     $images = [$image, $thumbnail, $smallImage];
-
                     $countryName = $product->getAttributeText('country_of_manufacture');
-
+            
                     $countryModel = $this->countryFactory->create();
                     $countryCollection = $countryModel->getCollection();
-                    $country = $countryCollection->addFieldToFilter('iso2_code', $countryName)->getFirstItem();
-                    
+                    $country = $countryCollection->addFieldToFilter('default_name', $countryName)->getFirstItem();
+        
                     if ($country->getId()) {
                         $isoCountryCode = $country->getData('iso3_code');
                     } else {
                         $isoCountryCode = $countryName;
                     }
-                    
-                    echo "Country Name: $countryName\n";
-                    echo "ISO3 Country Code: $isoCountryCode\n";                    
 
+
+                    
                     $availableMethods = [];
                     $carriers = $this->shippingConfig->getActiveCarriers();
 
