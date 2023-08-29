@@ -131,10 +131,10 @@ class ProductRepository implements ProductRepositoryInterface
             array('*')
         ]);
 
-        $productsData = [];
+        // $productsData = [];
 
         if ($method == 'getProducts' && $actualToken == $token) {
-
+            $productsData = [];
             $productCollection->setPageSize($count);
             $productCollection->setCurPage($offset);
 
