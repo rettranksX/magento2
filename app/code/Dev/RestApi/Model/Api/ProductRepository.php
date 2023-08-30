@@ -237,26 +237,14 @@ class ProductRepository implements ProductRepositoryInterface
             }
 
             $lastProductId = $productCollection->getLastItem()->getId();
-            // $response = [
-            //     "prods" => $productsData,
-            //     "lastId" => $lastProductId,
-            // ];
-            
-            // $json_data = json_encode($response, JSON_PRETTY_PRINT);
-            // return $json_data;
 
-            // $resultJson = $this->jsonResultFactory->create();
             $responseData = [
                 'prods' => $productsData,
                 'lastId' => $lastProductId,
             ];
-            // return $resultJson->setData($responseData);
 
             $jsonResponse = json_encode($responseData, JSON_PRETTY_PRINT);
             return $jsonResponse;
-            // $resultJson = $this->jsonResultFactory->create();
-            // $resultJson->setData($responseData);
-            // return $resultJson;
 
         } elseif ($method == 'getProductsBySku' && $actualToken == $token) {
             $skuArray = $requestData['sku'] ?? [];
@@ -358,14 +346,14 @@ class ProductRepository implements ProductRepositoryInterface
             }
 
             $lastProductId = $productCollection->getLastItem()->getId();
-            $response = [
-                "prods" => $productsData,
-                "lastId" => $lastProductId,
+
+            $responseData = [
+                'prods' => $productsData,
+                'lastId' => $lastProductId,
             ];
-            
-            // $jsonResponse = json_encode($response, JSON_PRETTY_PRINT);
-            // print($jsonResponse);
-            return $response;
+
+            $jsonResponse = json_encode($responseData, JSON_PRETTY_PRINT);
+            return $jsonResponse;
         } 
         else {
             // $response = [];
