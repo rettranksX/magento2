@@ -120,7 +120,7 @@ class ProductRepository implements ProductRepositoryInterface
         $requestBody = file_get_contents('php://input');
         $requestData = json_decode($requestBody, true);
 
-        $details = isset($requestData['method']) ? $requestData['method'] : null;
+        $details = isset($requestData['details']) ? $requestData['details'] : null;
         $method = isset($requestData['method']) ? $requestData['method'] : null;
         $offset = isset($requestData['offset']) ? $requestData['offset'] : null;
         $count = isset($requestData['count']) ? $requestData['count'] : null;
