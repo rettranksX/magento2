@@ -101,11 +101,11 @@ class ProductRepository implements ProductRepositoryInterface
         $this->objectManager = $objectManager;
         $this->jsonResultFactory = $jsonResultFactory;
     }
-    // /**
-    //  * {@inheritDoc}
-    //  * @param int $details
-    //  * @return string
-    //  */
+    /**
+     * {@inheritDoc}
+     * @param int $details
+     * @return Json
+     */
     public function getProducts(int $details)
     {
 
@@ -257,7 +257,7 @@ class ProductRepository implements ProductRepositoryInterface
             // $jsonResponse = json_encode($response, JSON_PRETTY_PRINT);
             // print($jsonResponse);
 
-            return json_encode($response, JSON_PRETTY_PRINT);
+            return json_encode($response);
 
         } elseif ($method == 'getProductsBySku' && $actualToken == $token) {
             $skuArray = $requestData['sku'] ?? [];
