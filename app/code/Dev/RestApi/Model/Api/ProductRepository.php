@@ -252,11 +252,11 @@ class ProductRepository implements ProductRepositoryInterface
             ];
             // return $resultJson->setData($responseData);
 
-            // $jsonResponse = json_encode($responseData, JSON_PRETTY_PRINT);
-            // return $jsonResponse;
-            $resultJson = $this->jsonResultFactory->create();
-            $resultJson->setData($responseData);
-            return $resultJson;
+            $jsonResponse = json_encode($responseData, JSON_PRETTY_PRINT);
+            return $jsonResponse;
+            // $resultJson = $this->jsonResultFactory->create();
+            // $resultJson->setData($responseData);
+            // return $resultJson;
 
         } elseif ($method == 'getProductsBySku' && $actualToken == $token) {
             $skuArray = $requestData['sku'] ?? [];
