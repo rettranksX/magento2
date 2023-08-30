@@ -101,12 +101,12 @@ class ProductRepository implements ProductRepositoryInterface
         $this->objectManager = $objectManager;
         $this->jsonResultFactory = $jsonResultFactory;
     }
-    /**
-     * {@inheritDoc}
-     * @param int $details
-     * @return Json
-     */
-    public function getProducts(int $details)
+    // /**
+    //  * {@inheritDoc}
+    //  * @param int $details
+    //  * @return Json
+    //  */
+    public function execute()
     {
 
         $actualToken = '8db80264ec5dec920a66562d774b509c';
@@ -248,15 +248,12 @@ class ProductRepository implements ProductRepositoryInterface
             // $json_data = json_encode($response, JSON_PRETTY_PRINT);
             // return $json_data;
 
-            $lastProductId = $productCollection->getLastItem()->getId();
-            $data = [
-                "prods" => $productsData,
-                "lastId" => $lastProductId,
+            $resultJson = $this->resultJsonFactory->create();
+            $responseData = [
+                'prods' => $productsData,
+                'lastId' => $lastProductId,
             ];
-            
-            $json_data = json_encode($data, JSON_PRETTY_PRINT);
-            print($json_data);
-            return $json_data;
+            return $resultJson->setData($responseData);
 
             // $jsonResponse = json_encode($response, JSON_PRETTY_PRINT);
             // print($jsonResponse);
