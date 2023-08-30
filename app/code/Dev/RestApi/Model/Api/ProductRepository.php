@@ -240,7 +240,7 @@ class ProductRepository implements ProductRepositoryInterface
                 echo 'Incorrect "details" value!';
             }
 
-            // $lastProductId = $productCollection->getLastItem()->getId();
+            $lastProductId = $productCollection->getLastItem()->getId();
             // $response = [
             //     "prods" => $productsData,
             //     "lastId" => $lastProductId,
