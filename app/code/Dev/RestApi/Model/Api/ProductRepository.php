@@ -366,7 +366,7 @@ class ProductRepository implements ProductRepositoryInterface
             print($jsonResponse);
         } 
         else {
-            $response = [];
+            // $response = [];
             return 'Incorrect Method or Token';
         }
     }
