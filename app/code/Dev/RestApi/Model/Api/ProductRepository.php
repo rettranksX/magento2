@@ -256,7 +256,7 @@ class ProductRepository implements ProductRepositoryInterface
 
             $response[] = $data;
             
-            return $response;
+            return $data;
 
             // $jsonResponse = json_encode($response, JSON_PRETTY_PRINT);
             // print($jsonResponse);
