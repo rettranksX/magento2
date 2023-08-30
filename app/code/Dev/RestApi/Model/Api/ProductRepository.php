@@ -250,7 +250,7 @@ class ProductRepository implements ProductRepositoryInterface
 
             $lastProductId = $productCollection->getLastItem()->getId();
             $data = [
-                "prods" => $productsData,
+                "prods" => (object) $productsData,
                 "lastId" => $lastProductId,
             ];
 
