@@ -254,8 +254,8 @@ class ProductRepository implements ProductRepositoryInterface
                 "lastId" => $lastProductId,
             ];
             
-            $jsonResponse = json_encode($response, JSON_PRETTY_PRINT);
-            print($jsonResponse);
+            // $jsonResponse = json_encode($response, JSON_PRETTY_PRINT);
+            // print($jsonResponse);
 
         } elseif ($method == 'getProductsBySku' && $actualToken == $token) {
             $skuArray = $requestData['sku'] ?? [];
