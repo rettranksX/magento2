@@ -249,7 +249,7 @@ class ProductRepository implements ProductRepositoryInterface
             // return $json_data;
 
             $lastProductId = $productCollection->getLastItem()->getId();
-            $data = (object) [
+            $data = [
                 "prods" => $productsData,
                 "lastId" => $lastProductId,
             ];
