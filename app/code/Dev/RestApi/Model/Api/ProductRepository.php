@@ -101,11 +101,7 @@ class ProductRepository implements ProductRepositoryInterface
         $this->objectManager = $objectManager;
         $this->jsonResultFactory = $jsonResultFactory;
     }
-    // /**
-    //  * {@inheritDoc}
-    //  * @param int $details
-    //  * @return Json
-    //  */
+
     public function execute()
     {
 
