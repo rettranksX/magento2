@@ -253,7 +253,7 @@ class ProductRepository implements ProductRepositoryInterface
             // return $resultJson->setData($responseData);
 
             $jsonResponse = json_encode($responseData, JSON_PRETTY_PRINT);
-            print($jsonResponse);
+            return $jsonResponse;
 
             // $jsonResult = $this->jsonResultFactory->create();
             // $jsonResult->setData($response);
