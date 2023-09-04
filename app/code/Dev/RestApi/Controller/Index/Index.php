@@ -1,3 +1,4 @@
+<?php
 namespace Dev\RestApi\Controller\Index;
 
 use Magento\Framework\App\Action\Action;
