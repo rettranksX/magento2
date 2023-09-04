@@ -1,6 +1,5 @@
-// app/code/MyModule/Controller/Adminhtml/Controller/Action.php
-
-namespace MyModule\Controller\Adminhtml\Controller;
+<?php
+namespace Dev\RestApi\Controller\Adminhtml\Controller;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
@@ -19,7 +18,7 @@ class Action extends Action
     public function execute()
     {
         $resultPage = $this->resultPageFactory->create();
-        $resultPage->getConfig()->getTitle()->prepend(__('My Module Page'));
+        $resultPage->getConfig()->getTitle()->prepend(__('Dev Module Page'));
         return $resultPage;
     }
 }
