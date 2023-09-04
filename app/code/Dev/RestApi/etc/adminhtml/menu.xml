@@ -2,6 +2,6 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
         <add id="Dev_RestApi::dev_module" title="Dev Module" module="Dev_RestApi" sortOrder="10" parent="Magento_Backend::content" resource="Dev_RestApi::dev_module"/>
-        <add id="Dev_RestApi::dev_module_PriceInfo_Module" title="PriceInfo_Module" module="Dev_RestApi" sortOrder="10" parent="Dev_RestApi::dev_module" action="dev_restapi/controller/action" resource="Dev_RestApi::dev_module_PriceInfo_Module"/>
+        <add id="Dev_RestApi::dev_module_PriceInfo_Module" title="PriceInfo_Module" module="Dev_RestApi" sortOrder="10" parent="Dev_RestApi::dev_module" action="dev/controller/action" resource="Dev_RestApi::dev_module_PriceInfo_Module"/>
     </menu>
 </config>
