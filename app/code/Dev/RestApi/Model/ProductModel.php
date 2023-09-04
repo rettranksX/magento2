@@ -1,3 +1,4 @@
+<?php
 namespace Dev\RestApi\Model;
 
 class ProductModel

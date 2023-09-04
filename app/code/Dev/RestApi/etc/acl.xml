@@ -4,8 +4,6 @@
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
-                <resource id="Dev_RestApi::products" title="Dev API - Products"
-                        translate="title" sortOrder="110">
                 <resource id="Dev_RestApi::products_get_products" title="Get Products Data"
                         translate="title" sortOrder="20" />
                 <resource id="Dev_RestApi::dev_module" title="Dev Module" sortOrder="10" />
