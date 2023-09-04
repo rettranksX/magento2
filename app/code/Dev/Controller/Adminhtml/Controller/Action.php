@@ -1,11 +1,11 @@
 <?php
-namespace Dev\RestApi\Controller\Adminhtml\Controller;
+namespace Dev\RestApi\Controller\Adminhtml\MyController;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\View\Result\PageFactory;
 
-class Action extends Action
+class Index extends Action
 {
     protected $resultPageFactory;
 
