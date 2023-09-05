@@ -1,5 +1,5 @@
 <?php
-namespace Dev\Controller\Adminhtml\Controller;
+namespace Dev\RestApi\Controller\Adminhtml\Controller;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
