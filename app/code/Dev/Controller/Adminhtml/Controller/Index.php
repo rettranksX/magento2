@@ -5,7 +5,7 @@ use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\View\Result\PageFactory;
 
-class index extends Action
+class Index extends Action
 {
     protected $resultPageFactory;
 
