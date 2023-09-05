@@ -1,0 +1,14 @@
+<form method="post" action="<?= $block->getUrl('dev/controller/save') ?>">
+    <?= $block->getBlockHtml('formkey') ?>
+    <div class="admin__field">
+        <label for="token" class="admin__field-label">Token</label>
+        <div class="admin__field-control">
+            <input type="text" id="token" name="token" class="admin__control-text" />
+        </div>
+    </div>
+    <div class="admin__actions">
+        <button type="submit" class="action-primary">
+            <span>Add</span>
+        </button>
+    </div>
+</form>

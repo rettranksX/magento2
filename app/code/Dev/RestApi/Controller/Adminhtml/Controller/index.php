@@ -1,4 +1,5 @@
 <?php
+
 namespace Dev\RestApi\Controller\Adminhtml\Controller;
 
 use Magento\Backend\App\Action;
@@ -19,6 +20,12 @@ class Index extends Action
     {
         $resultPage = $this->resultPageFactory->create();
         $resultPage->getConfig()->getTitle()->prepend(__('Dev Module Page'));
+
+        $block = $resultPage->getLayout()->getBlock('content');
+        if ($block) {
+            $block->setTemplate('Dev_RestApi::token/form.phtml');
+        }
+
         return $resultPage;
     }
 }
