@@ -23,7 +23,7 @@ class Index extends Action
 
         $block = $resultPage->getLayout()->getBlock('content');
         if ($block) {
-            $block->setTemplate('Dev_RestApi::token/form.phtml');
+            $block->setTemplate('Dev_RestApi::form.phtml');
         }
 
         return $resultPage;
