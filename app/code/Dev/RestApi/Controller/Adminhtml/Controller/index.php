@@ -76,7 +76,10 @@ class Index extends Action implements HttpGetActionInterface
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu(static::MENU_ID);
         $resultPage->getConfig()->getTitle()->prepend(__('Hello'));
-
+    
+        $resultPage->getLayout()->getBlock('content')->setData('custom_data', 'Custom Data Value');
+    
         return $resultPage;
     }
+    
 }
