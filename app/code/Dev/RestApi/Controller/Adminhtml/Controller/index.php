@@ -67,7 +67,7 @@ class Index extends Action implements HttpGetActionInterface
     }
 
     /**
-     * Load the page defined in view/adminhtml/layout/exampleadminnewpage_helloworld_index.xml
+     * Load the page defined in view/adminhtml/layout/token_index.xml
      *
      * @return Page
      */
@@ -75,7 +75,7 @@ class Index extends Action implements HttpGetActionInterface
     {
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu(static::MENU_ID);
-        $resultPage->getConfig()->getTitle()->prepend(__('Hello World'));
+        $resultPage->getConfig()->getTitle()->prepend(__('Hello'));
 
         return $resultPage;
     }
