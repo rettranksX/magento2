@@ -22,11 +22,9 @@ class Index extends Action
         $resultPage->getConfig()->getTitle()->prepend(__('Dev Module Page'));
 
         $block = $resultPage->getLayout()->getBlock('content');
-        if ($block) {
+        // if ($block) {
             $block->setTemplate('Dev_RestApi::form.phtml');
-        }
-
-        echo $block;
+        // }
 
         return $resultPage;
     }
