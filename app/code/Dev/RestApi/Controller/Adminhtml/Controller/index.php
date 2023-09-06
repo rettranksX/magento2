@@ -24,6 +24,8 @@ class Index extends Action
         $block = $resultPage->getLayout()->getBlock('content');
         if ($block) {
             $block->setTemplate('Dev_RestApi::form.phtml');
+        } else {
+            echo 'NO';
         }
 
         return $resultPage;
