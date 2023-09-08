@@ -20,7 +20,7 @@ class Index extends Action
     {
         $resultPage = $this->resultPageFactory->create();
         $resultPage->getConfig()->getTitle()->prepend(__('Dev Module Page'));
-
+        
         // $block = $resultPage->getLayout()->getBlock('content');
         // if ($block) {
         //     $block->setTemplate('Dev_RestApi::form.phtml');
