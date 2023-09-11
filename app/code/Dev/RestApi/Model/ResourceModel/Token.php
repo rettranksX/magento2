@@ -7,6 +7,6 @@ class Token extends AbstractDb
 {
     protected function _construct()
     {
-        $this->_init('dev_restapi_tokens', 'token_id');
+        $this->_init('token_table', 'token_id');
     }
 }

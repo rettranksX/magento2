@@ -1,5 +1,5 @@
 <?php
-namespace Dev\RestApi\Setup;
+namespace Vendor\Module\Setup;
 
 use Magento\Framework\Setup\InstallSchemaInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
@@ -12,13 +12,14 @@ class InstallSchema implements InstallSchemaInterface
         $installer = $setup;
         $installer->startSetup();
 
+        // Создаем таблицу для хранения токенов
         $table = $installer->getConnection()
-            ->newTable($installer->getTable('dev_restapi_tokens'))
+            ->newTable($installer->getTable('token_table'))
             ->addColumn(
                 'token_id',
                 \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
                 null,
-                ['identity' => true, 'nullable' => false, 'primary' => true],
+                ['identity' => true, 'unsigned' => true, 'nullable' => false, 'primary' => true],
                 'Token ID'
             )
             ->addColumn(
@@ -27,9 +28,18 @@ class InstallSchema implements InstallSchemaInterface
                 255,
                 ['nullable' => false],
                 'Token Value'
-            );
+            )
+            ->addColumn(
+                'created_at',
+                \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
+                null,
+                ['nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT],
+                'Created At'
+            )
+            ->setComment('Token Table');
 
         $installer->getConnection()->createTable($table);
+
         $installer->endSetup();
     }
 }
