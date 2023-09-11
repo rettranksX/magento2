@@ -1,20 +1,18 @@
 <?php
-namespace Magetop\Helloworld\Setup;
- 
-use Magento\Framework\DB\Ddl\Table;
+namespace Test\Helloworld\Setup;
 use Magento\Framework\Setup\InstallSchemaInterface;
-use Magento\Framework\Setup\SchemaSetupInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
- 
+use Magento\Framework\Setup\SchemaSetupInterface;
+use Magento\Framework\DB\Ddl\Table;
 class InstallSchema implements InstallSchemaInterface
 {
     public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
-        $installer = $setup;
-        $installer->startSetup();
-        $tableName = $installer->getTable('magetop_blog');
-        //Check for the existence of the table
-        if ($installer->getConnection()->isTableExists($tableName) != true) {
+        $installer = $setup; $installer->startSetup();
+        $tableName = $installer->getTable('test_helloworld'); // Get test_helloworld table
+        // Check if the table already exists
+        if ($installer->getConnection()->isTableExists($tableName) != true)
+        {
             $table = $installer->getConnection()
                 ->newTable($tableName)
                 ->addColumn(
@@ -22,6 +20,7 @@ class InstallSchema implements InstallSchemaInterface
                     Table::TYPE_INTEGER,
                     null,
                     [
+
                         'identity' => true,
                         'unsigned' => true,
                         'nullable' => false,
@@ -30,39 +29,51 @@ class InstallSchema implements InstallSchemaInterface
                     'ID'
                 )
                 ->addColumn(
-                    'title',
+                    'name',
                     Table::TYPE_TEXT,
                     null,
-                    ['nullable' => false, 'default' => ''],
-                    'Title'
+                    [
+                        'nullable' => false,
+                        'default' => ''
+                    ],
+                    'Name'
                 )
                 ->addColumn(
                     'description',
                     Table::TYPE_TEXT,
                     null,
-                    ['nullable' => false, 'default' => ''],
+                    [
+                        'nullable' => false,
+                        'default' => ''
+                    ],
                     'Description'
                 )
                 ->addColumn(
-                    'created_at',
+                   'created_at',
                     Table::TYPE_DATETIME,
                     null,
-                    ['nullable' => false],
+                    [
+                        'nullable' => false
+
+                    ],
+
                     'Created At'
                 )
                 ->addColumn(
                     'status',
                     Table::TYPE_SMALLINT,
                     null,
-                    ['nullable' => false, 'default' => '0'],
+                    [
+                        'nullable' => false,
+                        'default' => '0'
+                    ],
                     'Status'
+
                 )
-                //Set comment for magetop_blog table
-                ->setComment('Magetop Blog Table')
-                //Set option for magetop_blog table
+                ->setComment('Test Helloworld Table')
                 ->setOption('type', 'InnoDB')
                 ->setOption('charset', 'utf8');
-            $installer->getConnection()->createTable($table);
+                $installer->getConnection()->createTable($table);
         }
         $installer->endSetup();
     }
