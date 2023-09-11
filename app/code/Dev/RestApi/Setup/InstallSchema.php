@@ -1,5 +1,5 @@
 <?php
-namespace Test\Helloworld\Setup;
+namespace Dev\RestApi\Setup;
 use Magento\Framework\Setup\InstallSchemaInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
@@ -9,8 +9,7 @@ class InstallSchema implements InstallSchemaInterface
     public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
         $installer = $setup; $installer->startSetup();
-        $tableName = $installer->getTable('test_helloworld'); // Get test_helloworld table
-        // Check if the table already exists
+        $tableName = $installer->getTable('test_helloworld');
         if ($installer->getConnection()->isTableExists($tableName) != true)
         {
             $table = $installer->getConnection()
