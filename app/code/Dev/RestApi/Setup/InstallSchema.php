@@ -12,7 +12,6 @@ class InstallSchema implements InstallSchemaInterface
         $installer = $setup;
         $installer->startSetup();
 
-        // Создаем таблицу для хранения токенов
         $table = $installer->getConnection()
             ->newTable($installer->getTable('token_table'))
             ->addColumn(
