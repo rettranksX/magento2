@@ -1,44 +1,69 @@
 <?php
-namespace Vendor\Module\Setup;
-
+namespace Magetop\Helloworld\Setup;
+ 
+use Magento\Framework\DB\Ddl\Table;
 use Magento\Framework\Setup\InstallSchemaInterface;
-use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
-
+use Magento\Framework\Setup\ModuleContextInterface;
+ 
 class InstallSchema implements InstallSchemaInterface
 {
     public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
         $installer = $setup;
         $installer->startSetup();
-
-        $table = $installer->getConnection()
-            ->newTable($installer->getTable('token_table'))
-            ->addColumn(
-                'token_id',
-                \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-                null,
-                ['identity' => true, 'unsigned' => true, 'nullable' => false, 'primary' => true],
-                'Token ID'
-            )
-            ->addColumn(
-                'token_value',
-                \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-                255,
-                ['nullable' => false],
-                'Token Value'
-            )
-            ->addColumn(
-                'created_at',
-                \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
-                null,
-                ['nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT],
-                'Created At'
-            )
-            ->setComment('Token Table');
-
-        $installer->getConnection()->createTable($table);
-
+        $tableName = $installer->getTable('magetop_blog');
+        //Check for the existence of the table
+        if ($installer->getConnection()->isTableExists($tableName) != true) {
+            $table = $installer->getConnection()
+                ->newTable($tableName)
+                ->addColumn(
+                    'id',
+                    Table::TYPE_INTEGER,
+                    null,
+                    [
+                        'identity' => true,
+                        'unsigned' => true,
+                        'nullable' => false,
+                        'primary' => true
+                    ],
+                    'ID'
+                )
+                ->addColumn(
+                    'title',
+                    Table::TYPE_TEXT,
+                    null,
+                    ['nullable' => false, 'default' => ''],
+                    'Title'
+                )
+                ->addColumn(
+                    'description',
+                    Table::TYPE_TEXT,
+                    null,
+                    ['nullable' => false, 'default' => ''],
+                    'Description'
+                )
+                ->addColumn(
+                    'created_at',
+                    Table::TYPE_DATETIME,
+                    null,
+                    ['nullable' => false],
+                    'Created At'
+                )
+                ->addColumn(
+                    'status',
+                    Table::TYPE_SMALLINT,
+                    null,
+                    ['nullable' => false, 'default' => '0'],
+                    'Status'
+                )
+                //Set comment for magetop_blog table
+                ->setComment('Magetop Blog Table')
+                //Set option for magetop_blog table
+                ->setOption('type', 'InnoDB')
+                ->setOption('charset', 'utf8');
+            $installer->getConnection()->createTable($table);
+        }
         $installer->endSetup();
     }
 }
