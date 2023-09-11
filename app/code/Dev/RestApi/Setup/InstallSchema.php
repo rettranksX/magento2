@@ -1,52 +1,35 @@
 <?php
+namespace Dev\RestApi\Setup;
 
 use Magento\Framework\Setup\InstallSchemaInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
-use Magento\Eav\Setup\EavSetup;
-use Magento\Eav\Setup\EavSetupFactory;
 
 class InstallSchema implements InstallSchemaInterface
 {
-    private $eavSetupFactory;
-
-    public function __construct(EavSetupFactory $eavSetupFactory)
-    {
-        $this->eavSetupFactory = $eavSetupFactory;
-    }
-
     public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
-        $setup->startSetup();
+        $installer = $setup;
+        $installer->startSetup();
 
-        $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
+        $table = $installer->getConnection()
+            ->newTable($installer->getTable('dev_restapi_tokens'))
+            ->addColumn(
+                'token_id',
+                \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                null,
+                ['identity' => true, 'nullable' => false, 'primary' => true],
+                'Token ID'
+            )
+            ->addColumn(
+                'token_value',
+                \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                255,
+                ['nullable' => false],
+                'Token Value'
+            );
 
-        $eavSetup->addAttribute(
-            \Magento\Catalog\Model\Product::ENTITY,
-            'token',
-            [
-                'type' => 'varchar',
-                'backend' => '',
-                'frontend' => '',
-                'label' => 'Token',
-                'input' => 'text',
-                'class' => '',
-                'source' => '',
-                'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
-                'visible' => true,
-                'required' => false,
-                'user_defined' => true,
-                'default' => '',
-                'searchable' => false,
-                'filterable' => false,
-                'comparable' => false,
-                'visible_on_front' => true,
-                'used_in_product_listing' => true,
-                'unique' => false,
-                'apply_to' => '',
-            ]
-        );
-
-        $setup->endSetup();
+        $installer->getConnection()->createTable($table);
+        $installer->endSetup();
     }
 }
