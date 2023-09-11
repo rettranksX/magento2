@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <add id="Dev_RestApi::dev_module" title="Dev Module" module="Dev_RestApi" sortOrder="10" parent="Magento_Backend::content" resource="Dev_RestApi::dev_module"/>
-        <add id="Dev_RestApi::dev_module_PriceInfo_Module" title="PriceInfo_Module" module="Dev_RestApi" sortOrder="10" parent="Dev_RestApi::dev_module" action="devrestapi/controller/index" resource="Dev_RestApi::dev_module_PriceInfo_Module"/>
+      <add id="Dev_RestApi::PriceInfo_Module" title="PriceInfo Module" translate="title" module="Dev_RestApi" parent="Magento_Backend::content" sortOrder="50" dependsOnModule="Dev_RestApi" resource="Dev_RestApi::PriceInfo_Module"/>
+      <add id="Dev_RestApi::PriceInfo_Module_form" title="PriceInfo_Module" translate="title" module="Dev_RestApi" parent="Dev_RestApi::PriceInfo_Module" sortOrder="10" dependsOnModule="Dev_RestApi" action="dev/controller" resource="Dev_RestApi::PriceInfo_Module"/>
     </menu>
 </config>
