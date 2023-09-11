@@ -7,7 +7,7 @@
     </referenceBlock>
     <body>
         <referenceContainer name="content">
-            <block class="Magento\Backend\Block\Template" template="Dev_RestApi::form.phtml"/>
+            <block class="Magento\Backend\Block\Template" template="Dev_RestApi::token/form.phtml"/>
         </referenceContainer>
     </body>
 </page>
