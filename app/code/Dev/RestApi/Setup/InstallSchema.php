@@ -69,8 +69,8 @@ class InstallSchema implements InstallSchemaInterface
                     'Status'
 
                 )
-                ->setComment('Test Helloworld Table')
-                ->setOption('type', 'InnoDB')
+                ->setComment('Test Table')
+                ->setOption('type', 'MariaDB')
                 ->setOption('charset', 'utf8');
                 $installer->getConnection()->createTable($table);
         }
