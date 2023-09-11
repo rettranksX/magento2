@@ -1,1 +1,4 @@
-<p>Hello broo</p>
+<form action="<?php echo $block->getSaveActionUrl(); ?>" method="post">
+    <input type="text" name="token" id="token" value="<?php echo $block->getToken(); ?>" />
+    <button type="submit">Сохранить</button>
+</form>
