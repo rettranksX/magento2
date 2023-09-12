@@ -33,6 +33,7 @@ class Save extends Action
                 return;
             } catch (\Exception $e) {
                 $this->messageManager->addErrorMessage($e->getMessage());
+                echo 'TEST';
             }
         }
 
