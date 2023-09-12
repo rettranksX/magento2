@@ -2,9 +2,9 @@
 
 namespace Dev\RestApi\Model;
 
-use Magento\Framework\Model\AbstractModel;
-use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollectionFactory;
+use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
+use Magento\Framework\Model\AbstractModelFactory;
 
 class TokenFactory
 {
