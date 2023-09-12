@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="token_table" resource="default" engine="innodb" comment="Token Table">
+        <column xsi:type="int" name="token_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Token ID"/>
+        <column xsi:type="text" name="token_value" nullable="false" comment="Token Value"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="token_id"/>
+        </constraint>
+    </table>
+</schema>
