@@ -12,7 +12,7 @@ class Form extends Generic
             [
                 'data' => [
                     'id' => 'edit_form',
-                    'action' => $this->getUrl('*/*/save'),
+                    'action' => $this->getUrl('*/*/Save'),
                     'method' => 'post',
                 ],
             ]
