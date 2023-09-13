@@ -6,7 +6,7 @@ use Magento\Framework\App\Action\HttpGetActionInterface;
 use Dev\RestApi\Model\Api\ProductModel;
 use Magento\Framework\Controller\Result\JsonFactory;
 
-class ProductRepository extends \Magento\Framework\App\Action\Action implements HttpGetActionInterface
+class ProductController extends \Magento\Framework\App\Action\Action implements HttpGetActionInterface
 {
     private $productModel;
     private $jsonResultFactory;
