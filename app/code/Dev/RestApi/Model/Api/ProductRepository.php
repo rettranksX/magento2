@@ -21,7 +21,6 @@ class ProductRepository implements ProductRepositoryInterface
     private $productModel;
     private $jsonResultFactory;
     public function __construct(
-        Action $productAction,
         ShippingConfig $shippingConfig,
         CollectionFactory $productCollectionFactory,
         StoreManagerInterface $storeManager,
@@ -36,7 +35,6 @@ class ProductRepository implements ProductRepositoryInterface
         ObjectManagerInterface $objectManager,
         JsonFactory $jsonResultFactory
     ) {
-        $this->productAction = $productAction;
         $this->productCollectionFactory = $productCollectionFactory;
         $this->storeManager = $storeManager;
         $this->categoryRepository = $categoryRepository;
