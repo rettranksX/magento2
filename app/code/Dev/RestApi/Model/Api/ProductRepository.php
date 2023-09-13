@@ -1,5 +1,5 @@
 <?php
-namespace Dev\RestApi\Controller\Api;
+namespace Dev\RestApi\Model\Api;
 
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\Action\HttpGetActionInterface;
