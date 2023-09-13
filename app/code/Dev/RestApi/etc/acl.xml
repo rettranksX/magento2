@@ -8,7 +8,7 @@
                         translate="title" sortOrder="110">
                 <resource id="Dev_RestApi::products_get_products" title="Get Products Data"
                         translate="title" sortOrder="20" />
-                <resource id="Dev_RestApi::dev" title="Module" sortOrder="10">
+                <resource id="Dev_RestApi::dev_restapi" title="Module" sortOrder="10">
                     <resource id="Dev_RestApi::dev_index" title="Dev Index" sortOrder="10" />
                 </resource>
             </resource>
