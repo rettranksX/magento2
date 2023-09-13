@@ -16,11 +16,62 @@ use Magento\Framework\App\Config\Storage\WriterInterface;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Framework\Controller\Result\JsonFactory;
 
+
+/**
+ * Class ProductRepository
+ */
 class ProductRepository implements ProductRepositoryInterface
 {
-    private $productModel;
+
+    /**
+     * @var Action
+     */
+    private $productAction;
+    /**
+     * @var CollectionFactory
+     */
+    private $productCollectionFactory;
+    /**
+     * @var StoreManagerInterface
+     */
+    private $storeManager;
+    private $categoryRepository;
+    /**
+     * @param Action $productAction
+     * @param CollectionFactory $productCollectionFactory
+     * @param StoreManagerInterface $storeManager
+     */
+
+    /**
+     * @var ShippingConfig
+     */
+    private $shippingConfig;
+
+    /**
+     * @param ShippingConfig $shippingConfig
+     */
+    protected $_country;
+    protected $_productRepositoryFactory;
+    protected $request;
+    /**
+     * @var CountryFactory
+     */
+    private $countryFactory;
+
+        /**
+     * @var ScopeConfigInterface
+     */
+    private $scopeConfig;
+
+    protected $configWriter;
+    private $countryCollectionFactory;
+    private $objectManager;
+     /**
+     * @var \Magento\Framework\Controller\Result\JsonFactory
+     */
     private $jsonResultFactory;
     public function __construct(
+        Action $productAction,
         ShippingConfig $shippingConfig,
         CollectionFactory $productCollectionFactory,
         StoreManagerInterface $storeManager,
@@ -35,6 +86,7 @@ class ProductRepository implements ProductRepositoryInterface
         ObjectManagerInterface $objectManager,
         JsonFactory $jsonResultFactory
     ) {
+        $this->productAction = $productAction;
         $this->productCollectionFactory = $productCollectionFactory;
         $this->storeManager = $storeManager;
         $this->categoryRepository = $categoryRepository;
