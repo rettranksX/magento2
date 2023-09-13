@@ -6,14 +6,14 @@ use Magento\Backend\Block\Widget\Form\Generic;
 
 class Form extends Generic
 {
-    public function _prepareForm()
+    protected function _prepareForm()
     {
         $form = $this->_formFactory->create(
             [
                 'data' => [
                     'id' => 'edit_form',
                     'action' => $this->getUrl('*/*/save'),
-                    'method' => 'post'
+                    'method' => 'get'
                 ],
             ]
         );
