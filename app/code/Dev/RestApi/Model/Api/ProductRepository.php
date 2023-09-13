@@ -1,9 +1,9 @@
 <?php
-namespace Dev\RestApi\Controller\Api;
+namespace Dev\RestApi\Model\Api;
 
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\Action\HttpGetActionInterface;
-// use Dev\RestApi\Model\Api\ProductModel;
+use Dev\RestApi\Model\Api\ProductModel;
 use Magento\Framework\Controller\Result\JsonFactory;
 
 class ProductRepository extends \Magento\Framework\App\Action\Action implements HttpGetActionInterface
