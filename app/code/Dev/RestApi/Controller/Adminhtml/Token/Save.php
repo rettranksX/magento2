@@ -32,7 +32,7 @@ class Save extends Action
                 $this->_redirect('*/*/index');
                 return;
             } catch (\Exception $e) {
-                // $this->messageManager->addErrorMessage($e->getMessage());
+                $this->messageManager->addErrorMessage($e->getMessage());
             }
         }
 

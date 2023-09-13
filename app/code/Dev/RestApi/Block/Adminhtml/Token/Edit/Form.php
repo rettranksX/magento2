@@ -14,6 +14,7 @@ class Form extends Generic
                     'id' => 'edit_form',
                     'action' => $this->getUrl('*/*/save'),
                     'method' => 'post',
+                    'comment' => 'Test'
                 ],
             ]
         );
