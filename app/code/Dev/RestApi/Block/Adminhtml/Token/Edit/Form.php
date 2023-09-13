@@ -13,7 +13,7 @@ class Form extends Generic
                 'data' => [
                     'id' => 'edit_form',
                     // 'action' => $this->getUrl('*/*/save'),
-                    'action' => $this->getUrl('controller/save'),
+                    'action' => $this->getUrl('adminhtml/save'),
                     'method' => 'post'
                 ],
             ]
