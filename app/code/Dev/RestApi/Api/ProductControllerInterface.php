@@ -1,7 +1,7 @@
 <?php
 namespace Dev\RestApi\Api;
 
-interface ProductRepositoryInterface
+interface ProductControllerInterface
 {
     /**
      * Get a list of products.
