@@ -11,9 +11,4 @@ class Token extends AbstractModel
     {
         $this->_init(TokenResourceModel::class);
     }
-
-    public function getTable()
-    {
-        return $this->getResource()->getTable('token_table');
-    }
 }
