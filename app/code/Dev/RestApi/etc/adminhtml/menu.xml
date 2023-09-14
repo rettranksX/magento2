@@ -1,7 +1,11 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
-    <menu>
+    <!-- <menu>
       <add id="Dev_RestApi::PriceInfo_Module" title="Module" translate="title" module="Dev_RestApi" parent="Magento_Backend::content" sortOrder="50" dependsOnModule="Dev_RestApi" resource="Dev_RestApi::PriceInfo_Module"/>
       <add id="Dev_RestApi::PriceInfo_Module_controller" title="PriceInfo_Module" translate="title" module="Dev_RestApi" parent="Dev_RestApi::PriceInfo_Module" sortOrder="10" dependsOnModule="Dev_RestApi" action="dev_restapi/controller" resource="Dev_RestApi::PriceInfo_Module"/>
+    </menu> -->
+    <menu>
+        <add id="Dev_RestApi::Token" title="Токены" module="Dev_RestApi" parent="Magento_Backend::content" sortOrder="50" resource="Dev_RestApi::token"/>
+        <add id="Dev_RestApi::Token::index" title="Управление Токенами" module="Dev_RestApi" parent="Dev_RestApi::Token" sortOrder="10" action="dev_restapi/token/index" resource="Dev_RestApi::token"/>
     </menu>
 </config>

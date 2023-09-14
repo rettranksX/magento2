@@ -1,51 +1,26 @@
 <?php
 
-namespace Dev\RestApi\Controller\Adminhtml\Controller;
+namespace Dev\RestApi\Controller\Adminhtml\Controller\Token;
 
 use Magento\Backend\App\Action;
-use Magento\Backend\App\Action\Context;
-use Magento\Framework\App\Action\HttpGetActionInterface;
-use Magento\Framework\View\Result\Page;
 use Magento\Framework\View\Result\PageFactory;
 
-/**
- * Class Index
- */
-class Index extends Action implements HttpGetActionInterface
+class Index extends Action
 {
-    const MENU_ID = 'Dev_RestApi::PriceInfo_Module_form';
-
-    /**
-     * @var PageFactory
-     */
     protected $resultPageFactory;
 
-    /**
-     * Index constructor.
-     *
-     * @param Context $context
-     * @param PageFactory $resultPageFactory
-     */
     public function __construct(
-        Context $context,
+        Action\Context $context,
         PageFactory $resultPageFactory
     ) {
         parent::__construct($context);
-
         $this->resultPageFactory = $resultPageFactory;
     }
 
-    /**
-     * Load the page defined in view/adminhtml/layout/exampleadminnewpage_helloworld_index.xml
-     *
-     * @return Page
-     */
     public function execute()
     {
         $resultPage = $this->resultPageFactory->create();
-        $resultPage->setActiveMenu(static::MENU_ID);
-        $resultPage->getConfig()->getTitle()->prepend(__('PriceInfo'));
-
+        $resultPage->getConfig()->getTitle()->prepend(__('Данные о Токенах'));
         return $resultPage;
     }
 }
