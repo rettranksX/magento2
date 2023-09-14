@@ -1,6 +1,6 @@
 <?php
 
-namespace Dev\RestApi\Controller\Adminhtml\Controller\Token;
+namespace Dev\RestApi\Controller\Adminhtml\Token;
 
 use Magento\Backend\App\Action;
 use Magento\Framework\View\Result\PageFactory;
@@ -20,7 +20,7 @@ class Index extends Action
     public function execute()
     {
         $resultPage = $this->resultPageFactory->create();
-        $resultPage->getConfig()->getTitle()->prepend(__('Данные о Токенах'));
+        $resultPage->getConfig()->getTitle()->prepend(__('Token data'));
         return $resultPage;
     }
 }
