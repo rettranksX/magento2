@@ -107,8 +107,8 @@ class ProductRepository implements ProductRepositoryInterface
 
         $actualToken = '8db80264ec5dec920a66562d774b509c';
 
-        $country = $this->_countryFactory->create()->loadByCode("U");
-        var_dump($country->getName());
+        // $country = $this->_countryFactory->create()->loadByCode("US");
+        // var_dump($country->getName());
 
         $authorizationHeader = $_SERVER['HTTP_AUTHORIZATION'];
 
@@ -155,7 +155,7 @@ class ProductRepository implements ProductRepositoryInterface
                     $productData = [
                         'sku' => $product->getSku(),
                         'url' => $product->getUrlKey(),
-                        'manufacturer' => $product->getAttributeText('country_of_manufacture'),
+                        'manufacturer' => $product->getData('country_of_manufacture'),
                         'model' => $product->getModel(),
                         'ean' => $product->getEan(),
                         'price' => $product->getPrice(),
