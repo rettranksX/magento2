@@ -112,7 +112,7 @@ class ProductRepository implements ProductRepositoryInterface
         $countryId = '';
         $countryCollection = $this->_countryFactory->create()->getCollection();
         foreach ($countryCollection as $country) {
-            if ('United Kingdom' == $country->getName()) {
+            if ('United States' == $country->getName()) {
                 $countryId = $country->getCountryId();
                 break;
             }
