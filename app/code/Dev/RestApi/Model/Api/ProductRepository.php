@@ -159,11 +159,10 @@ class ProductRepository implements ProductRepositoryInterface
             $productCollection->setCurPage($offset);
 
 
-            $countryName = $product->getAttributeText('country_of_manufacture');
-            $manufacturer = $this->getCountryCodeByFullName($countryName);
-
             if ($details == 0) {
                 foreach ($productCollection as $product) {
+                    $countryName = $product->getAttributeText('country_of_manufacture');
+                    $manufacturer = $this->getCountryCodeByFullName($countryName);
                     $productData = [
                         'sku' => $product->getSku(),
                         'url' => $product->getUrlKey(),
