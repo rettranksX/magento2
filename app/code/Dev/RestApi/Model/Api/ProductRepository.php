@@ -107,6 +107,9 @@ class ProductRepository implements ProductRepositoryInterface
 
         $actualToken = '8db80264ec5dec920a66562d774b509c';
 
+        $country = $this->_countryFactory->create()->loadByCode("US");
+        var_dump($country->getName());
+
         $authorizationHeader = $_SERVER['HTTP_AUTHORIZATION'];
 
         if (preg_match('/Bearer\s+(.*)/', $authorizationHeader, $matches)) {
@@ -146,8 +149,6 @@ class ProductRepository implements ProductRepositoryInterface
                     // $isoCountryCode = $country->getIso2Code();
 
                     // echo $isoCountryCode;
-                    $country = $this->_countryFactory->create()->loadByCode("US");
-                    echo $country->getName();
 
 
 
