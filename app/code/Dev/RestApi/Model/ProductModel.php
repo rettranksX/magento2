@@ -263,7 +263,7 @@ class ProductModel implements ProductRepositoryInterface
     }
 
     public function execute() {
-
+        echo "hi";
     }
 
 }
