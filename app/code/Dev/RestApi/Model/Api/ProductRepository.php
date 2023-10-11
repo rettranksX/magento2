@@ -158,6 +158,10 @@ class ProductRepository implements ProductRepositoryInterface
             $productCollection->setPageSize($count);
             $productCollection->setCurPage($offset);
 
+
+            $countryName = $product->getAttributeText('country_of_manufacture');
+            $manufacturer = $this->getCountryCodeByFullName($countryName);
+
             if ($details == 0) {
                 foreach ($productCollection as $product) {
                     $productData = [
@@ -294,15 +298,17 @@ class ProductRepository implements ProductRepositoryInterface
 
                         $countryName = $product->getAttributeText('country_of_manufacture');
 
-                        $countryModel = $this->_countryFactory->create();
-                        $countryCollection = $countryModel->getCollection();
-                        $country = $countryCollection->addFieldToFilter('iso2_code', $countryName)->getFirstItem();
+                        $manufacturer = $this->getCountryCodeByFullName($countryName);
 
-                        if ($country->getId()) {
-                            $isoCountryCode = $country->getIso2Code();
-                        } else {
-                            $isoCountryCode = $countryName;
-                        }
+                        // $countryModel = $this->_countryFactory->create();
+                        // $countryCollection = $countryModel->getCollection();
+                        // $country = $countryCollection->addFieldToFilter('iso2_code', $countryName)->getFirstItem();
+
+                        // if ($country->getId()) {
+                        //     $isoCountryCode = $country->getIso2Code();
+                        // } else {
+                        //     $isoCountryCode = $countryName;
+                        // }
 
                         $availableMethods = [];
                         $carriers = $this->shippingConfig->getActiveCarriers();
@@ -319,7 +325,7 @@ class ProductRepository implements ProductRepositoryInterface
                         }
 
                         $deliveryOptions[] = [
-                            "country" => $isoCountryCode,
+                            "country" => $manufacturer,
                             "carriers" => $availableMethods,
                         ];
 
