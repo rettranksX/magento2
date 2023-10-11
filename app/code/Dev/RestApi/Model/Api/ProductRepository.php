@@ -53,10 +53,10 @@ class ProductRepository implements ProductRepositoryInterface
     protected $_country;
     protected $_productRepositoryFactory;
     protected $request;
-    /**
-     * @var CountryFactory
-     */
-    private $countryFactory;
+
+
+    protected $_countryFactory;
+
 
         /**
      * @var ScopeConfigInterface
@@ -77,7 +77,6 @@ class ProductRepository implements ProductRepositoryInterface
         StoreManagerInterface $storeManager,
         CategoryRepositoryInterface $categoryRepository,
         ScopeConfigInterface $scopeConfig,
-        \Magento\Directory\Model\CountryFactory $countryFactory,
         \Magento\Directory\Model\Country $country,
         \Magento\Catalog\Api\ProductRepositoryInterfaceFactory $productRepositoryFactory,
         RequestInterface $request,
@@ -85,6 +84,9 @@ class ProductRepository implements ProductRepositoryInterface
         CollectionFactory $countryCollectionFactory,
         ObjectManagerInterface $objectManager,
         JsonFactory $jsonResultFactory
+        \Magento\Backend\Block\Template\Context $context,
+        \Magento\Directory\Model\CountryFactory $countryFactory,
+        array $data = []
     ) {
         $this->productAction = $productAction;
         $this->productCollectionFactory = $productCollectionFactory;
@@ -92,7 +94,6 @@ class ProductRepository implements ProductRepositoryInterface
         $this->categoryRepository = $categoryRepository;
         $this->shippingConfig = $shippingConfig;
         $this->scopeConfig = $scopeConfig;
-        $this->countryFactory = $countryFactory;
         $this->_country = $country;
         $this->_productRepositoryFactory = $productRepositoryFactory;
         $this->request = $request;
@@ -100,6 +101,8 @@ class ProductRepository implements ProductRepositoryInterface
         $this->countryCollectionFactory = $countryCollectionFactory;
         $this->objectManager = $objectManager;
         $this->jsonResultFactory = $jsonResultFactory;
+        $this->_countryFactory = $countryFactory;
+        parent::__construct($context, $data);
     }
 
     public function execute()
@@ -146,6 +149,8 @@ class ProductRepository implements ProductRepositoryInterface
                     // $isoCountryCode = $country->getIso2Code();
 
                     // echo $isoCountryCode;
+                    $country = $this->_countryFactory->create()->loadByCode("US");
+                    echo $country->getName();
 
 
 
