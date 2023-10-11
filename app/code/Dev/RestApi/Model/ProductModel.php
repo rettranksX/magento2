@@ -262,8 +262,8 @@ class ProductModel implements ProductRepositoryInterface
         return '';
     }
 
-    // public function execute() {
-    //     // echo "hi";
-    // }
+    public function execute() {
+        // echo "hi";
+    }
 
 }
