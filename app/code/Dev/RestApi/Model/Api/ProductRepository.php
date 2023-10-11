@@ -83,8 +83,8 @@ class ProductRepository implements ProductRepositoryInterface
         WriterInterface $configWriter,
         CollectionFactory $countryCollectionFactory,
         ObjectManagerInterface $objectManager,
-        JsonFactory $jsonResultFactory
-        \Magento\Directory\Model\CountryFactory $countryFactory,
+        JsonFactory $jsonResultFactory,
+        \Magento\Directory\Model\CountryFactory $countryFactory
     ) {
         $this->productAction = $productAction;
         $this->productCollectionFactory = $productCollectionFactory;
