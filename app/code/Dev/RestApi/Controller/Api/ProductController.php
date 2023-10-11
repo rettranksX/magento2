@@ -49,6 +49,8 @@ class ProductController extends Action
         if ($method == 'getProducts' && $actualToken == $token) {
             $result = $this->productModel->getProducts($details, $offset, $count);
 
+            var_dump($result);
+
             $jsonResponse = $this->jsonResultFactory->create();
             $jsonResponse->setData(['result' => $result]);
         
