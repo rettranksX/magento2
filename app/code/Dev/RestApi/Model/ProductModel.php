@@ -9,8 +9,7 @@ use Magento\Catalog\Api\CategoryRepositoryInterface;
 
 
 
-// class ProductModel implements ProductRepositoryInterface
-class ProductModel extends Action 
+class ProductModel implements ProductRepositoryInterface
 {
     protected $productAction;
     protected $productCollectionFactory;

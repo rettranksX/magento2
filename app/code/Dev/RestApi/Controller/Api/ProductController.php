@@ -7,8 +7,7 @@ use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\App\RequestInterface;
 use Dev\RestApi\Model\ProductModel;
 
-// class ProductController extends Action
-class ProductController implements ProductRepositoryInterface
+class ProductController extends Action
 {
     protected $jsonResultFactory;
     protected $request;
