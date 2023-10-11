@@ -160,19 +160,6 @@ class ProductRepository implements ProductRepositoryInterface
 
             if ($details == 0) {
                 foreach ($productCollection as $product) {
-
-                    // $countryCollection = $this->countryCollectionFactory->create();
-                    // $countryCollection->addFieldToFilter('default_name', $product->getAttributeText('country_of_manufacture'));
-                    // $country = $countryCollection->getFirstItem();
-                    // $isoCountryCode = $country->getIso2Code();
-
-                    // echo $isoCountryCode;
-
-                    $countryName = $product->getAttributeText('country_of_manufacture');
-                    $manufacturer = $this->getCountryCodeByFullName($countryName);
-
-                    var_dump($manufacturer);
-
                     $productData = [
                         'sku' => $product->getSku(),
                         'url' => $product->getUrlKey(),
@@ -198,7 +185,7 @@ class ProductRepository implements ProductRepositoryInterface
                     $images = [$image, $thumbnail, $smallImage];
                     $countryName = $product->getAttributeText('country_of_manufacture');
             
-                    $countryModel = $this->countryFactory->create();
+                    $countryModel = $this->_countryFactory->create();
                     $countryCollection = $countryModel->getCollection();
                     $country = $countryCollection->addFieldToFilter('default_name', $countryName)->getFirstItem();
         
@@ -307,7 +294,7 @@ class ProductRepository implements ProductRepositoryInterface
 
                         $countryName = $product->getAttributeText('country_of_manufacture');
 
-                        $countryModel = $this->countryFactory->create();
+                        $countryModel = $this->_countryFactory->create();
                         $countryCollection = $countryModel->getCollection();
                         $country = $countryCollection->addFieldToFilter('iso2_code', $countryName)->getFirstItem();
 
