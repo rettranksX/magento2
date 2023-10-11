@@ -109,13 +109,15 @@ class ProductRepository implements ProductRepositoryInterface
 
         // $country = $this->_countryFactory->create()->loadByCode("US");
         // var_dump($country->getName());
-
-        $list = Mage::app()->getLocale()->getCountryTranslationList();
-        foreach ($list as $id => $name) {
-            if ($name == "United Kingdom") {
-                var_dump($id);
+        $countryId = '';
+        $countryCollection = Mage::getModel('directory/country')->getCollection();
+        foreach ($countryCollection as $country) {
+            if ($countryName == $country->getName()) {
+                $countryId = $country->getCountryId();
+                break;
             }
         }
+        var_dump($countryId);
 
         $authorizationHeader = $_SERVER['HTTP_AUTHORIZATION'];
 
