@@ -5,6 +5,7 @@ namespace Dev\RestApi\Model;
 use Dev\RestApi\Api\ProductRepositoryInterface;
 use Magento\Shipping\Model\Config as ShippingConfig;
 use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Catalog\Api\CategoryRepositoryInterface;
 
 
 
@@ -262,7 +263,7 @@ class ProductModel implements ProductRepositoryInterface
     }
 
     public function execute() {
-        
+
     }
 
 }
