@@ -84,9 +84,7 @@ class ProductRepository implements ProductRepositoryInterface
         CollectionFactory $countryCollectionFactory,
         ObjectManagerInterface $objectManager,
         JsonFactory $jsonResultFactory
-        \Magento\Backend\Block\Template\Context $context,
         \Magento\Directory\Model\CountryFactory $countryFactory,
-        array $data = []
     ) {
         $this->productAction = $productAction;
         $this->productCollectionFactory = $productCollectionFactory;
@@ -102,7 +100,6 @@ class ProductRepository implements ProductRepositoryInterface
         $this->objectManager = $objectManager;
         $this->jsonResultFactory = $jsonResultFactory;
         $this->_countryFactory = $countryFactory;
-        parent::__construct($context, $data);
     }
 
     public function execute()
