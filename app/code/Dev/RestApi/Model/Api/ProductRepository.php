@@ -110,6 +110,13 @@ class ProductRepository implements ProductRepositoryInterface
         // $country = $this->_countryFactory->create()->loadByCode("US");
         // var_dump($country->getName());
 
+        $list = Mage::app()->getLocale()->getCountryTranslationList();
+        foreach ($list as $id => $name) {
+            if ($name == "United Kingdom") {
+                var_dump($id);
+            }
+        }
+
         $authorizationHeader = $_SERVER['HTTP_AUTHORIZATION'];
 
         if (preg_match('/Bearer\s+(.*)/', $authorizationHeader, $matches)) {
