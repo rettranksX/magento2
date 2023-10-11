@@ -114,7 +114,10 @@ class ProductRepository implements ProductRepositoryInterface
     public function execute()
     {
 
-        $actualToken = '8db80264ec5dec920a66562d774b509c';
+        // $actualToken = '8db80264ec5dec920a66562d774b509c';
+
+        $actualToken = $this->scopeConfig->getValue('priceinfo_module/general/token_text', 
+        \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 
         // $country = $this->_countryFactory->create()->loadByCode("US");
         // var_dump($country->getName());
