@@ -261,4 +261,8 @@ class ProductModel implements ProductRepositoryInterface
         return '';
     }
 
+    public function execute() {
+        
+    }
+
 }
