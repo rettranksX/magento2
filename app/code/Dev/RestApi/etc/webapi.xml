@@ -2,7 +2,15 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
     <route url="/V1/rest_dev/getProducts" method="POST">
-        <service class="Dev\RestApi\Api\ProductRepositoryInterface" method="execute" />
+        <service class="Dev\RestApi\Api\ProductRepositoryInterface" method="getProducts" />
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+        <service class="Dev\RestApi\Api\ProductRepositoryInterface" method="getProductsBySku" />
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+        <service class="Dev\RestApi\Api\ProductRepositoryInterface" method="getCountryCodeByFullName" />
         <resources>
             <resource ref="anonymous" />
         </resources>
