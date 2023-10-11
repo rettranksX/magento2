@@ -187,16 +187,16 @@ class ProductRepository implements ProductRepositoryInterface
                     $smallImage = $productImage->getData('small_image');
                     $images = [$image, $thumbnail, $smallImage];
                     $countryName = $product->getAttributeText('country_of_manufacture');
-            
-                    $countryModel = $this->_countryFactory->create();
-                    $countryCollection = $countryModel->getCollection();
-                    $country = $countryCollection->addFieldToFilter('default_name', $countryName)->getFirstItem();
+                    $manufacturer = $this->getCountryCodeByFullName($countryName);            
+                    // $countryModel = $this->_countryFactory->create();
+                    // $countryCollection = $countryModel->getCollection();
+                    // $country = $countryCollection->addFieldToFilter('default_name', $countryName)->getFirstItem();
         
-                    if ($country->getId()) {
-                        $isoCountryCode = $country->getData('iso2_code');
-                    } else {
-                        $isoCountryCode = $countryName;
-                    }
+                    // if ($country->getId()) {
+                    //     $isoCountryCode = $country->getData('iso2_code');
+                    // } else {
+                    //     $isoCountryCode = $countryName;
+                    // }
 
 
                     $availableMethods = [];
@@ -214,7 +214,7 @@ class ProductRepository implements ProductRepositoryInterface
                     }
 
                     $deliveryOptions[] = [
-                        "country" => $isoCountryCode,
+                        "country" => $manufacturer,
                         "carriers" => $availableMethods,
                     ];
 
@@ -229,7 +229,7 @@ class ProductRepository implements ProductRepositoryInterface
                     $productData = [
                         "sku" => $product->getSku(),
                         "url" => $product->getUrlKey(),
-                        'manufacturer' => $isoCountryCode,
+                        'manufacturer' => $manufacturer,
                         "model" => $product->getModel(),
                         "ean" => $product->getEan(),
                         "price" => $product->getPrice(),
@@ -268,11 +268,13 @@ class ProductRepository implements ProductRepositoryInterface
 
             if ($details == 0) {
                 foreach ($productCollection as $product) {
+                    $countryName = $product->getAttributeText('country_of_manufacture');
+                    $manufacturer = $this->getCountryCodeByFullName($countryName);
                     if (in_array($product->getSku(), $skuArray)) {
                         $productData = [
                             'sku' => $product->getSku(),
                             'url' => $product->getUrlKey(),
-                            'manufacturer' => $product->getAttributeText('country_of_manufacture'),
+                            'manufacturer' => $manufacturer,
                             'model' => $product->getModel(),
                             'ean' => $product->getEan(),
                             'price' => $product->getPrice(),
@@ -339,7 +341,7 @@ class ProductRepository implements ProductRepositoryInterface
                         $productData = [
                             "sku" => $product->getSku(),
                             "url" => $product->getUrlKey(),
-                            'manufacturer' => $product->getAttributeText('country_of_manufacture'),
+                            'manufacturer' => $manufacturer,
                             "model" => $product->getModel(),
                             "ean" => $product->getEan(),
                             "price" => $product->getPrice(),
