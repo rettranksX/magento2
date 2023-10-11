@@ -3,5 +3,6 @@
     <menu>
       <add id="Dev_RestApi::PriceInfo_Module" title="Module" translate="title" module="Dev_RestApi" parent="Magento_Backend::content" sortOrder="50" dependsOnModule="Dev_RestApi" resource="Dev_RestApi::PriceInfo_Module"/>
       <add id="Dev_RestApi::PriceInfo_Module_controller" title="PriceInfo_Module" translate="title" module="Dev_RestApi" parent="Dev_RestApi::PriceInfo_Module" sortOrder="10" dependsOnModule="Dev_RestApi" action="dev_restapi/controller" resource="Dev_RestApi::PriceInfo_Module"/>
+      <add id="Dev_RestApi::priceinfo_module_configuration" title="Configuration" module="Dev_RestApi" sortOrder="99" parent="Dev_RestApi::PriceInfo_Module" action="adminhtml/system_config/edit/section/dev" resource="Dev_RestApi::priceinfo_module_configuration"/>
     </menu>
 </config>
