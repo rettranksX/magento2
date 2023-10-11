@@ -110,9 +110,9 @@ class ProductRepository implements ProductRepositoryInterface
         // $country = $this->_countryFactory->create()->loadByCode("US");
         // var_dump($country->getName());
         $countryId = '';
-        $countryCollection = Mage::getModel('directory/country')->getCollection();
+        $countryCollection = $this->_countryFactory->create()->getCollection();
         foreach ($countryCollection as $country) {
-            if ($countryName == $country->getName()) {
+            if ('United Kingdom' == $country->getName()) {
                 $countryId = $country->getCountryId();
                 break;
             }
