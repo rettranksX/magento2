@@ -257,11 +257,8 @@ class ProductRepository implements ProductRepositoryInterface
                 'lastId' => $lastProductId,
             ];
 
-            // $jsonResponse = json_encode($responseData, JSON_PRETTY_PRINT);
-            // return $jsonResponse;
-            $resultJson = $this->jsonResultFactory->create();
-            $resultJson->setData($responseData);
-            return $resultJson;
+            $jsonResponse = json_encode($responseData, JSON_PRETTY_PRINT);
+            return $jsonResponse;
 
         } elseif ($method == 'getProductsBySku' && $actualToken == $token) {
             $skuArray = $requestData['sku'] ?? [];
@@ -373,11 +370,8 @@ class ProductRepository implements ProductRepositoryInterface
                 'lastId' => $lastProductId,
             ];
 
-            // $jsonResponse = json_encode($responseData, JSON_PRETTY_PRINT);
-            // return $jsonResponse;
-            $resultJson = $this->jsonResultFactory->create();
-            $resultJson->setData($responseData);
-            return $resultJson;
+            $jsonResponse = json_encode($responseData, JSON_PRETTY_PRINT);
+            return $jsonResponse;
         } 
         else {
             // $response = [];
