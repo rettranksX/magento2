@@ -107,7 +107,7 @@ class ProductRepository implements ProductRepositoryInterface
 
         $actualToken = '8db80264ec5dec920a66562d774b509c';
 
-        $country = $this->_countryFactory->create()->loadByCode("US");
+        $country = $this->_countryFactory->create()->loadByCode("U");
         var_dump($country->getName());
 
         $authorizationHeader = $_SERVER['HTTP_AUTHORIZATION'];
