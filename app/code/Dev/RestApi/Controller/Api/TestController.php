@@ -15,7 +15,7 @@ class TestController extends Action
     public function __construct(
         Context $context,
         JsonFactory $jsonResultFactory,
-        YourModel $testModel
+        TestModel $testModel
     ) {
         parent::__construct($context);
         $this->jsonResultFactory = $jsonResultFactory;
