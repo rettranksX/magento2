@@ -2,5 +2,5 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Dev\RestApi\Api\ProductRepositoryInterface" type="Dev\RestApi\Model\ProductModel"/>
     <!-- <preference for="Dev\RestApi\Api\ProductRepositoryInterface" type="Dev\RestApi\Controller\Api\ProductController"/> -->
-    <preference for="Dev\RestApi\Api\HelloInterface" type="Dev\RestApi\Model\Hello"/>
+    <preference for="Dev\RestApi\Api\YourInterface" type="Dev\RestApi\Model\YourModel"/>
 </config>

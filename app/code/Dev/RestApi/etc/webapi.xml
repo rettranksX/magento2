@@ -7,8 +7,8 @@
             <resource ref="anonymous" />
         </resources>
     </route>
-    <route url="/V1/rest_dev/hello" method="GET">
-        <service class="Dev\RestApi\Api\HelloInterface" method="getHelloMessage" />
+    <route url="/V1/rest_dev/test" method="GET">
+        <service class="Dev\RestApi\Api\YourInterface" method="yourMethod" />
         <resources>
             <resource ref="anonymous" />
         </resources>

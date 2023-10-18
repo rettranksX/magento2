@@ -1,11 +1,11 @@
 <?php
 namespace Dev\RestApi\Model;
 
-use Dev\RestApi\Api\HelloInterface;
+use Dev\RestApi\Api\YourInterface;
 
-class Hello implements HelloInterface
+use Dev\RestApi\Api\YourInterface;
 {
-    public function getHelloMessage()
+    public function yourMethod()
     {
 
         $data = [
