@@ -1,7 +1,7 @@
 <?php
 namespace Dev\RestApi\Model;
 
-use YourVendor\YourModule\Api\HelloInterface;
+use Dev\RestApi\Api\HelloInterface;
 
 class Hello implements HelloInterface
 {
