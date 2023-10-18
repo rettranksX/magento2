@@ -10,21 +10,21 @@ use Dev\RestApi\Model\TestModel;
 class TestController extends Action
 {
     protected $jsonResultFactory;
-    protected $yourModel;
+    protected $testModel;
 
     public function __construct(
         Context $context,
         JsonFactory $jsonResultFactory,
-        YourModel $yourModel
+        YourModel $testModel
     ) {
         parent::__construct($context);
         $this->jsonResultFactory = $jsonResultFactory;
-        $this->yourModel = $yourModel;
+        $this->testModel = $testModel;
     }
 
     public function execute()
     {
-        $jsonData = $this->yourModel->testMethod();
+        $jsonData = $this->testModel->testMethod();
         $jsonResponse = json_encode($jsonData);
         
         $response = $this->resultFactory->create(\Magento\Framework\Controller\ResultFactory::TYPE_JSON);
