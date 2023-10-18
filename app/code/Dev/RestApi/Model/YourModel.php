@@ -12,7 +12,12 @@ class YourModel implements YourInterface
             'name' => 'John',
             'age' => 30,
             'car' => null,
-            'some' => null
+            'some' => null,
+            'address' => [
+                'street' => '123 Main St',
+                'city' => 'Anytown',
+                'zip' => '12345'
+            ]
         ];
 
         // $jsonResponse = json_encode($data);
