@@ -13,6 +13,9 @@ class Hello implements HelloInterface
             'age' => 30,
             'car' => null
         ];
-        return $data;
+
+        $jsonResponse = json_encode($data);
+
+        return $jsonResponse;
     }
 }
