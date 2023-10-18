@@ -11,7 +11,8 @@ class Hello implements HelloInterface
         $data = [
             'name' => 'John',
             'age' => 30,
-            'car' => null
+            'car' => null,
+            'some' => null
         ];
 
         $jsonResponse = json_encode($data);
