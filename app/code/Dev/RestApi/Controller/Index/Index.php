@@ -17,8 +17,12 @@ class Index extends Action
 
     public function execute()
     {
-        $data = ['message' => 'Hello, Magento API!'];
-
+        // $data = ['message' => 'Hello, Magento API!'];
+        $data = [
+            'name' => 'John',
+            'age' => 30,
+            'car' => null
+        ];
         $result = $this->jsonResultFactory->create();
         $result->setData($data);
 
