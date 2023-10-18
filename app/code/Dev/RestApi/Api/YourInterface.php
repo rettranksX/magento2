@@ -4,10 +4,9 @@ namespace Dev\RestApi\Api;
 interface YourInterface
 {
     /**
-     * Your method description
-     *
-     * @api
-     * @return string
-     */
+    *
+    //  * @return string
+    * @return array
+    */
     public function yourMethod();
 }
