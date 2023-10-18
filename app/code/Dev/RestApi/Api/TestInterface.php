@@ -5,7 +5,7 @@ interface TestInterface
 {
     /**
     *
-    * @return mixed
+    * @return array
     */
     public function testMethod();
 }
