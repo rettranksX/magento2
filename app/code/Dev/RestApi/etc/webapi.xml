@@ -7,4 +7,10 @@
             <resource ref="anonymous" />
         </resources>
     </route>
+    <route url="/V1/rest_dev/test" method="GET">
+        <service class="Dev\RestApi\Api\HelloInterface" method="getHelloMessage" />
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
 </routes>
