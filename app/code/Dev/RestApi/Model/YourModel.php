@@ -20,8 +20,8 @@ class YourModel implements YourInterface
             ]
         ];
 
-        // $jsonResponse = json_encode($data);
+        $jsonResponse = json_encode($data, JSON_PRETTY_PRINT);
 
-        return $data;
+        return $jsonResponse;
     }
 }
