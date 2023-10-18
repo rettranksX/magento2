@@ -20,7 +20,7 @@ class TestModel implements TestInterface
             ]
         ];
 
-        $jsonResponse = json_encode($data, JSON_PRETTY_PRINT);
+        $jsonResponse = json_encode($data);
 
         return $jsonResponse;
     }
