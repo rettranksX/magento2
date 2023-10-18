@@ -7,6 +7,12 @@ class Hello implements HelloInterface
 {
     public function getHelloMessage()
     {
-        return 'Hello, Magento API!';
+
+        $data = [
+            'name' => 'John',
+            'age' => 30,
+            'car' => null
+        ];
+        return $data;
     }
 }
