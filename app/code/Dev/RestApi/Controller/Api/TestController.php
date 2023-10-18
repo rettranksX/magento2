@@ -5,9 +5,9 @@ namespace Dev\RestApi\Controller;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\App\Action\Action;
-use Dev\RestApi\Model\YourModel;
+use Dev\RestApi\Model\TestModel;
 
-class YourController extends Action
+class TestController extends Action
 {
     protected $jsonResultFactory;
     protected $yourModel;
@@ -24,7 +24,7 @@ class YourController extends Action
 
     public function execute()
     {
-        $jsonData = $this->yourModel->yourMethod();
+        $jsonData = $this->yourModel->testMethod();
         $jsonResponse = json_encode($jsonData);
         
         $response = $this->resultFactory->create(\Magento\Framework\Controller\ResultFactory::TYPE_JSON);

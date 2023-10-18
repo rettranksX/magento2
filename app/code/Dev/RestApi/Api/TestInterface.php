@@ -1,11 +1,11 @@
 <?php
 namespace Dev\RestApi\Api;
 
-interface YourInterface
+interface TestInterface
 {
     /**
     *
     * @return array
     */
-    public function yourMethod();
+    public function testMethod();
 }

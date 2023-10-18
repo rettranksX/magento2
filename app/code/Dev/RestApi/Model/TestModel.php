@@ -1,11 +1,11 @@
 <?php
 namespace Dev\RestApi\Model;
 
-use Dev\RestApi\Api\YourInterface;
+use Dev\RestApi\Api\TestInterface;
 
-class YourModel implements YourInterface
+class TestModel implements TestInterface
 {
-    public function yourMethod()
+    public function testMethod()
     {
 
         $data = [
