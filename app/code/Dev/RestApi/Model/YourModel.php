@@ -3,7 +3,7 @@ namespace Dev\RestApi\Model;
 
 use Dev\RestApi\Api\YourInterface;
 
-use Dev\RestApi\Api\YourInterface;
+class YourModel implements YourInterface
 {
     public function yourMethod()
     {
