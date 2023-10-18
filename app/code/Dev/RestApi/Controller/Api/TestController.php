@@ -29,7 +29,7 @@ class TestController extends Action
         
         $response = $this->resultFactory->create(\Magento\Framework\Controller\ResultFactory::TYPE_JSON);
         $response->setData(['result' => $jsonResponse]);
-        echo 'hi';
+
         return $response;
         
     }
