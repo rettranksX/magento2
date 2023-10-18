@@ -17,6 +17,6 @@ class YourModel implements YourInterface
 
         // $jsonResponse = json_encode($data);
 
-        return $jsonResponse;
+        return $data;
     }
 }
