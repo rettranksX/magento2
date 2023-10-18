@@ -5,7 +5,6 @@ interface YourInterface
 {
     /**
     *
-    //  * @return string
     * @return array
     */
     public function yourMethod();

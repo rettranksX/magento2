@@ -15,7 +15,7 @@ class YourModel implements YourInterface
             'some' => null
         ];
 
-        $jsonResponse = json_encode($data);
+        // $jsonResponse = json_encode($data);
 
         return $jsonResponse;
     }
