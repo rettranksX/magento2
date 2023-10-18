@@ -24,10 +24,13 @@ class YourController extends Action
 
     public function execute()
     {
-        $data = $this->yourModel->yourMethod();
-        $result = $this->jsonResultFactory->create();
-        $result->setData($data);
-
-        return $result;
+        $jsonData = $this->yourModel->yourMethod();
+        $jsonResponse = json_encode($jsonData);
+        
+        $response = $this->resultFactory->create(\Magento\Framework\Controller\ResultFactory::TYPE_JSON);
+        $response->setData(['result' => $jsonResponse]);
+        
+        return $response;
+        
     }
 }
