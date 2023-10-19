@@ -18,7 +18,6 @@ class TestModel implements TestInterface
     public function testMethod()
     {
 
-        $message = '';
         $data = [
             'name' => 'John',
             'age' => 30,
