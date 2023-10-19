@@ -18,9 +18,7 @@ class TestModel implements TestInterface
         $data = [
             'name' => 'John',
             'age' => 30,
-            'eeeeboyyy' => 123,
             'car' => null,
-            'some' => null,
             'address' => [
                 'street' => '123 Main St',
                 'city' => 'Anytown',
