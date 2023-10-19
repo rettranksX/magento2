@@ -28,8 +28,8 @@ class TestModel implements TestInterface
         ];
 
         $jsonResponse = $this->jsonFactory->create();
-        $jsonResponse->setData($data);
-
+        // $jsonResponse->setData($data);
+        $jsonResponse->setData(['data' => $data]);
         return $data;
     }
 }
