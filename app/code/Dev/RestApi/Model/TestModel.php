@@ -2,9 +2,19 @@
 namespace Dev\RestApi\Model;
 
 use Dev\RestApi\Api\TestInterface;
+use Magento\Framework\Controller\Result\JsonFactory;
+
 
 class TestModel implements TestInterface
 {
+    protected JsonFactory $jsonFactory;
+
+    public function __construct(
+        JsonFactory $jsonFactory
+    ){
+        $this->jsonFactory = $jsonFactory;
+    }
+
     public function testMethod()
     {
 
@@ -20,7 +30,9 @@ class TestModel implements TestInterface
             ]
         ];
 
+        $jsonResponse = $this->jsonFactory->create();
+        $jsonResponse->setData($data);
 
-        return $data;
+        return $jsonResponse;
     }
 }
