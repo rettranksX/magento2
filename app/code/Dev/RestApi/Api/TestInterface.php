@@ -5,7 +5,7 @@ interface TestInterface
 {
     /**
     *
-    * @return string
+    * @return \Magento\Framework\Controller\Result\Json
     */
     public function testMethod();
 }
