@@ -8,7 +8,9 @@ class TestModel implements TestInterface
 {
     protected $jsonFactory;
 
-    public function __construct(JsonFactory $jsonFactory)
+    public function __construct(    
+        \Magento\Framework\Controller\Result\JsonFactory $jsonFactory
+    )
     {
         $this->jsonFactory = $jsonFactory;
     }
