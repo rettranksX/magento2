@@ -2,17 +2,17 @@
 namespace Dev\RestApi\Model;
 
 use Dev\RestApi\Api\TestInterface;
-use Magento\Framework\Controller\Result\Json;
-use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\Controller\Result\JsonFactory;
 
 class TestModel implements TestInterface
 {
-    protected $resultFactory;
+    protected $jsonFactory;
 
-    public function __construct(
-        ResultFactory $resultFactory
-    ) {
-        $this->resultFactory = $resultFactory;
+    public function __construct(    
+        JsonFactory $jsonFactory
+    )
+    {
+        $this->jsonFactory = $jsonFactory;
     }
 
     public function testMethod()
@@ -21,16 +21,18 @@ class TestModel implements TestInterface
             'name' => 'John',
             'age' => 30,
             'car' => null,
+            'some' => null,
             'address' => [
                 'street' => '123 Main St',
                 'city' => 'Anytown',
                 'zip' => '12345'
             ]
         ];
-
-        $jsonResponse = $this->resultFactory->create(ResultFactory::TYPE_JSON);
+    
+        $jsonResponse = $this->jsonFactory->create();
         $jsonResponse->setData($data);
-
+    
         return $jsonResponse;
     }
+    
 }
