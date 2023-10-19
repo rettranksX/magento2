@@ -34,7 +34,7 @@ class TestModel implements TestInterface
         // $jsonResponse->setData($data);
         $jsonResponse->setData(['Test-Message' => 'text']);
 
-        return $jsonResponse;
+        return $data;
     }
     
 }
