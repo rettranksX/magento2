@@ -32,7 +32,7 @@ class TestModel implements TestInterface
     
         $jsonResponse = $this->jsonFactory->create();
         // $jsonResponse->setData($data);
-        $jsonResponse->setData(['Test-Message' => $message]);
+        $jsonResponse->setData(['Test-Message' => 'text']);
 
         return $jsonResponse;
     }
