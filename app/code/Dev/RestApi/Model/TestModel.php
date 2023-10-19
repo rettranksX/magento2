@@ -19,16 +19,18 @@ class TestModel implements TestInterface
             'name' => 'John',
             'age' => 30,
             'car' => null,
+            'some' => null,
             'address' => [
                 'street' => '123 Main St',
                 'city' => 'Anytown',
                 'zip' => '12345'
             ]
         ];
-
+    
         $jsonResponse = $this->jsonFactory->create();
-        // $jsonResponse->setData($data);
         $jsonResponse->setData(['data' => $data]);
-        return $data;
+    
+        return $jsonResponse;
     }
+    
 }
