@@ -49,8 +49,11 @@ use Dev\RestApi\Model\MainData;
 
 class TestModel implements TestInterface
 {
-    public function testMethod(): MainDataInterface
-{
+    /**
+     * @return \Dev\RestApi\Api\Data\MainDataInterface
+     */
+        public function testMethod(): MainDataInterface
+        {
         $mainData = new MainData(new Address());
 
         $mainData
