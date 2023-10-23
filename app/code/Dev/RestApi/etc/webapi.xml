@@ -7,10 +7,16 @@
             <resource ref="anonymous" />
         </resources>
     </route>
-    <route url="/V1/rest_dev/test" method="GET">
+    <!-- <route url="/V1/rest_dev/test" method="GET">
         <service class="Dev\RestApi\Api\TestInterface" method="testMethod" />
         <resources>
             <resource ref="anonymous" />
         </resources>
+    </route> -->
+    <route url="/V1/rest_dev/test" method="GET">
+    <service class="Dev\RestApi\Model\TestModel" method="testMethod" />
+    <resources>
+        <resource ref="anonymous" />
+    </resources>
     </route>
 </routes>
