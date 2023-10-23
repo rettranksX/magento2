@@ -65,7 +65,7 @@ class TestModel implements TestInterface
             ->setCity('Anytown')
             ->setZip('12345');
 
-        $mainData->setAddress($address);
+        $mainData->getAddress($address);
 
         return $mainData;
     }
