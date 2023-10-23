@@ -50,9 +50,9 @@ use Dev\RestApi\Model\MainData;
 class TestModel implements TestInterface
 {
     public function testMethod(): MainDataInterface
-    {
-        $mainData = new MainData();
-        
+{
+        $mainData = new MainData(new Address());
+
         $mainData
             ->setName('John')
             ->setAge(30)
