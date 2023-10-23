@@ -1,40 +1,72 @@
 <?php
+// namespace Dev\RestApi\Model;
+
+// use Dev\RestApi\Api\TestInterface;
+// use Magento\Framework\Controller\Result\JsonFactory;
+
+// class TestModel implements TestInterface
+// {
+//     protected $jsonFactory;
+
+//     public function __construct(    
+//         JsonFactory $jsonFactory
+//     )
+//     {
+//         $this->jsonFactory = $jsonFactory;
+//     }
+
+//     public function testMethod()
+//     {
+
+//         $data = [
+//             'name' => 'John',
+//             'age' => 30,
+//             'car' => null,
+//             'some' => null,
+//             'address' => [
+//                 'street' => '123 Main St',
+//                 'city' => 'Anytown',
+//                 'zip' => '12345'
+//             ]
+//         ];
+    
+//         $jsonResponse = $this->jsonFactory->create();
+//         // $jsonResponse->setData($data);
+//         $jsonResponse->setData(['Test-Message' => 'text']);
+
+//         return $jsonResponse;
+//     }
+    
+// }
+
+
+
 namespace Dev\RestApi\Model;
 
 use Dev\RestApi\Api\TestInterface;
-use Magento\Framework\Controller\Result\JsonFactory;
+use Dev\RestApi\Api\Data\MainDataInterface;
+use Dev\RestApi\Model\MainData;
 
 class TestModel implements TestInterface
 {
-    protected $jsonFactory;
-
-    public function __construct(    
-        JsonFactory $jsonFactory
-    )
+    public function testMethod(): MainDataInterface
     {
-        $this->jsonFactory = $jsonFactory;
+        $mainData = new MainData();
+        
+        $mainData
+            ->setName('John')
+            ->setAge(30)
+            ->setCar(null)
+            ->setSome(null);
+
+        $address = new Address();
+        $address
+            ->setStreet('123 Main St')
+            ->setCity('Anytown')
+            ->setZip('12345');
+
+        $mainData->setAddress($address);
+
+        return $mainData;
     }
-
-    public function testMethod()
-    {
-
-        $data = [
-            'name' => 'John',
-            'age' => 30,
-            'car' => null,
-            'some' => null,
-            'address' => [
-                'street' => '123 Main St',
-                'city' => 'Anytown',
-                'zip' => '12345'
-            ]
-        ];
-    
-        $jsonResponse = $this->jsonFactory->create();
-        // $jsonResponse->setData($data);
-        $jsonResponse->setData(['Test-Message' => 'text']);
-
-        return $jsonResponse;
-    }
-    
 }
