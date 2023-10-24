@@ -17,7 +17,7 @@ use Dev\RestApi\Api\Data\ProductInterface;
 /**
  * Class ProductRepository
  */
-class ProductRepository implements ProductInterface
+class ProductRepository implements Dev\RestApi\Api\Data\ProductInterface
 {
     private $productAction;
     private $productCollectionFactory;
