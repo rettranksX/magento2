@@ -1,6 +1,6 @@
 <?php
 
-namespace Dev\RestApi\Model\Api\Test;
+namespace Dev\RestApi\Model\Api;
 
 use Magento\Catalog\Model\ResourceModel\Product\Action;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
@@ -17,7 +17,7 @@ use Dev\RestApi\Api\Data\ProductInterface;
 /**
  * Class ProductRepository
  */
-class ProductRepository implements Dev\RestApi\Api\Data\ProductInterface
+class ProductRepositoryTest implements ProductInterface
 {
     private $productAction;
     private $productCollectionFactory;
