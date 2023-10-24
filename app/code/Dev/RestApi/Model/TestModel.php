@@ -41,52 +41,21 @@
 
 
 
-// namespace Dev\RestApi\Model;
-
-// use Dev\RestApi\Api\TestInterface;
-// use Dev\RestApi\Api\Data\MainDataInterface;
-// use Dev\RestApi\Model\MainData;
-
-// class TestModel implements TestInterface
-// {
-//     /**
-//      * @return \Dev\RestApi\Api\Data\MainDataInterface
-//      */
-//         public function testMethod(): MainDataInterface
-//         {
-//         $mainData = new MainData(new Address());
-
-//         $mainData
-//             ->setName('John')
-//             ->setAge(30)
-//             ->setCar(null)
-//             ->setSome(null);
-
-//         $address = new Address();
-//         $address
-//             ->setStreet('123 Main St')
-//             ->setCity('Anytown')
-//             ->setZip('12345');
-
-//         $mainData->getAddress($address);
-
-//         return $mainData;
-//     }
-// }
-
 namespace Dev\RestApi\Model;
 
 use Dev\RestApi\Api\TestInterface;
 use Dev\RestApi\Api\Data\MainDataInterface;
 use Dev\RestApi\Model\MainData;
+
 class TestModel implements TestInterface
 {
     /**
      * @return \Dev\RestApi\Api\Data\MainDataInterface
-    */
-    public function testMethod(): MainDataInterface
-    {
-        $mainData = new MainData();
+     */
+        public function testMethod(): MainDataInterface
+        {
+        $mainData = new MainData(new Address());
+
         $mainData
             ->setName('John')
             ->setAge(30)
@@ -99,7 +68,7 @@ class TestModel implements TestInterface
             ->setCity('Anytown')
             ->setZip('12345');
 
-        $mainData->setAddress($address);
+        $mainData->getAddress($address);
 
         return $mainData;
     }
