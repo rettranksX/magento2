@@ -78,9 +78,12 @@ namespace Dev\RestApi\Model;
 
 use Dev\RestApi\Api\TestInterface;
 use Dev\RestApi\Api\Data\MainDataInterface;
-
+use Dev\RestApi\Model\MainData;
 class TestModel implements TestInterface
 {
+    /**
+     * @return \Dev\RestApi\Api\Data\MainDataInterface
+    */
     public function testMethod(): MainDataInterface
     {
         $mainData = new MainData();
