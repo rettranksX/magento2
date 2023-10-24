@@ -7,4 +7,10 @@
             <resource ref="anonymous" />
         </resources>
     </route>
+    <route url="/V1/rest_dev/getProductsTest" method="POST">
+        <service class="Dev\RestApi\Api\Data\ProductInterface" method="execute" />
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
 </routes>
