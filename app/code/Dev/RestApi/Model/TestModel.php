@@ -89,7 +89,7 @@ class TestModel implements TestInterface
         $this->jsonFactory = $jsonFactory;
     }
 
-    public function testMethod()
+    public function testMethod() : MainDataInterface
     {
         $data = [
             'name' => 'John',
