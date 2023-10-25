@@ -1,29 +1,21 @@
 <?php
+
 namespace Dev\RestApi\Model\Api;
 
 use Dev\RestApi\Api\ProductRepositoryInterface;
-use Magento\Catalog\Api\Data\ProductInterface;
-use Magento\Catalog\Model\ResourceModel\Product\Action;
+use Dev\RestApi\Api\Data\ProductInterface;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
-use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Store\Model\StoreManagerInterface;
-use Magento\Catalog\Api\CategoryRepositoryInterface;
-use Magento\Shipping\Model\Config as ShippingConfig;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\RequestInterface;
-use Magento\Directory\Model\CountryFactory;
-use Magento\Framework\App\Config\Storage\WriterInterface;
-use Magento\Framework\ObjectManagerInterface;
 use Magento\Framework\Controller\Result\JsonFactory;
-
 
 /**
  * Class ProductRepository
  */
 class ProductRepository implements ProductRepositoryInterface
 {
-
-    /**
+ /**
      * @var Action
      */
     private $productAction;
@@ -113,144 +105,50 @@ class ProductRepository implements ProductRepositoryInterface
     }
     public function execute()
     {
-
-        // $actualToken = '8db80264ec5dec920a66562d774b509c';
-
         $actualToken = $this->scopeConfig->getValue('priceinfo_module/general/token_text', 
-        \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 
-        // $country = $this->_countryFactory->create()->loadByCode("US");
-        // var_dump($country->getName());
-        // $countryId = '';
-        // $countryCollection = $this->_countryFactory->create()->getCollection();
-        // foreach ($countryCollection as $country) {
-        //     if ('United States' == $country->getName()) {
-        //         $countryId = $country->getCountryId();
-        //         break;
-        //     }
-        // }
-        // var_dump($countryId);
+            $authorizationHeader = $_SERVER['HTTP_AUTHORIZATION'];
 
-        $authorizationHeader = $_SERVER['HTTP_AUTHORIZATION'];
-
-        if (preg_match('/Bearer\s+(.*)/', $authorizationHeader, $matches)) {
-            $token = $matches[1];
-        }
-
-        $requestBody = file_get_contents('php://input');
-        $requestData = json_decode($requestBody, true);
-
-        $details = isset($requestData['details']) ? $requestData['details'] : null;
-        $method = isset($requestData['method']) ? $requestData['method'] : null;
-        $offset = isset($requestData['offset']) ? $requestData['offset'] : null;
-        $count = isset($requestData['count']) ? $requestData['count'] : null;
-
-        $storeManager = \Magento\Framework\App\ObjectManager::getInstance()->get(\Magento\Store\Model\StoreManagerInterface::class);
-        $siteUrl = $storeManager->getStore()->getBaseUrl();
-        $siteUrl = str_replace("\\", "/", $siteUrl);
-
-        /** @var \Magento\Catalog\Model\ResourceModel\Product\Collection $productCollection */
-        $productCollection = $this->productCollectionFactory->create();
-        $productCollection->addAttributeToSelect([
-            array('*')
-        ]);
-
+            if (preg_match('/Bearer\s+(.*)/', $authorizationHeader, $matches)) {
+                $token = $matches[1];
+            }
+    
+            $requestBody = file_get_contents('php://input');
+            $requestData = json_decode($requestBody, true);
+    
+            $details = isset($requestData['details']) ? $requestData['details'] : null;
+            $method = isset($requestData['method']) ? $requestData['method'] : null;
+            $offset = isset($requestData['offset']) ? $requestData['offset'] : null;
+            $count = isset($requestData['count']) ? $requestData['count'] : null;
+    
+            $storeManager = \Magento\Framework\App\ObjectManager::getInstance()->get(\Magento\Store\Model\StoreManagerInterface::class);
+            $siteUrl = $storeManager->getStore()->getBaseUrl();
+            $siteUrl = str_replace("\\", "/", $siteUrl);
+    
+            /** @var \Magento\Catalog\Model\ResourceModel\Product\Collection $productCollection */
+            $productCollection = $this->productCollectionFactory->create();
+            $productCollection->addAttributeToSelect([
+                array('*')
+            ]);
         $productsData = [];
 
         if ($method == 'getProducts' && $actualToken == $token) {
             $productCollection->setPageSize($count);
             $productCollection->setCurPage($offset);
 
-
             if ($details == 0) {
                 foreach ($productCollection as $product) {
                     $countryName = $product->getAttributeText('country_of_manufacture');
                     $manufacturer = $this->getCountryCodeByFullName($countryName);
-                    $productData = [
-                        'sku' => $product->getSku(),
-                        'url' => $product->getUrlKey(),
-                        'manufacturer' => $manufacturer,
-                        'model' => $product->getModel(),
-                        'ean' => $product->getEan(),
-                        'price' => $product->getPrice(),
-                        'availability' => $product->isSalable() ? 'InStock' : 'OutOfStock',
-                        'itemsAvailable' => $product->getQty(),
-                        'updated' => $product->getUpdatedAt(),
-                    ];
+
+                    $productData = new \Dev\RestApi\Model\Data\Product();
+                    $productData->setSku($product->getSku());
+                    $productData->setUrl($product->getUrlKey());
+                    $productData->setManufacturer($manufacturer);
 
                     $productsData[] = $productData;
                 }
-            } elseif ($details == 1) {
-                foreach ($productCollection as $product) {
-                    $deliveryOptions = [];
-
-                    $productImage = $this->_productRepositoryFactory->create()->getById($product->getId());
-                    $image = $productImage->getData('image');
-                    $thumbnail = $productImage->getData('thumbnail');
-                    $smallImage = $productImage->getData('small_image');
-                    $images = [$image, $thumbnail, $smallImage];
-                    $countryName = $product->getAttributeText('country_of_manufacture');
-                    $manufacturer = $this->getCountryCodeByFullName($countryName);            
-                    // $countryModel = $this->_countryFactory->create();
-                    // $countryCollection = $countryModel->getCollection();
-                    // $country = $countryCollection->addFieldToFilter('default_name', $countryName)->getFirstItem();
-        
-                    // if ($country->getId()) {
-                    //     $isoCountryCode = $country->getData('iso2_code');
-                    // } else {
-                    //     $isoCountryCode = $countryName;
-                    // }
-
-
-                    $availableMethods = [];
-                    $carriers = $this->shippingConfig->getActiveCarriers();
-
-                    foreach ($carriers as $carrierCode => $carrierModel) {
-                        $pathPrice = "carriers/{$carrierCode}/price";
-                        $pathEstimateTime = "carriers/{$carrierCode}/estimated_delivery_time";
-                        $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
-                        $availableMethods[] = [
-                            'name' => $carrierCode,
-                            'shippingRate' => $this->scopeConfig->getValue($pathPrice, $storeScope),
-                            'deliveryDays' => $this->scopeConfig->getValue($pathEstimateTime, $storeScope),
-                        ];
-                    }
-
-                    $deliveryOptions[] = [
-                        "country" => $manufacturer,
-                        "carriers" => $availableMethods,
-                    ];
-
-                    $categoryNames = [];
-                    $categoryIds = $product->getCategoryIds();
-
-                    foreach ($categoryIds as $categoryId) {
-                        $category = $this->categoryRepository->get($categoryId);
-                        $categoryNames[] = $category->getName();
-                    }
-
-                    $productData = [
-                        "sku" => $product->getSku(),
-                        "url" => $product->getUrlKey(),
-                        'manufacturer' => $manufacturer,
-                        "model" => $product->getModel(),
-                        "ean" => $product->getEan(),
-                        "price" => $product->getPrice(),
-                        'availability' => $product->isSalable() ? 'InStock' : 'OutOfStock',
-                        'itemsAvailable' => $product->getQty(),
-                        "itemCondition" => "NewCondition",
-                        "category" => $categoryNames,
-                        "name" => $product->getName(),
-                        "description" => $product->getDescription(),
-                        'updated' => $product->getUpdatedAt(),
-                        'delivery' => $deliveryOptions,
-                        'images' => $siteUrl . ltrim($image, '/')
-                    ];
-
-                    $productsData[] = $productData;
-                }
-            } else {
-                echo 'Incorrect "details" value!';
             }
 
             $lastProductId = $productCollection->getLastItem()->getId();
@@ -260,124 +158,8 @@ class ProductRepository implements ProductRepositoryInterface
                 'lastId' => $lastProductId,
             ];
 
-            // $jsonResponse = json_encode($responseData, JSON_PRETTY_PRINT);
             return $responseData;
-
-        } elseif ($method == 'getProductsBySku' && $actualToken == $token) {
-            $skuArray = $requestData['sku'] ?? [];
-
-            $offset = $requestData['offset'] ?? 0;
-            $count = $requestData['count'] ?? 10;
-
-            if ($details == 0) {
-                foreach ($productCollection as $product) {
-                    $countryName = $product->getAttributeText('country_of_manufacture');
-                    $manufacturer = $this->getCountryCodeByFullName($countryName);
-                    if (in_array($product->getSku(), $skuArray)) {
-                        $productData = [
-                            'sku' => $product->getSku(),
-                            'url' => $product->getUrlKey(),
-                            'manufacturer' => $manufacturer,
-                            'model' => $product->getModel(),
-                            'ean' => $product->getEan(),
-                            'price' => $product->getPrice(),
-                            'availability' => $product->isSalable() ? 'InStock' : 'OutOfStock',
-                            'itemsAvailable' => $product->getQty(),
-                            'updated' => $product->getUpdatedAt(),
-                        ];
-
-                        $productsData[] = $productData;
-                    }
-                }
-            } elseif ($details == 1) {
-                foreach ($productCollection as $product) {
-                    if (in_array($product->getSku(), $skuArray)) {
-                        $deliveryOptions = [];
-
-                        $productImage = $this->_productRepositoryFactory->create()->getById($product->getId());
-                        $image = $productImage->getData('image');
-                        $thumbnail = $productImage->getData('thumbnail');
-                        $smallImage = $productImage->getData('small_image');
-                        $images = [$image, $thumbnail, $smallImage];
-
-                        $countryName = $product->getAttributeText('country_of_manufacture');
-
-                        $manufacturer = $this->getCountryCodeByFullName($countryName);
-
-                        // $countryModel = $this->_countryFactory->create();
-                        // $countryCollection = $countryModel->getCollection();
-                        // $country = $countryCollection->addFieldToFilter('iso2_code', $countryName)->getFirstItem();
-
-                        // if ($country->getId()) {
-                        //     $isoCountryCode = $country->getIso2Code();
-                        // } else {
-                        //     $isoCountryCode = $countryName;
-                        // }
-
-                        $availableMethods = [];
-                        $carriers = $this->shippingConfig->getActiveCarriers();
-
-                        foreach ($carriers as $carrierCode => $carrierModel) {
-                            $pathPrice = "carriers/{$carrierCode}/price";
-                            $pathEstimateTime = "carriers/{$carrierCode}/estimated_delivery_time";
-                            $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
-                            $availableMethods[] = [
-                                'name' => $carrierCode,
-                                'shippingRate' => $this->scopeConfig->getValue($pathPrice, $storeScope),
-                                'deliveryDays' => $this->scopeConfig->getValue($pathEstimateTime, $storeScope),
-                            ];
-                        }
-
-                        $deliveryOptions[] = [
-                            "country" => $manufacturer,
-                            "carriers" => $availableMethods,
-                        ];
-
-                        $categoryNames = [];
-                        $categoryIds = $product->getCategoryIds();
-
-                        foreach ($categoryIds as $categoryId) {
-                            $category = $this->categoryRepository->get($categoryId);
-                            $categoryNames[] = $category->getName();
-                        }
-
-                        $productData = [
-                            "sku" => $product->getSku(),
-                            "url" => $product->getUrlKey(),
-                            'manufacturer' => $manufacturer,
-                            "model" => $product->getModel(),
-                            "ean" => $product->getEan(),
-                            "price" => $product->getPrice(),
-                            'availability' => $product->isSalable() ? 'InStock' : 'OutOfStock',
-                            'itemsAvailable' => $product->getQty(),
-                            "itemCondition" => "NewCondition",
-                            "category" => $categoryNames,
-                            "name" => $product->getName(),
-                            "description" => $product->getDescription(),
-                            'updated' => $product->getUpdatedAt(),
-                            'delivery' => $deliveryOptions,
-                            'images' => $images
-                        ];
-
-                        $productsData[] = $productData;
-                    }
-                }
-            } else {
-                echo 'Incorrect "details" value!';
-            }
-
-            $lastProductId = $productCollection->getLastItem()->getId();
-
-            $responseData = [
-                'prods' => $productsData,
-                'lastId' => $lastProductId,
-            ];
-
-            $jsonResponse = json_encode($responseData, JSON_PRETTY_PRINT);
-            return $jsonResponse;
-        } 
-        else {
-            // $response = [];
+        } else {
             return 'Incorrect Method or Token';
         }
     }
