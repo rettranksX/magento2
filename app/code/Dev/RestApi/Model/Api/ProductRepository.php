@@ -2,15 +2,14 @@
 
 namespace Dev\RestApi\Model\Api;
 
-use Dev\RestApi\Api\Data\ProductCollectionInterface;
 use Dev\RestApi\Api\ProductRepositoryInterface;
 use Dev\RestApi\Api\Data\ProductInterface;
+use Dev\RestApi\Api\Data\ProductCollectionInterface;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
-
-// use Magento\Framework\App\RequestInterface;
-// use Magento\Framework\Controller\Result\JsonFactory;
+use Magento\Framework\App\RequestInterface;
+use Magento\Framework\Controller\Result\JsonFactory;
 
 /**
  * Class ProductRepository
@@ -47,7 +46,7 @@ class ProductRepository implements ProductRepositoryInterface
     protected $_countryFactory;
 
 
-    /**
+        /**
      * @var ScopeConfigInterface
      */
     private $scopeConfig;
@@ -55,7 +54,7 @@ class ProductRepository implements ProductRepositoryInterface
     protected $configWriter;
     private $countryCollectionFactory;
     private $objectManager;
-    /**
+     /**
      * @var \Magento\Framework\Controller\Result\JsonFactory
      */
     private $jsonResultFactory;
@@ -89,8 +88,7 @@ class ProductRepository implements ProductRepositoryInterface
         $this->_countryFactory = $countryFactory;
     }
 
-    public function getCountryCodeByFullName($countryName)
-    {
+    public function getCountryCodeByFullName($countryName) {
         $countryCollection = $this->_countryFactory->create()->getCollection();
         foreach ($countryCollection as $country) {
             if ($countryName == $country->getName()) {
@@ -99,59 +97,62 @@ class ProductRepository implements ProductRepositoryInterface
         }
         return '';
     }
-    public function execute(): ProductCollectionInterface
+    public function execute(): ProductInterface
     {
-        $actualToken = $this->scopeConfig->getValue(
-            'priceinfo_module/general/token_text',
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        );
-
+        $actualToken = $this->scopeConfig->getValue('priceinfo_module/general/token_text', 
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+    
         $authorizationHeader = $_SERVER['HTTP_AUTHORIZATION'];
-
+    
         if (preg_match('/Bearer\s+(.*)/', $authorizationHeader, $matches)) {
             $token = $matches[1];
         }
-
+    
         $requestBody = file_get_contents('php://input');
         $requestData = json_decode($requestBody, true);
-
+    
         $details = isset($requestData['details']) ? $requestData['details'] : null;
         $method = isset($requestData['method']) ? $requestData['method'] : null;
         $offset = isset($requestData['offset']) ? $requestData['offset'] : null;
         $count = isset($requestData['count']) ? $requestData['count'] : null;
-
-
-        $productCollection = new \Dev\RestApi\Model\Data\ProductCollection();
-
+    
+        $productsData = [];
+    
         if ($method == 'getProducts' && $actualToken == $token) {
-            $productCollectionModel = $this->productCollectionFactory->create();
-            $productCollectionModel->setPageSize($count);
-            $productCollectionModel->setCurPage($offset);
-
+            $productCollection = $this->productCollectionFactory->create();
+            $productCollection->setPageSize($count);
+            $productCollection->setCurPage($offset);
+    
             if ($details == 0) {
-                foreach ($productCollectionModel as $product) {
+                foreach ($productCollection as $product) {
                     $countryName = $product->getAttributeText('country_of_manufacture');
                     $manufacturer = $this->getCountryCodeByFullName($countryName);
-
+    
                     $productData = new \Dev\RestApi\Model\Data\Product();
                     $productData->setSku($product->getSku());
                     if (!empty($product->getUrlKey())) {
                         $productData->setUrl($product->getUrlKey());
                     } else {
                         $productData->setUrl('');
-                    }
-
+                    }                    
+                                 
                     $productData->setManufacturer($manufacturer);
-
-                    $productCollection->addProduct($productData);
+    
+                    $productsData = $productData;
                 }
             }
-
-            $lastProductId = $productCollectionModel->getLastItem()->getId();
-
-            return $productCollection;
+    
+            $lastProductId = $productCollection->getLastItem()->getId();
+    
+            $responseData = [
+                'prods' => $productsData,
+                'lastId' => $lastProductId,
+            ];
+    
+            return $productsData;
         } else {
-            return new \Dev\RestApi\Model\Data\Product();
+            return new \Dev\RestApi\Model\Data\Product(); 
         }
     }
+    
 }
