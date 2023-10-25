@@ -116,7 +116,6 @@ class ProductRepository implements ProductRepositoryInterface
             $count = isset($requestData['count']) ? $requestData['count'] : null;
     
 
-            echo 'hi';
             $storeManager = \Magento\Framework\App\ObjectManager::getInstance()->get(\Magento\Store\Model\StoreManagerInterface::class);
             $siteUrl = $storeManager->getStore()->getBaseUrl();
             $siteUrl = str_replace("\\", "/", $siteUrl);
@@ -137,12 +136,20 @@ class ProductRepository implements ProductRepositoryInterface
                     $countryName = $product->getAttributeText('country_of_manufacture');
                     $manufacturer = $this->getCountryCodeByFullName($countryName);
 
-                    $productData = new \Dev\RestApi\Model\Data\Product();
-                    $productData->setSku($product->getSku());
-                    $productData->setUrl($product->getUrlKey());
-                    $productData->setManufacturer($manufacturer);
+
+                    $productData = [
+                        'sku' => $product->getSku(),
+                        'url' => $product->getUrlKey(),
+                        'manufacturer' => $manufacturer,
+                    ];
 
                     $productsData[] = $productData;
+                    // $productData = new \Dev\RestApi\Model\Data\Product();
+                    // $productData->setSku($product->getSku());
+                    // $productData->setUrl($product->getUrlKey());
+                    // $productData->setManufacturer($manufacturer);
+
+                    // $productsData[] = $productData;
                 }
             }
 
