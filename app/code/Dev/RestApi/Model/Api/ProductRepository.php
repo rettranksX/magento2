@@ -114,6 +114,9 @@ class ProductRepository implements ProductRepositoryInterface
             $method = isset($requestData['method']) ? $requestData['method'] : null;
             $offset = isset($requestData['offset']) ? $requestData['offset'] : null;
             $count = isset($requestData['count']) ? $requestData['count'] : null;
+
+
+            var_dump($details);
     
             $storeManager = \Magento\Framework\App\ObjectManager::getInstance()->get(\Magento\Store\Model\StoreManagerInterface::class);
             $siteUrl = $storeManager->getStore()->getBaseUrl();
