@@ -132,8 +132,9 @@ class ProductRepository implements ProductRepositoryInterface
                     if (!empty($product->getUrlKey())) {
                         $productData->setUrl($product->getUrlKey());
                     } else {
-                        $productData->setUrl($product->getName());
+                        $productData->setUrl('Empty URL');
                     }                    
+                                 
                     $productData->setManufacturer($manufacturer);
     
                     $productsData[] = $productData;
