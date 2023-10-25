@@ -15,10 +15,6 @@ use Magento\Framework\Controller\Result\JsonFactory;
  */
 class ProductRepository implements ProductRepositoryInterface
 {
- /**
-     * @var Action
-     */
-    private $productAction;
     /**
      * @var CollectionFactory
      */
