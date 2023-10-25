@@ -5,7 +5,6 @@ namespace Dev\RestApi\Model\Api;
 use Dev\RestApi\Api\Data\ProductCollectionInterface;
 use Dev\RestApi\Api\ProductRepositoryInterface;
 use Dev\RestApi\Api\Data\ProductInterface;
-use Dev\RestApi\Api\Data\MainDataInterface;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
@@ -13,7 +12,7 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 /**
  * Class ProductRepository
  */
-class ProductRepository implements MainDataInterface
+class ProductRepository implements ProductRepositoryInterface
 {
     /**
      * @var CollectionFactory
@@ -107,7 +106,7 @@ class ProductRepository implements MainDataInterface
 
             return $productCollection;
         } else {
-            return new \Dev\RestApi\Model\Data\ProductCollection();
+            return $productCollection;
         }
     }
 }

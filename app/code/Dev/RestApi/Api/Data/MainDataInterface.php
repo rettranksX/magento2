@@ -2,10 +2,12 @@
 
 namespace Dev\RestApi\Api\Data;
 
+use Dev\RestApi\Api\Data\ProductInterface;
+
 interface MainDataInterface
 {
     /**
-     * @return \Dev\RestApi\Api\Data\ProductCollectionInterface
+     * @return ProductInterface
      */
-    public function execute();
+    public function execute(): ProductInterface;
 }
