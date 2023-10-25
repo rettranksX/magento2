@@ -138,7 +138,7 @@ class ProductRepository implements ProductRepositoryInterface
                                  
                     $productData->setManufacturer($manufacturer);
     
-                    $productsData = $productData;
+                    $productsData[] = $productData;
                 }
             }
     
