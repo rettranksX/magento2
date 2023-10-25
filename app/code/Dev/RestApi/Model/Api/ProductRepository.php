@@ -135,6 +135,13 @@ class ProductRepository implements ProductRepositoryInterface
                     $productData->setSku($product->getSku());
                     $productData->setUrl($product->getUrlKey());
                     $productData->setManufacturer($manufacturer);
+                    $productData->setModel($product->getModel());
+                    $productData->setEan($product->getEan());
+                    $productData->setPrice($product->getPrice());
+                    $productData->setAvailability($product->getAvailability());
+                    $productData->setQuantity($product->getQuantity());
+                    $productData->setUpdateAt($product->getUpdateAt());
+                
     
                     $productsData[] = $productData;
                 }
