@@ -96,7 +96,7 @@ class ProductRepository implements ProductRepositoryInterface
         }
         return '';
     }
-    public function execute(): ProductCollectionInterface
+    public function execute(): ProductInterface
     {
         $actualToken = $this->scopeConfig->getValue('priceinfo_module/general/token_text', 
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
@@ -140,12 +140,15 @@ class ProductRepository implements ProductRepositoryInterface
                     $productsData[] = $productData;
                 }
             }
-        
-            $lastProductId = $productCollection->getLastItem()->getId();
-
-            $productCollection = new \Dev\RestApi\Model\Data\ProductCollection($productsData);
     
-            return $productCollection;
+            $lastProductId = $productCollection->getLastItem()->getId();
+    
+            $responseData = [
+                'prods' => $productsData,
+                'lastId' => $lastProductId,
+            ];
+    
+            return $responseData;
         } else {
             return new \Dev\RestApi\Model\Data\Product(); 
         }
