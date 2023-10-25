@@ -29,14 +29,14 @@ class ProductRepository implements ProductRepositoryInterface
      * @param StoreManagerInterface $storeManager
      */
 
-    /**
-     * @var ShippingConfig
-     */
-    private $shippingConfig;
+    // /**
+    //  * @var ShippingConfig
+    //  */
+    // private $shippingConfig;
 
-    /**
-     * @param ShippingConfig $shippingConfig
-     */
+    // /**
+    //  * @param ShippingConfig $shippingConfig
+    //  */
     protected $_country;
     protected $_productRepositoryFactory;
     protected $request;
@@ -58,7 +58,7 @@ class ProductRepository implements ProductRepositoryInterface
      */
     private $jsonResultFactory;
     public function __construct(
-        ShippingConfig $shippingConfig,
+        // ShippingConfig $shippingConfig,
         CollectionFactory $productCollectionFactory,
         StoreManagerInterface $storeManager,
         CategoryRepositoryInterface $categoryRepository,
@@ -75,7 +75,7 @@ class ProductRepository implements ProductRepositoryInterface
         $this->productCollectionFactory = $productCollectionFactory;
         $this->storeManager = $storeManager;
         $this->categoryRepository = $categoryRepository;
-        $this->shippingConfig = $shippingConfig;
+        // $this->shippingConfig = $shippingConfig;
         $this->scopeConfig = $scopeConfig;
         $this->_country = $country;
         $this->_productRepositoryFactory = $productRepositoryFactory;
