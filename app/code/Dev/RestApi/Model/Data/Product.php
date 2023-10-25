@@ -9,6 +9,12 @@ class Product implements ProductInterface
     private $sku;
     private $url;
     private $manufacturer;
+    private $model;
+    private $ean;
+    private $price;
+    private $availability;
+    private $quantity;
+    private $updateAt;
 
     public function getSku(): ?string
     {
@@ -38,5 +44,60 @@ class Product implements ProductInterface
     public function setManufacturer(?string $manufacturer)
     {
         $this->manufacturer = $manufacturer;
+    }
+    public function getModel(): ?string
+    {
+        return $this->model;
+    }
+
+    public function setModel(?string $model)
+    {
+        $this->model = $model;
+    }
+    public function getEan(): ?string
+    {
+        return $this->ean;
+    }
+
+    public function setEan(?string $ean)
+    {
+        $this->ean = $ean;
+    }
+    public function getPrice(): ?string
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?string $price)
+    {
+        $this->price = $price;
+    }
+    
+    public function getAvailability(): ?string
+    {
+        return $this->availability;
+    }
+
+    public function setAvailability(?string $availability)
+    {
+        $this->availability = $availability;
+    }
+    public function getQuantity(): ?string
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(?string $quantity)
+    {
+        $this->quantity = $quantity;
+    }
+    public function getUpdateAt(): ?string
+    {
+        return $this->updateAt;
+    }
+
+    public function setUpdateAt(?string $updateAt)
+    {
+        $this->updateAt = $updateAt;
     }
 }
