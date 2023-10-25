@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
-    <route url="/V1/rest_dev/getProducts" method="POST">
-        <service class="Dev\RestApi\Api\ProductRepository" method="execute" />
-        <resources>
-            <resource ref="anonymous" />
-        </resources>
-    </route>
-    <!-- <route url="/V1/rest_dev/getProductsTest" method="POST">
-        <service class="Dev\RestApi\Api\Data\ProductInterface" method="execute" />
+    <!-- <route url="/V1/rest_dev/getProducts" method="POST">
+        <service class="Dev\RestApi\Api\ProductRepositoryInterface" method="execute" />
         <resources>
             <resource ref="anonymous" />
         </resources>
     </route> -->
+    <route url="/V1/rest_dev/getProductsTest" method="POST">
+        <service class="Dev\RestApi\Api\Data\MainDataInterface" method="execute" />
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
 </routes>
