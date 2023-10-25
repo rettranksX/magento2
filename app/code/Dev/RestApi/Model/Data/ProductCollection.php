@@ -2,8 +2,8 @@
 
 namespace Dev\RestApi\Model\Data;
 
-use Dev\RestApi\Api\Data\ProductInterface;
 use Dev\RestApi\Api\Data\ProductCollectionInterface;
+use Dev\RestApi\Api\Data\ProductInterface;
 
 class ProductCollection implements ProductCollectionInterface
 {
@@ -12,7 +12,6 @@ class ProductCollection implements ProductCollectionInterface
     public function addProduct(ProductInterface $product)
     {
         $this->products[] = $product;
-        return $this;
     }
 
     public function getProducts(): array
