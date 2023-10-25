@@ -96,7 +96,7 @@ class ProductRepository implements ProductRepositoryInterface
         }
         return '';
     }
-    public function execute()
+    public function execute() : ProductInterface 
     {
         $actualToken = $this->scopeConfig->getValue('priceinfo_module/general/token_text', 
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
@@ -136,21 +136,17 @@ class ProductRepository implements ProductRepositoryInterface
                     $countryName = $product->getAttributeText('country_of_manufacture');
                     $manufacturer = $this->getCountryCodeByFullName($countryName);
 
-                    $productData = new \Dev\RestApi\Model\Data\Product();
-
-                    $productData = [
-                        'sku' => setSku($product->getSku()),
-                        'url' => setUrl($product->getUrlKey()),
-                        'manufacturer' => setManufacturer($manufacturer),
-                    ];
-
-                    $productsData[] = $productData;
                     // $productData = new \Dev\RestApi\Model\Data\Product();
                     // $productData->setSku($product->getSku());
                     // $productData->setUrl($product->getUrlKey());
                     // $productData->setManufacturer($manufacturer);
 
-                    // $productsData[] = $productData;
+                    $product = new \Dev\RestApi\Model\Data\Product();
+                    $product->setSku('Your SKU');
+                    $product->setUrl('Your URL');
+                    $product->setManufacturer('Your Manufacturer');
+
+                    $productsData[] = $productData;
                 }
             }
 
