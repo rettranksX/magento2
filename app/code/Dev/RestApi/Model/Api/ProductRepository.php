@@ -146,7 +146,7 @@ class ProductRepository implements ProductRepositoryInterface
                     $product->setUrl('Your URL');
                     $product->setManufacturer('Your Manufacturer');
 
-                    $productsData[] = $productData;
+                    $productsData[] = $product;
                 }
             }
 
