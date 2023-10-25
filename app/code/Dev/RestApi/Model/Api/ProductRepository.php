@@ -120,10 +120,6 @@ class ProductRepository implements ProductRepositoryInterface
         if ($method == 'getProducts' && $actualToken == $token) {
             $productCollection = $this->productCollectionFactory->create();
             
-
-            var_dump($count);
-
-            var_dump($offset);
             $productCollection->setPageSize($count);
             $productCollection->setCurPage($offset);
     
