@@ -143,7 +143,7 @@ class ProductRepository implements ProductRepositoryInterface
                     $productData->setUpdateAt($product->getUpdatedAt());
                 
 
-                    var_dump($productData->setQuantity($product->getData('qty')));
+                    var_dump($productData->setQuantity($product->getQty()));
     
                     $productsData[] = $productData;
                 }
