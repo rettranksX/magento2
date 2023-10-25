@@ -119,6 +119,9 @@ class ProductRepository implements ProductRepositoryInterface
     
         if ($method == 'getProducts' && $actualToken == $token) {
             $productCollection = $this->productCollectionFactory->create();
+            $productCollection->addAttributeToSelect([
+                array('*')
+            ]);
             $productCollection->setPageSize($count);
             $productCollection->setCurPage($offset);
     
@@ -126,7 +129,6 @@ class ProductRepository implements ProductRepositoryInterface
                 foreach ($productCollection as $product) {
                     $countryName = $product->getAttributeText('country_of_manufacture');
 
-                    var_dump($countryName);
                     $manufacturer = $this->getCountryCodeByFullName($countryName);
     
                     $productData = new \Dev\RestApi\Model\Data\Product();
