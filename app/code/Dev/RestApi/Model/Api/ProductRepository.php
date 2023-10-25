@@ -25,7 +25,6 @@ class ProductRepository implements ProductRepositoryInterface
     private $storeManager;
     private $categoryRepository;
     /**
-     * @param Action $productAction
      * @param CollectionFactory $productCollectionFactory
      * @param StoreManagerInterface $storeManager
      */
@@ -59,7 +58,6 @@ class ProductRepository implements ProductRepositoryInterface
      */
     private $jsonResultFactory;
     public function __construct(
-        Action $productAction,
         ShippingConfig $shippingConfig,
         CollectionFactory $productCollectionFactory,
         StoreManagerInterface $storeManager,
@@ -74,7 +72,6 @@ class ProductRepository implements ProductRepositoryInterface
         JsonFactory $jsonResultFactory,
         \Magento\Directory\Model\CountryFactory $countryFactory
     ) {
-        $this->productAction = $productAction;
         $this->productCollectionFactory = $productCollectionFactory;
         $this->storeManager = $storeManager;
         $this->categoryRepository = $categoryRepository;
