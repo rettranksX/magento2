@@ -136,6 +136,7 @@ class ProductRepository implements ProductRepositoryInterface
                     $countryName = $product->getAttributeText('country_of_manufacture');
                     $manufacturer = $this->getCountryCodeByFullName($countryName);
 
+                    $productData = new \Dev\RestApi\Model\Data\Product();
 
                     $productData = [
                         'sku' => setSku($product->getSku()),
