@@ -96,70 +96,57 @@ class ProductRepository implements ProductRepositoryInterface
         }
         return '';
     }
-    public function execute() : ProductInterface 
+    public function execute(): ProductInterface
     {
         $actualToken = $this->scopeConfig->getValue('priceinfo_module/general/token_text', 
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
-
-            $authorizationHeader = $_SERVER['HTTP_AUTHORIZATION'];
-
-            if (preg_match('/Bearer\s+(.*)/', $authorizationHeader, $matches)) {
-                $token = $matches[1];
-            }
     
-            $requestBody = file_get_contents('php://input');
-            $requestData = json_decode($requestBody, true);
+        $authorizationHeader = $_SERVER['HTTP_AUTHORIZATION'];
     
-            $details = isset($requestData['details']) ? $requestData['details'] : null;
-            $method = isset($requestData['method']) ? $requestData['method'] : null;
-            $offset = isset($requestData['offset']) ? $requestData['offset'] : null;
-            $count = isset($requestData['count']) ? $requestData['count'] : null;
+        if (preg_match('/Bearer\s+(.*)/', $authorizationHeader, $matches)) {
+            $token = $matches[1];
+        }
     
-
-            $storeManager = \Magento\Framework\App\ObjectManager::getInstance()->get(\Magento\Store\Model\StoreManagerInterface::class);
-            $siteUrl = $storeManager->getStore()->getBaseUrl();
-            $siteUrl = str_replace("\\", "/", $siteUrl);
+        $requestBody = file_get_contents('php://input');
+        $requestData = json_decode($requestBody, true);
     
-            /** @var \Magento\Catalog\Model\ResourceModel\Product\Collection $productCollection */
-            $productCollection = $this->productCollectionFactory->create();
-            $productCollection->addAttributeToSelect([
-                array('*')
-            ]);
+        $details = isset($requestData['details']) ? $requestData['details'] : null;
+        $method = isset($requestData['method']) ? $requestData['method'] : null;
+        $offset = isset($requestData['offset']) ? $requestData['offset'] : null;
+        $count = isset($requestData['count']) ? $requestData['count'] : null;
+    
         $productsData = [];
-
+    
         if ($method == 'getProducts' && $actualToken == $token) {
+            $productCollection = $this->productCollectionFactory->create();
             $productCollection->setPageSize($count);
             $productCollection->setCurPage($offset);
-
+    
             if ($details == 0) {
                 foreach ($productCollection as $product) {
                     $countryName = $product->getAttributeText('country_of_manufacture');
                     $manufacturer = $this->getCountryCodeByFullName($countryName);
-
-                    // $productData = new \Dev\RestApi\Model\Data\Product();
-                    // $productData->setSku($product->getSku());
-                    // $productData->setUrl($product->getUrlKey());
-                    // $productData->setManufacturer($manufacturer);
-
-                    $product = new \Dev\RestApi\Model\Data\Product();
-                    $product->setSku('Your SKU');
-                    $product->setUrl('Your URL');
-                    $product->setManufacturer('Your Manufacturer');
-
-                    $productsData[] = $product;
+    
+                    $productData = new \Dev\RestApi\Model\Data\Product();
+                    $productData->setSku($product->getSku());
+                    $productData->setUrl($product->getUrlKey());
+                    $productData->setManufacturer($manufacturer);
+    
+                    $productsData[] = $productData;
                 }
             }
-
+    
             $lastProductId = $productCollection->getLastItem()->getId();
-
+    
             $responseData = [
                 'prods' => $productsData,
                 'lastId' => $lastProductId,
             ];
-
-            return $responseData;
+    
+            return $productData;
         } else {
-            return 'Incorrect Method or Token';
+            return new \Dev\RestApi\Model\Data\Product(); 
         }
     }
+    
 }
