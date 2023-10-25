@@ -61,29 +61,29 @@ class ProductRepository implements ProductRepositoryInterface
         // ShippingConfig $shippingConfig,
         CollectionFactory $productCollectionFactory,
         StoreManagerInterface $storeManager,
-        CategoryRepositoryInterface $categoryRepository,
+        // CategoryRepositoryInterface $categoryRepository,
         ScopeConfigInterface $scopeConfig,
         \Magento\Directory\Model\Country $country,
-        \Magento\Catalog\Api\ProductRepositoryInterfaceFactory $productRepositoryFactory,
-        RequestInterface $request,
-        WriterInterface $configWriter,
-        CollectionFactory $countryCollectionFactory,
+        // \Magento\Catalog\Api\ProductRepositoryInterfaceFactory $productRepositoryFactory,
+        // RequestInterface $request,
+        // WriterInterface $configWriter,
+        // CollectionFactory $countryCollectionFactory,
         ObjectManagerInterface $objectManager,
-        JsonFactory $jsonResultFactory,
+        // JsonFactory $jsonResultFactory,
         \Magento\Directory\Model\CountryFactory $countryFactory
     ) {
         $this->productCollectionFactory = $productCollectionFactory;
         $this->storeManager = $storeManager;
-        $this->categoryRepository = $categoryRepository;
+        // $this->categoryRepository = $categoryRepository;
         // $this->shippingConfig = $shippingConfig;
         $this->scopeConfig = $scopeConfig;
         $this->_country = $country;
-        $this->_productRepositoryFactory = $productRepositoryFactory;
-        $this->request = $request;
-        $this->configWriter = $configWriter;
-        $this->countryCollectionFactory = $countryCollectionFactory;
+        // $this->_productRepositoryFactory = $productRepositoryFactory;
+        // $this->request = $request;
+        // $this->configWriter = $configWriter;
+        // $this->countryCollectionFactory = $countryCollectionFactory;
         $this->objectManager = $objectManager;
-        $this->jsonResultFactory = $jsonResultFactory;
+        // $this->jsonResultFactory = $jsonResultFactory;
         $this->_countryFactory = $countryFactory;
     }
 
