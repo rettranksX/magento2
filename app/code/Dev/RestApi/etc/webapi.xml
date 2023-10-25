@@ -7,7 +7,7 @@
             <resource ref="anonymous" />
         </resources>
     </route> -->
-    <route url="/V1/rest_dev/getProductsTest" method="POST">
+    <route url="/V1/rest_dev/getProducts" method="POST">
         <service class="Dev\RestApi\Api\Data\MainDataInterface" method="execute" />
         <resources>
             <resource ref="anonymous" />
