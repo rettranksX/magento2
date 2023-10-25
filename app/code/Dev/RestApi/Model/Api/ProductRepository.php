@@ -129,7 +129,11 @@ class ProductRepository implements ProductRepositoryInterface
     
                     $productData = new \Dev\RestApi\Model\Data\Product();
                     $productData->setSku($product->getSku());
-                    $productData->setUrl($product->getUrlKey());
+                    if (!empty($product->getUrlKey())) {
+                        $productData->setUrl($product->getUrlKey());
+                    } else {
+                        $productData->setUrl($product->getName());
+                    }                    
                     $productData->setManufacturer($manufacturer);
     
                     $productsData[] = $productData;
