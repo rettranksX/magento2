@@ -3,6 +3,7 @@
 namespace Dev\RestApi\Model\Data;
 
 use Dev\RestApi\Api\Data\ProductCollectionInterface;
+use Dev\RestApi\Api\Data\ProductInterface;
 
 class ProductCollection implements ProductCollectionInterface
 {
