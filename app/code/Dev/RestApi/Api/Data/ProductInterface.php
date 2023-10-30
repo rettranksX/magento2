@@ -53,7 +53,7 @@ interface ProductInterface
      *
      * @return string|null
      */
-    public function setItemsAvailable(): ?string;
+    public function getItemsAvailable(): ?string;
         /**
      * Get update time of the product.
      *
