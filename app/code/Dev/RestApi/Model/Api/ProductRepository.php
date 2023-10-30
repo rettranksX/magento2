@@ -2,6 +2,7 @@
 
 namespace Dev\RestApi\Model\Api;
 
+use Dev\RestApi\Model\Data\Product;
 use Dev\RestApi\Api\ProductRepositoryInterface;
 use Dev\RestApi\Api\Data\ProductInterface;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
@@ -45,7 +46,7 @@ class ProductRepository implements ProductRepositoryInterface
     protected $_countryFactory;
 
 
-        /**
+    /**
      * @var ScopeConfigInterface
      */
     private $scopeConfig;
@@ -53,7 +54,7 @@ class ProductRepository implements ProductRepositoryInterface
     protected $configWriter;
     private $countryCollectionFactory;
     private $objectManager;
-     /**
+    /**
      * @var \Magento\Framework\Controller\Result\JsonFactory
      */
     private $jsonResultFactory;
@@ -87,7 +88,8 @@ class ProductRepository implements ProductRepositoryInterface
         $this->_countryFactory = $countryFactory;
     }
 
-    public function getCountryCodeByFullName($countryName) {
+    public function getCountryCodeByFullName($countryName)
+    {
         $countryCollection = $this->_countryFactory->create()->getCollection();
         foreach ($countryCollection as $country) {
             if ($countryName == $country->getName()) {
@@ -98,39 +100,33 @@ class ProductRepository implements ProductRepositoryInterface
     }
     public function execute(): ProductInterface
     {
-        $actualToken = $this->scopeConfig->getValue('priceinfo_module/general/token_text', 
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
-    
+        $actualToken = $this->scopeConfig->getValue('priceinfo_module/general/token_text', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         $authorizationHeader = $_SERVER['HTTP_AUTHORIZATION'];
-    
+
         if (preg_match('/Bearer\s+(.*)/', $authorizationHeader, $matches)) {
             $token = $matches[1];
         }
-    
+
         $requestBody = file_get_contents('php://input');
         $requestData = json_decode($requestBody, true);
-    
-        $details = isset($requestData['details']) ? $requestData['details'] : null;
-        $method = isset($requestData['method']) ? $requestData['method'] : null;
-        $offset = isset($requestData['offset']) ? $requestData['offset'] : null;
-        $count = isset($requestData['count']) ? $requestData['count'] : null;
-    
-        $productsData = [];
-    
+
+        $details = $requestData['details'] ?? null;
+        $method = $requestData['method'] ?? null;
+        $offset = $requestData['offset'] ?? null;
+        $count = $requestData['count'] ?? null;
+
         if ($method == 'getProducts' && $actualToken == $token) {
             $productCollection = $this->productCollectionFactory->create();
-            $productCollection->addAttributeToSelect([
-                array('*')
-            ]);
+            $productCollection->addAttributeToSelect('*');
             $productCollection->setPageSize($count);
             $productCollection->setCurPage($offset);
-    
+
             if ($details == 0) {
+                $productsData = [];
                 foreach ($productCollection as $product) {
                     $countryName = $product->getAttributeText('country_of_manufacture');
-
                     $manufacturer = $this->getCountryCodeByFullName($countryName);
-    
+
                     $productData = new \Dev\RestApi\Model\Data\Product();
                     $productData->setSku($product->getSku());
                     $productData->setUrl($product->getUrlKey());
@@ -141,22 +137,22 @@ class ProductRepository implements ProductRepositoryInterface
                     $productData->setAvailability($product->getIsSalable() ? 'InStock' : 'OutOfStock');
                     $productData->setItemsAvailable($product->getQty());
                     $productData->setUpdateAt($product->getUpdatedAt());
-                
+
                     $productsData[] = $productData;
                 }
+
+                $lastProductId = $productCollection->getLastItem()->getId();
+
+                $responseData = [
+                    'prods' => $productsData,
+                    'lastId' => $lastProductId,
+                ];
+
+                return $responseData;
             }
-    
-            $lastProductId = $productCollection->getLastItem()->getId();
-    
-            $responseData = [
-                'prods' => $productsData,
-                'lastId' => $lastProductId,
-            ];
-    
-            return $responseData;
-        } else {
-            return new \Dev\RestApi\Model\Data\Product(); 
         }
+
+        return new \Dev\RestApi\Model\Data\Product();
     }
-    
+
 }
