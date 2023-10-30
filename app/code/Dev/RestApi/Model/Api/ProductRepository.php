@@ -153,7 +153,7 @@ class ProductRepository implements ProductRepositoryInterface
                 'lastId' => $lastProductId,
             ];
     
-            return new \Dev\RestApi\Model\Data\Product();
+            return $responseData;
         } else {
             return new \Dev\RestApi\Model\Data\Product(); 
         }
