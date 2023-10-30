@@ -142,8 +142,6 @@ class ProductRepository implements ProductRepositoryInterface
                     $productData->setItemsAvailable($product->getQty());
                     $productData->setUpdateAt($product->getUpdatedAt());
                 
-
-    
                     $productsData[] = $productData;
                 }
             }
@@ -155,7 +153,7 @@ class ProductRepository implements ProductRepositoryInterface
                 'lastId' => $lastProductId,
             ];
     
-            return $productData;
+            return $responseData;
         } else {
             return new \Dev\RestApi\Model\Data\Product(); 
         }
