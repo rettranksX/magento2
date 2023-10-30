@@ -146,7 +146,7 @@ class ProductRepository implements ProductRepositoryInterface
                 $product->setProducts($productsData);
                 $product->setLastId($lastProductId);
 
-                return $productData;
+                return $product;
             }
         }
 
