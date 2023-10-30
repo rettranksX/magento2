@@ -75,22 +75,22 @@ class Product implements ProductInterface
         $this->price = $price;
     }
 
-    public function getStockAvailability(): ?string
+    public function getAvailability(): ?string
     {
         return $this->availability;
     }
 
-    public function setStockAvailability(?string $availability)
+    public function setAvailability(?string $availability)
     {
         $this->availability = $availability;
     }
 
-    public function getItemAvailability(): ?string
+    public function getItemsAvailable(): ?string
     {
         return $this->itemAvailable;
     }
 
-    public function setItemAvailability(?string $itemAvailable)
+    public function setItemsAvailable(?string $itemAvailable)
     {
         $this->itemAvailable = $itemAvailable;
     }
