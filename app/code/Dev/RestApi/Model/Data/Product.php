@@ -8,6 +8,9 @@ use JMS\Serializer\Annotation as Serializer;
 
 class Product implements ProductInterface
 {
+
+    private $products = [];
+    private $lastId;
     private $sku;
     private $url;
     private $manufacturer;
