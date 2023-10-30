@@ -22,14 +22,14 @@ interface ProductInterface
     /**
      * Set the array of products.
      *
-     * @return array $products
+     * @param array $products
      */
     public function setProducts(array $products);
 
     /**
      * Set the last identifier.
      *
-     * @return int $lastId
+     * @param int $lastId
      */
     public function setLastId(int $lastId);
     /**
