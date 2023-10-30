@@ -3,6 +3,8 @@
 namespace Dev\RestApi\Model\Data;
 
 use Dev\RestApi\Api\Data\ProductInterface;
+use JMS\Serializer\Annotation as Serializer;
+
 
 class Product implements ProductInterface
 {
@@ -82,11 +84,23 @@ class Product implements ProductInterface
     {
         $this->availability = $availability;
     }
+    /**
+     * Get available item of the product.
+     *
+     * @Serializer\SerializedName("itemAvailable")
+     * @return string|null
+     */
     public function getItemAvailable(): ?string
     {
         return $this->itemAvailable;
     }
 
+    /**
+     * Set available item of the product.
+     *
+     * @Serializer\SerializedName("itemAvailable")
+     * @param string|null $itemAvailable
+     */
     public function setItemAvailable(?string $itemAvailable)
     {
         $this->itemAvailable = $itemAvailable;
