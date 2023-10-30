@@ -82,12 +82,12 @@ class Product implements ProductInterface
     {
         $this->availability = $availability;
     }
-    public function getQuantity(): ?string
+    public function setItemsAvailable(): ?string
     {
         return $this->itemAvailable;
     }
 
-    public function setQuantity(?string $itemAvailable)
+    public function setItemsAvailable(?string $itemAvailable)
     {
         $this->itemAvailable = $itemAvailable;
     }
