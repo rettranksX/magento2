@@ -21,22 +21,6 @@ class Product implements ProductInterface
     private $itemAvailable;
     private $updateAt;
 
-    public function getProducts(): array
-    {
-        return $this->products;
-    }
-    public function setProducts(array $products)
-    {
-        $this->products = $products;
-    }
-    public function getLastId(): ?int
-    {
-        return $this->lastId;
-    }
-    public function setLastId(int $lastId)
-    {
-        $this->lastId = $lastId;
-    }
     public function getSku(): ?string
     {
         return $this->sku;
