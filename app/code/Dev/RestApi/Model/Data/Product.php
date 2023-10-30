@@ -13,7 +13,7 @@ class Product implements ProductInterface
     private $ean;
     private $price;
     private $availability;
-    private $itemAvailable;
+    private $itemsAvailable;
     private $updateAt;
 
     public function getSku(): ?string
@@ -84,12 +84,12 @@ class Product implements ProductInterface
     }
     public function getItemsAvailable(): ?string
     {
-        return $this->itemAvailable;
+        return $this->itemsAvailable;
     }
 
-    public function setItemsAvailable(?string $itemAvailable)
+    public function setItemsAvailable(?string $itemsAvailable)
     {
-        $this->itemAvailable = $itemAvailable;
+        $this->itemsAvailable = $itemsAvailable;
     }
     public function getUpdateAt(): ?string
     {
