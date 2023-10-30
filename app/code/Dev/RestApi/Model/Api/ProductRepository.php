@@ -128,8 +128,9 @@ class ProductRepository implements ProductRepositoryInterface
             if ($details == 0) {
                 foreach ($productCollection as $product) {
                     $countryName = $product->getAttributeText('country_of_manufacture');
+
                     $manufacturer = $this->getCountryCodeByFullName($countryName);
-            
+    
                     $productData = new \Dev\RestApi\Model\Data\Product();
                     $productData->setSku($product->getSku());
                     $productData->setUrl($product->getUrlKey());
@@ -137,18 +138,15 @@ class ProductRepository implements ProductRepositoryInterface
                     $productData->setModel($product->getModel());
                     $productData->setEan($product->getEan());
                     $productData->setPrice($product->getPrice());
-            
-                    $stockItem = $product->getExtensionAttributes()->getStockItem();
-                    if ($stockItem) {
-                        $productData->setQuantity($stockItem->getQty());
-                    }
-            
+                    // $productData->$product->isSalable() ? 'InStock' : 'OutOfStock';
+                    $productData->setQuantity($product->getQty());
                     $productData->setUpdateAt($product->getUpdatedAt());
-                        
+                
+
+    
                     $productsData[] = $productData;
                 }
             }
-            
     
             $lastProductId = $productCollection->getLastItem()->getId();
     
