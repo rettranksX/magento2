@@ -29,7 +29,7 @@ class Product implements ProductInterface
     {
         $this->products = $products;
     }
-    public function getLastId(): int
+    public function getLastId(): ?int
     {
         return $this->lastId;
     }
