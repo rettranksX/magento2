@@ -4,6 +4,34 @@ namespace Dev\RestApi\Api\Data;
 
 interface ProductInterface
 {
+
+    /**
+     * Get the array of products.
+     *
+     * @return array
+     */
+    public function getProducts(): array;
+
+    /**
+     * Get the last identifier.
+     *
+     * @return int
+     */
+    public function getLastId(): int;
+
+    /**
+     * Set the array of products.
+     *
+     * @param array $products
+     */
+    public function setProducts(array $products);
+
+    /**
+     * Set the last identifier.
+     *
+     * @param int $lastId
+     */
+    public function setLastId(int $lastId);
     /**
      * Get SKU of the product.
      *
