@@ -138,6 +138,7 @@ class ProductRepository implements ProductRepositoryInterface
                     $productData->setModel($product->getModel());
                     $productData->setEan($product->getEan());
                     $productData->setPrice($product->getPrice());
+                    $productData->setStock($product->getStock());
                     // $productData->$product->isSalable() ? 'InStock' : 'OutOfStock';
                     $productData->setItemAvailable($product->getQty());
                     $productData->setUpdateAt($product->getUpdatedAt());

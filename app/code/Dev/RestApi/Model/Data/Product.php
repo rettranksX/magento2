@@ -14,6 +14,7 @@ class Product implements ProductInterface
     private $model;
     private $ean;
     private $price;
+    private $stock;
     private $availability;
     private $itemAvailable;
     private $updateAt;
@@ -74,6 +75,16 @@ class Product implements ProductInterface
     {
         $this->price = $price;
     }
+
+    public function getStock(): ?string
+    {
+        return $this->stock;
+    }
+
+    public function setStock(?string $stock)
+    {
+        $this->stock = $stock;
+    }
     
     public function getAvailability(): ?string
     {
@@ -84,23 +95,11 @@ class Product implements ProductInterface
     {
         $this->availability = $availability;
     }
-    /**
-     * Get available item of the product.
-     *
-     * @Serializer\SerializedName("itemAvailable")
-     * @return string|null
-     */
     public function getItemAvailable(): ?string
     {
         return $this->itemAvailable;
     }
 
-    /**
-     * Set available item of the product.
-     *
-     * @Serializer\SerializedName("itemAvailable")
-     * @param string|null $itemAvailable
-     */
     public function setItemAvailable(?string $itemAvailable)
     {
         $this->itemAvailable = $itemAvailable;
