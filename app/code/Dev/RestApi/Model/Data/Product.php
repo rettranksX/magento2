@@ -14,7 +14,6 @@ class Product implements ProductInterface
     private $model;
     private $ean;
     private $price;
-    private $stock;
     private $availability;
     private $itemAvailable;
     private $updateAt;
@@ -76,34 +75,26 @@ class Product implements ProductInterface
         $this->price = $price;
     }
 
-    public function getStock(): ?string
-    {
-        return $this->stock;
-    }
-
-    public function setStock(?string $stock)
-    {
-        $this->stock = $stock;
-    }
-    
-    public function getAvailability(): ?string
+    public function getStockAvailability(): ?string
     {
         return $this->availability;
     }
 
-    public function setAvailability(?string $availability)
+    public function setStockAvailability(?string $availability)
     {
         $this->availability = $availability;
     }
-    public function getItemAvailable(): ?string
+
+    public function getItemAvailability(): ?string
     {
         return $this->itemAvailable;
     }
 
-    public function setItemAvailable(?string $itemAvailable)
+    public function setItemAvailability(?string $itemAvailable)
     {
         $this->itemAvailable = $itemAvailable;
     }
+
     public function getUpdateAt(): ?string
     {
         return $this->updateAt;

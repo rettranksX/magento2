@@ -48,19 +48,14 @@ interface ProductInterface
      *
      * @return string|null
      */
-    public function getStock(): ?string;
+    public function getStockAvailability(): ?string;
     /**
      * Get availability of the product.
      *
      * @return string|null
      */
-    public function getAvailability(): ?string;
-    /**
-     * Get available item of the product.
-     *
-     * @return string|null
-     */
-    public function getItemAvailable(): ?string;
+    public function getItemAvailability(): ?string;
+
     /**
      * Get update time of the product.
      *
