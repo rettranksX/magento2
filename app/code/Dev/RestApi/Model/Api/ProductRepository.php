@@ -125,13 +125,14 @@ class ProductRepository implements ProductRepositoryInterface
             $productCollection->setPageSize($count);
             $productCollection->setCurPage($offset);
     
+            $productData = new \Dev\RestApi\Model\Data\Product();
+
             if ($details == 0) {
                 foreach ($productCollection as $product) {
                     $countryName = $product->getAttributeText('country_of_manufacture');
 
                     $manufacturer = $this->getCountryCodeByFullName($countryName);
     
-                    $productData = new \Dev\RestApi\Model\Data\Product();
                     $productData->setSku($product->getSku());
                     $productData->setUrl($product->getUrlKey());
                     $productData->setManufacturer($manufacturer);
