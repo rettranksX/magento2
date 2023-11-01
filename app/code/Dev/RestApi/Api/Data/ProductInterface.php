@@ -13,12 +13,6 @@ interface ProductInterface
     public function getProducts(): array;
 
     /**
-     * Set the array of products.
-     *
-     * @param array $products
-     */
-    public function setProducts(array $products);
-    /**
      * Get SKU of the product.
      *
      * @return string|null
