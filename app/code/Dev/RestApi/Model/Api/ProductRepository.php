@@ -146,12 +146,14 @@ class ProductRepository implements ProductRepositoryInterface
                 }
             }
     
-            $lastProductId = $productCollection->getLastItem()->getId();
+            // $lastProductId = $productCollection->getLastItem()->getId();
     
-            $responseData = [
-                'prods' => $productsData,
-                'lastId' => $lastProductId,
-            ];
+            // $responseData = [
+            //     'prods' => $productsData,
+            //     'lastId' => $lastProductId,
+            // ];
+            $product = new \Dev\RestApi\Model\Data\Product();
+            $product->setProducts($productsData);
     
             return $productData;
         } else {

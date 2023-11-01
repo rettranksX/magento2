@@ -4,6 +4,20 @@ namespace Dev\RestApi\Api\Data;
 
 interface ProductInterface
 {
+
+        /**
+     * Get the array of products.
+     *
+     * @return array
+     */
+    public function getProducts(): array;
+
+    /**
+     * Set the array of products.
+     *
+     * @param array $products
+     */
+    public function setProducts(array $products);
     /**
      * Get SKU of the product.
      *

@@ -8,6 +8,7 @@ use JMS\Serializer\Annotation as Serializer;
 
 class Product implements ProductInterface
 {
+    private $products = [];
     private $sku;
     private $url;
     private $manufacturer;
@@ -18,6 +19,16 @@ class Product implements ProductInterface
     private $itemAvailable;
     private $updateAt;
 
+
+    public function getProducts(): array
+    {
+        return $this->products;
+    }
+
+    public function setProducts(array $products)
+    {
+        $this->products = $products;
+    }
     public function getSku(): ?string
     {
         return $this->sku;
