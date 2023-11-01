@@ -155,7 +155,7 @@ class ProductRepository implements ProductRepositoryInterface
             $product = new \Dev\RestApi\Model\Data\Product();
             $product->setProducts($productsData);
     
-            return $product;
+            return $productData;
         } else {
             return new \Dev\RestApi\Model\Data\Product(); 
         }
