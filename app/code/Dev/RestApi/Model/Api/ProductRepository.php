@@ -141,8 +141,9 @@ class ProductRepository implements ProductRepositoryInterface
                     $productData->setAvailability($product->getIsSalable() ? 'InStock' : 'OutOfStock');
                     $productData->setItemsAvailable($product->getQty());
                     $productData->setUpdateAt($product->getUpdatedAt());
-                
-                    $productsData[] = $productData;
+
+                    $productData->setProducts($product->getProducts());
+                    // $productsData[] = $productData;
                 }
             }
     
