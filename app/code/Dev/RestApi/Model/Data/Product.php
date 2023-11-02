@@ -3,7 +3,6 @@
 namespace Dev\RestApi\Model\Data;
 
 use Dev\RestApi\Api\Data\ProductInterface;
-use JMS\Serializer\Annotation as Serializer;
 
 
 class Product implements ProductInterface
