@@ -98,57 +98,73 @@ class ProductRepository implements ProductRepositoryInterface
         return '';
     }
     public function execute(): array
-    {
-        $actualToken = $this->scopeConfig->getValue(
-            'priceinfo_module/general/token_text',
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        );
-    
-        $authorizationHeader = $_SERVER['HTTP_AUTHORIZATION'];
-    
-        if (preg_match('/Bearer\s+(.*)/', $authorizationHeader, $matches)) {
-            $token = $matches[1];
-        }
-    
-        $requestBody = file_get_contents('php://input');
-        $requestData = json_decode($requestBody, true);
-    
-        $details = $requestData['details'] ?? null;
-        $method = $requestData['method'] ?? null;
-        $offset = $requestData['offset'] ?? null;
-        $count = $requestData['count'] ?? null;
-    
-        $productsData = [];
-    
-        if ($method === 'getProducts' && $actualToken === $token) {
-            $productCollection = $this->productCollectionFactory->create();
-            $productCollection->addAttributeToSelect('*');
-            $productCollection->setPageSize($count);
-            $productCollection->setCurPage($offset);
-    
-            if ($details === 0) {
-                $productsData['products'] = [];
-    
-                foreach ($productCollection as $product) {
-                    $countryName = $product->getAttributeText('country_of_manufacture');
-                    $manufacturer = $this->getCountryCodeByFullName($countryName);
-    
-                    $productData = new \Dev\RestApi\Model\Data\Product();
-                    $productData->setSku($product->getSku());
-                    $productData->setUrl($product->getUrlKey());
-                    $productData->setManufacturer($manufacturer);
-                    $productData->setModel($product->getModel());
-                    $productData->setEan($product->getEan());
-                    $productData->setPrice($product->getPrice());
-                    $productData->setAvailability($product->getIsSalable() ? 'InStock' : 'OutOfStock');
-                    $productData->setItemsAvailable($product->getQty());
-                    $productData->setUpdateAt($product->getUpdatedAt());
-    
-                    $productsData['products'][] = $productData;
-                }
-            }
-        }
-    
-        return $productsData;
+{
+    $actualToken = $this->scopeConfig->getValue(
+        'priceinfo_module/general/token_text',
+        \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+    );
+
+    $authorizationHeader = $_SERVER['HTTP_AUTHORIZATION'];
+
+    if (preg_match('/Bearer\s+(.*)/', $authorizationHeader, $matches)) {
+        $token = $matches[1];
     }
+
+    $requestBody = file_get_contents('php://input');
+    $requestData = json_decode($requestBody, true);
+
+    $details = $requestData['details'] ?? null;
+    $method = $requestData['method'] ?? null;
+    $offset = $requestData['offset'] ?? null;
+    $count = $requestData['count'] ?? null;
+
+    $productsData = [];
+
+    if ($method === 'getProducts' && $actualToken === $token) {
+        $productCollection = $this->productCollectionFactory->create();
+        $productCollection->addAttributeToSelect('*');
+        $productCollection->setPageSize($count);
+        $productCollection->setCurPage($offset);
+
+        if ($details === 0) {
+            $productsData['products'] = [];
+
+            foreach ($productCollection as $product) {
+                $countryName = $product->getAttributeText('country_of_manufacture');
+                $manufacturer = $this->getCountryCodeByFullName($countryName);
+
+                $productData = new \Dev\RestApi\Model\Data\Product();
+                $productData->setSku($product->getSku());
+                $productData->setUrl($product->getUrlKey());
+                $productData->setManufacturer($manufacturer);
+                $productData->setModel($product->getModel());
+                $productData->setEan($product->getEan());
+                $productData->setPrice($product->getPrice());
+                $productData->setAvailability($product->getIsSalable() ? 'InStock' : 'OutOfStock');
+                $productData->setItemsAvailable($product->getQty());
+                $productData->setUpdateAt($product->getUpdatedAt());
+
+                $productsData['products'][] = $productData;
+
+                // Log each product's data to verify what's being retrieved
+                $this->logger->info('Product SKU: ' . $productData->getSku());
+                $this->logger->info('Product Manufacturer: ' . $productData->getManufacturer());
+                // ... add logging for other relevant information
+
+            }
+        } else {
+            // Log if details are not 0
+            $this->logger->info('Details value is not 0');
+        }
+    } else {
+        // Log if method is not 'getProducts' or token is incorrect
+        $this->logger->info('Method is not "getProducts" or token is incorrect');
+    }
+
+    // Log the final products data for inspection
+    $this->logger->info('Final Products Data: ' . print_r($productsData, true));
+
+    return $productsData;
+}
+
 }
