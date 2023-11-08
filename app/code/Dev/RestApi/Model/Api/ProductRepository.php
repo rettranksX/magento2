@@ -142,7 +142,7 @@ class ProductRepository implements ProductRepositoryInterface
                     $productData->setItemsAvailable($product->getQty());
                     $productData->setUpdateAt($product->getUpdatedAt());
 
-                    $productsData['products'][] = $productData;
+                    $productsData['prods'][] = $productData;
                 }
             }
 
