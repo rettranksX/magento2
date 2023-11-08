@@ -146,22 +146,9 @@ class ProductRepository implements ProductRepositoryInterface
                 }
             }
 
-
             $jsonResponse = json_encode($productsData, JSON_PRETTY_PRINT);
 
             print_r($jsonResponse);
-    
-            // $lastProductId = $productCollection->getLastItem()->getId();
-    
-            // $responseData = [
-            //     'prods' => $productsData,
-            //     'lastId' => $lastProductId,
-            // ];
-            // $product = new \Dev\RestApi\Model\Data\Product();
-            // $product->setProducts($productsData);
-    
-
-            
             return $productsData;
         } else {
             return []; 
