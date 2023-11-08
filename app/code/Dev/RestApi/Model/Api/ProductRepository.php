@@ -146,12 +146,9 @@ class ProductRepository implements ProductRepositoryInterface
     
                     $productsData['products'][] = $productData;
                 }
-    
-                return $productsData;
             }
         }
     
-        return [];
+        return $productsData;
     }
-    
 }
