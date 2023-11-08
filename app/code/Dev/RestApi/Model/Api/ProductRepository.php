@@ -115,7 +115,7 @@ class ProductRepository implements ProductRepositoryInterface
         $offset = isset($requestData['offset']) ? $requestData['offset'] : null;
         $count = isset($requestData['count']) ? $requestData['count'] : null;
     
-        $productsData['products'] = [];
+        $productsData = [];
     
         if ($method == 'getProducts' && $actualToken == $token) {
             $productCollection = $this->productCollectionFactory->create();
