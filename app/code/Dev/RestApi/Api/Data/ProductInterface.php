@@ -8,7 +8,7 @@ interface ProductInterface
     /**
      * Get the array of products.
      *
-     * @return array
+     * @return \Dev\RestApi\Api\Data\ProductInterface[]
      */
     public function getProducts(): array;
 
