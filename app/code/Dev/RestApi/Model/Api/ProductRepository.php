@@ -145,7 +145,7 @@ class ProductRepository implements ProductRepositoryInterface
                     $productsData['products'][] = $productData;
                 }
             }
-            // print_r($productsData);
+            print_r($productsData);
     
             // $lastProductId = $productCollection->getLastItem()->getId();
     
