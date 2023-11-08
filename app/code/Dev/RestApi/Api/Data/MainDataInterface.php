@@ -9,5 +9,5 @@ interface MainDataInterface
     /**
      * @return ProductInterface
      */
-    public function execute(): array;
+    public function execute(): ProductInterface;
 }
