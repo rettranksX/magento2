@@ -7,7 +7,7 @@ use Dev\RestApi\Api\Data\ProductInterface;
 interface MainDataInterface
 {
     /**
-     * @return ProductInterface
+     * @return array
      */
-    public function execute(): ProductInterface;
+    public function execute(): array;
 }
