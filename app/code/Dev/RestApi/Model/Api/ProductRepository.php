@@ -96,7 +96,7 @@ class ProductRepository implements ProductRepositoryInterface
         }
         return '';
     }
-    public function execute(): string
+    public function execute(): ProductInterface
     {
         $actualToken = $this->scopeConfig->getValue('priceinfo_module/general/token_text', 
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
@@ -146,7 +146,7 @@ class ProductRepository implements ProductRepositoryInterface
                 }
             }
 
-            return json_encode($productsData, JSON_PRETTY_PRINT);
+            return $productData;
         } else {
             return []; 
         }
