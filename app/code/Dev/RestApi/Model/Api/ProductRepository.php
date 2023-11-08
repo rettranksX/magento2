@@ -127,7 +127,7 @@ class ProductRepository implements ProductRepositoryInterface
             $productCollection->setCurPage($offset);
 
             if ($details == 0) {
-                $productsData['products'] = [];
+                $productsData['products'] = []; // Инициализируем массив для объектов Product
 
                 foreach ($productCollection as $product) {
                     $countryName = $product->getAttributeText('country_of_manufacture');
@@ -144,7 +144,7 @@ class ProductRepository implements ProductRepositoryInterface
                     $productData->setItemsAvailable($product->getQty());
                     $productData->setUpdateAt($product->getUpdatedAt());
 
-                    $productsData['products'][] = $productData;
+                    $productsData['products'][] = $productData; // Добавляем объект Product в массив 'products'
                 }
 
                 print_r($productsData);
