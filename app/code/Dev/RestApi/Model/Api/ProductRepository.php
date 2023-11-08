@@ -2,7 +2,6 @@
 
 namespace Dev\RestApi\Model\Api;
 
-use Psr\Log\LoggerInterface;
 use Dev\RestApi\Api\ProductRepositoryInterface;
 use Dev\RestApi\Api\Data\ProductInterface;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
@@ -16,10 +15,6 @@ use Magento\Framework\Controller\Result\JsonFactory;
  */
 class ProductRepository implements ProductRepositoryInterface
 {
-        /**
-     * @var LoggerInterface
-     */
-    private $logger;
     /**
      * @var CollectionFactory
      */
@@ -63,7 +58,6 @@ class ProductRepository implements ProductRepositoryInterface
      */
     private $jsonResultFactory;
     public function __construct(
-        LoggerInterface $logger,
         // ShippingConfig $shippingConfig,
         CollectionFactory $productCollectionFactory,
         StoreManagerInterface $storeManager,
@@ -78,7 +72,6 @@ class ProductRepository implements ProductRepositoryInterface
         // JsonFactory $jsonResultFactory,
         \Magento\Directory\Model\CountryFactory $countryFactory
     ) {
-        $this->logger = $logger;
         $this->productCollectionFactory = $productCollectionFactory;
         $this->storeManager = $storeManager;
         // $this->categoryRepository = $categoryRepository;
