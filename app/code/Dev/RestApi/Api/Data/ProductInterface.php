@@ -5,12 +5,12 @@ namespace Dev\RestApi\Api\Data;
 interface ProductInterface
 {
 
-        /**
-     * Get the array of products.
-     *
-     * @return array
-     */
-    public function getProducts(): array;
+    //     /**
+    //  * Get the array of products.
+    //  *
+    //  * @return array
+    //  */
+    // public function getProducts(): array;
 
     /**
      * Get SKU of the product.

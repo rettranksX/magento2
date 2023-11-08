@@ -7,7 +7,7 @@ use Dev\RestApi\Api\Data\ProductInterface;
 
 class Product implements ProductInterface
 {
-    private $products = [];
+    // private $products = [];
     private $sku;
     private $url;
     private $manufacturer;
@@ -19,15 +19,15 @@ class Product implements ProductInterface
     private $updateAt;
 
 
-    public function getProducts(): array
-    {
-        return $this->products;
-    }
+    // public function getProducts(): array
+    // {
+    //     return $this->products;
+    // }
 
-    public function setProducts(array $products)
-    {
-        $this->products = $products;
-    }
+    // public function setProducts(array $products)
+    // {
+    //     $this->products = $products;
+    // }
     public function getSku(): ?string
     {
         return $this->sku;
