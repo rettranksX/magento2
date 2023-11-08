@@ -1,10 +1,13 @@
 <?php
+
 namespace Dev\RestApi\Api\Data;
+
+use Dev\RestApi\Api\Data\ProductInterface;
 
 interface MainDataInterface
 {
     /**
-     * @return \Dev\RestApi\Api\Data\ProductInterface[]
+     * @return array
      */
-    public function execute(): array;
+    public function execute(): ProductInterface;
 }
