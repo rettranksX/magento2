@@ -103,36 +103,36 @@ class ProductRepository implements ProductRepositoryInterface
             'priceinfo_module/general/token_text',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
-    
+
         $authorizationHeader = $_SERVER['HTTP_AUTHORIZATION'];
-    
+
         if (preg_match('/Bearer\s+(.*)/', $authorizationHeader, $matches)) {
             $token = $matches[1];
         }
-    
+
         $requestBody = file_get_contents('php://input');
         $requestData = json_decode($requestBody, true);
-    
-        $details = $requestData['details'] ?? null;
-        $method = $requestData['method'] ?? null;
-        $offset = $requestData['offset'] ?? null;
-        $count = $requestData['count'] ?? null;
-    
+
+        $details = isset($requestData['details']) ? $requestData['details'] : null;
+        $method = isset($requestData['method']) ? $requestData['method'] : null;
+        $offset = isset($requestData['offset']) ? $requestData['offset'] : null;
+        $count = isset($requestData['count']) ? $requestData['count'] : null;
+
         $productsData = [];
-    
-        if ($method === 'getProducts' && $actualToken === $token) {
+
+        if ($method == 'getProducts' && $actualToken == $token) {
             $productCollection = $this->productCollectionFactory->create();
-            $productCollection->addAttributeToSelect('*');
+            $productCollection->addAttributeToSelect(['*']);
             $productCollection->setPageSize($count);
             $productCollection->setCurPage($offset);
-    
-            if ($details === 0) {
+
+            if ($details == 0) {
                 $productsData['products'] = [];
-    
+
                 foreach ($productCollection as $product) {
                     $countryName = $product->getAttributeText('country_of_manufacture');
                     $manufacturer = $this->getCountryCodeByFullName($countryName);
-    
+
                     $productData = new \Dev\RestApi\Model\Data\Product();
                     $productData->setSku($product->getSku());
                     $productData->setUrl($product->getUrlKey());
@@ -143,15 +143,16 @@ class ProductRepository implements ProductRepositoryInterface
                     $productData->setAvailability($product->getIsSalable() ? 'InStock' : 'OutOfStock');
                     $productData->setItemsAvailable($product->getQty());
                     $productData->setUpdateAt($product->getUpdatedAt());
-    
+
                     $productsData['products'][] = $productData;
                 }
-    
+
+                print_r($productsData);
+
                 return $productsData;
+            } else {
+                return [];
             }
         }
-    
-        return [];
     }
-    
 }
