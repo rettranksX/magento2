@@ -148,7 +148,7 @@ class ProductRepository implements ProductRepositoryInterface
 
             // print_r($productsData);
 
-            return $productData;
+            return $productsData;
         } else {
             return null;
              
