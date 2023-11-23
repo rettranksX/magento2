@@ -150,7 +150,7 @@ class ProductRepository implements ProductRepositoryInterface
 
             return $productsData;
         } else {
-            return null;
+            return $productsData;
              
         }
     }
